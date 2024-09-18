@@ -1,0 +1,23 @@
+{
+  "scripts": {
+    "build": "node ./esbuild.config.js"
+  },
+  "name": "sports-arena",
+  "version": "1.0.0",
+  "description": "A trading bot to invest in tech stocks and crpto for companies",
+  "main": "index.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "esbuild": "^0.23.1",
+    "firebase": "^10.13.1",
+    "firebase-tools": "^13.17.0",
+    "fuse.js": "^7.0.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.10.0",
+    "eslint": "^9.10.0",
+    "globals": "^15.9.0"
+  }
+}

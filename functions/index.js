@@ -6,6 +6,10 @@ const { onDocumentCreated } = require("firebase-functions/v2/firestore");
 // The Firebase Admin SDK to access Firestore.
 const { initializeApp } = require("firebase/app");
 
+
+const express = require("express");
+const app = express();
+
 const firebaseConfig = {
     apiKey: "AIzaSyBOPQ3euAts_r7tObkfMU_tUllIdTtGR48",
     authDomain: "sports-arena-39a32.firebaseapp.com",
@@ -13,8 +17,9 @@ const firebaseConfig = {
     storageBucket: "sports-arena-39a32.appspot.com",
     messagingSenderId: "824217457615",
     appId: "1:824217457615:web:ffe4b462519b86accc38ba",
-    measurementId: "G-GTFC067X5G"
-  };
+    measurementId: "G-GTFC067X5G",
+    locationId: "europe-west"
+};
 
 initializeApp(firebaseConfig);
 
@@ -49,14 +54,44 @@ function isUser(email) {
 // https://youtu.be/2u6Zb36OQjM?si=AFUnR5pPw9IQPzoG&t=511
 
 
-exports.showDB = onRequest(async (req, res) => {
-    // Grab the text parameter
-    const original = req.query.text;
-
-    const db = JSON.stringify(await loadInfo());
-    res.json({ result: `${db}` });
-    log(db);
-    console.log(db)
+// ? you have to make a request to the database in all firebase functions and you cant have it as a global variable sadly
+exports.showDB = onRequest({ 'region': 'europe-west2' }, async (req, res) => {
+    try {
+        let db = JSON.stringify(await loadInfo());
+        res.json(db);
+        return db;
+    }
+    catch (error) {
+        console.log('Couldnt access the database: ', error)
+        res.status(500).json({error : "Interal server error"})
+    }
 });
 
-// gcloud storage buckets update gs://BUCKET_NAME --default-storage-class=STORAGE_CLASS
+exports.verifyUser = onRequest({ 'region': 'europe-west2' }, async (req, res) => {
+    try {
+        if (req.method !== "POST") {
+            return res.status(405).json({ error: "Method Not Allowed" });
+        }
+
+        const { username } = req.body;
+
+        if (!username) {
+            return res.status(400).json({ error: "Username is required in the JSON body" });
+        }
+
+        const db = JSON.parse(JSON.stringify(await loadInfo()));
+
+        const userInfo = db[username];
+
+        if (!userInfo) {
+            return res.status(404).json({ error: "User not found" });
+        }
+
+        console.log(userInfo);
+        res.status(200).json(userInfo);
+    } catch (error) {
+        console.error("Error verifying user:", error);
+        res.status(500).json({ error: "Internal server error" });
+    }
+}
+);

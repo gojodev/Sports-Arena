@@ -9,10 +9,11 @@
   },
   "emulators": {
     "hosting": {
-      "port": 5002
+      "port": 5000
     },
     "ui": {
-      "enabled": true
+      "enabled": true,
+      "port": 4000
     },
     "singleProjectMode": true,
     "functions": {
@@ -22,9 +23,13 @@
       "port": 9199
     }
   },
+  "storage": {
+    "rules": "storage.rules"
+  },
   "functions": [
     {
       "source": "functions",
+      "predeploy": [],
       "codebase": "default",
       "ignore": [
         "node_modules",
@@ -34,8 +39,5 @@
         "*.local"
       ]
     }
-  ],
-  "storage": {
-    "rules": "storage.rules"
-  }
+  ]
 }

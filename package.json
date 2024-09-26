@@ -4,15 +4,17 @@
   },
   "name": "sports-arena",
   "version": "1.0.0",
-  "description": "A trading bot to invest in tech stocks and crpto for companies",
+  "description": "A website that allows for students to manage what clubs they are in and health information like their BMI",
   "main": "index.js",
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "esbuild": "^0.23.1",
+    "express": "^4.21.0",
     "firebase": "^10.13.1",
-    "firebase-tools": "^13.17.0",
+    "firebase-functions": "^6.0.1",
+    "firebase-tools": "^1.2.0",
     "fuse.js": "^7.0.0"
   },
   "devDependencies": {

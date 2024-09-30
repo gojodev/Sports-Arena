@@ -6,8 +6,8 @@ const { onDocumentCreated } = require("firebase-functions/v2/firestore");
 // The Firebase Admin SDK to access Firestore.
 const { initializeApp } = require("firebase/app");
 
-
-const express = require("express");
+const functions = require('firebase-functions');
+const express = require('express');
 const app = express();
 
 const firebaseConfig = {
@@ -63,7 +63,7 @@ exports.showDB = onRequest({ 'region': 'europe-west2' }, async (req, res) => {
     }
     catch (error) {
         console.log('Couldnt access the database: ', error)
-        res.status(500).json({error : "Interal server error"})
+        res.status(500).json({ error: "Interal server error" })
     }
 });
 

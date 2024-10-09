@@ -1,14 +1,6 @@
-// The Cloud Functions for Firebase SDK to create Cloud Functions and triggers.
-const { logger } = require("firebase-functions");
 const { onRequest } = require("firebase-functions/v2/https");
-const { onDocumentCreated } = require("firebase-functions/v2/firestore");
-
-// The Firebase Admin SDK to access Firestore.
 const { initializeApp } = require("firebase/app");
-
-const functions = require('firebase-functions');
-const express = require('express');
-const app = express();
+const bcrypt = require('bcrypt');
 
 const firebaseConfig = {
     apiKey: "AIzaSyBOPQ3euAts_r7tObkfMU_tUllIdTtGR48",
@@ -24,7 +16,6 @@ const firebaseConfig = {
 initializeApp(firebaseConfig);
 
 const { getStorage, ref, getDownloadURL, uploadString } = require("firebase/storage");
-const { log } = require("firebase-functions/logger");
 
 async function getRef_json(refItem) {
     const url = await getDownloadURL(refItem);
@@ -38,28 +29,15 @@ async function getRef_json(refItem) {
 const storage = getStorage();
 const userCreds = ref(storage, 'userCreds.json');
 
-var credsArr;
-
 async function loadInfo() {
-
     return await Promise.resolve(getRef_json(userCreds));
 }
 
-function isUser(email) {
-    let username = getUsername(email);
-    return credsArr[username] != undefined;
-}
-
-
-// https://youtu.be/2u6Zb36OQjM?si=AFUnR5pPw9IQPzoG&t=511
-
-
-// ? you have to make a request to the database in all firebase functions and you cant have it as a global variable sadly
 exports.showDB = onRequest({ 'region': 'europe-west2' }, async (req, res) => {
     try {
-        let db = JSON.stringify(await loadInfo());
+        let db = await loadInfo();
         res.json(db);
-        return db;
+
     }
     catch (error) {
         console.log('Couldnt access the database: ', error)
@@ -70,21 +48,21 @@ exports.showDB = onRequest({ 'region': 'europe-west2' }, async (req, res) => {
 exports.verifyUser = onRequest({ 'region': 'europe-west2' }, async (req, res) => {
     try {
         if (req.method !== "POST") {
-            return res.status(405).json({ error: "Method Not Allowed" });
+            res.status(405).json({ error: "Method Not Allowed" });
         }
 
-        const { username } = req.body;
+        const username = req.body.username;
 
         if (!username) {
-            return res.status(400).json({ error: "Username is required in the JSON body" });
+            res.status(400).json({ error: "Username is required in the JSON body" });
         }
 
-        const db = JSON.parse(JSON.stringify(await loadInfo()));
+        const db = await loadInfo();
 
         const userInfo = db[username];
 
         if (!userInfo) {
-            return res.status(404).json({ error: "User not found" });
+            res.status(404).json({ error: "User not found" });
         }
 
         console.log(userInfo);
@@ -93,5 +71,60 @@ exports.verifyUser = onRequest({ 'region': 'europe-west2' }, async (req, res) =>
         console.error("Error verifying user:", error);
         res.status(500).json({ error: "Internal server error" });
     }
-}
-);
+});
+
+// todo change this to verifyUser
+exports.hashCreds = onRequest({ 'region': 'europe-west2' }, async (req, res) => {
+    try {
+        if (req.method != 'POST') {
+            res.status(405).json({ error: "Method not allowed" })
+        }
+
+        const client_username = req.body.username;
+        const client_email = req.body.email;
+        const client_password = req.body.password;
+        let db_username = '';
+
+        const db = await loadInfo();
+
+        for (var key in db) {
+            db_username = bcrypt.compareSync(client_username, key)
+            if (db_username) {
+                db_username = key
+                break
+            }
+        }
+        const userInfo = db[db_username];
+
+        const db_email = userInfo.email;
+        const db_password = userInfo.password;
+
+        if (!client_email || !client_password) {
+            res.status(400).json({ error: "Email and password is required in the JSON body" });
+        }
+
+
+        let correctEmail = bcrypt.compareSync(client_email, db_email);
+        let correctPassword = bcrypt.compareSync(client_password, db_password);
+        let verdict = correctEmail && correctPassword;
+
+        res.status(200).json({
+            'verdict': verdict,
+        });
+    }
+
+    catch (error) {
+        console.log("Couldnt has string: ", error)
+        res.status(500).json({ error: "Interal server error" })
+    }
+});
+
+// exports.addUser = onRequest({ 'region': 'europe-west2' }, async (req, res) => {
+
+// });
+
+/* 
+http://127.0.0.1:5001/rd-year-project-1f41d/europe-west2/showDB
+http://127.0.0.1:5001/rd-year-project-1f41d/europe-west2/verifyUser
+http://127.0.0.1:5001/rd-year-project-1f41d/europe-west2/hashCreds
+*/

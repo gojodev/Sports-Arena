@@ -1,25 +1,28 @@
 {
   "scripts": {
+    "start": "firebase emulators:start",
     "build": "node ./esbuild.config.js"
   },
-  "name": "sports-arena",
+  "engines": {
+    "node": "20"
+  },
+  "name": "3rd-yr-group-project",
   "version": "1.0.0",
-  "description": "A website that allows for students to manage what clubs they are in and health information like their BMI",
+  "description": "A trading bot to invest in tech stocks and crpto for companies",
   "main": "index.js",
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^5.1.1",
     "esbuild": "^0.23.1",
-    "express": "^4.21.0",
-    "firebase": "^10.13.1",
+    "firebase-admin": "^12.6.0",
     "firebase-functions": "^6.0.1",
-    "firebase-tools": "^1.2.0",
+    "firebase-tools": "^13.22.0",
+    "fs": "^0.0.1-security",
     "fuse.js": "^7.0.0"
   },
   "devDependencies": {
-    "@eslint/js": "^9.10.0",
-    "eslint": "^9.10.0",
     "globals": "^15.9.0"
   }
 }

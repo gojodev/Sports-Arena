@@ -462,3 +462,1148 @@ For more troubleshooting guidance, see https://cloud.google.com/run/docs/trouble
 [error] Error: There was an error deploying functions:
 [error] - Error Failed to update function verifyUser in region europe-west2
 [error] - Error Failed to update function showDB in region europe-west2
+[debug] [2024-10-16T12:17:02.287Z] ----------------------------------------------------------------------
+[debug] [2024-10-16T12:17:02.289Z] Command:       C:\Program Files\nodejs\node.exe C:\Program Files\nodejs\node_modules\firebase-tools\lib\bin\firebase.js emulators:start
+[debug] [2024-10-16T12:17:02.290Z] CLI Version:   13.22.0
+[debug] [2024-10-16T12:17:02.290Z] Platform:      win32
+[debug] [2024-10-16T12:17:02.290Z] Node Version:  v18.17.1
+[debug] [2024-10-16T12:17:02.303Z] Time:          Wed Oct 16 2024 13:17:02 GMT+0100 (Irish Standard Time)
+[debug] [2024-10-16T12:17:02.303Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2024-10-16T12:17:02.314Z] >>> [apiv2][query] GET https://firebase-public.firebaseio.com/cli.json [none]
+[debug] [2024-10-16T12:17:02.477Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2024-10-16T12:17:02.477Z] > authorizing via signed-in user (eakoledoye@gmail.com)
+[debug] [2024-10-16T12:17:02.730Z] java version "19.0.1" 2022-10-18
+
+[debug] [2024-10-16T12:17:02.730Z] Java(TM) SE Runtime Environment (build 19.0.1+10-21)
+Java HotSpot(TM) 64-Bit Server VM (build 19.0.1+10-21, mixed mode, sharing)
+
+[debug] [2024-10-16T12:17:02.772Z] <<< [apiv2][status] GET https://firebase-public.firebaseio.com/cli.json 200
+[debug] [2024-10-16T12:17:02.772Z] <<< [apiv2][body] GET https://firebase-public.firebaseio.com/cli.json {"cloudBuildErrorAfter":1594252800000,"cloudBuildWarnAfter":1590019200000,"defaultNode10After":1594252800000,"minVersion":"3.0.5","node8DeploysDisabledAfter":1613390400000,"node8RuntimeDisabledAfter":1615809600000,"node8WarnAfter":1600128000000}
+[debug] [2024-10-16T12:17:02.784Z] Parsed Java major version: 19
+[info] i  emulators: Starting emulators: functions, hosting, storage, tasks, extensions {"metadata":{"emulator":{"name":"hub"},"message":"Starting emulators: functions, hosting, storage, tasks, extensions"}}
+[debug] [2024-10-16T12:17:02.788Z] Checked if tokens are valid: false, expires at: 1728983902065
+[debug] [2024-10-16T12:17:02.788Z] Checked if tokens are valid: false, expires at: 1728983902065
+[debug] [2024-10-16T12:17:02.789Z] > refreshing access token with scopes: []
+[debug] [2024-10-16T12:17:02.790Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2024-10-16T12:17:02.790Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2024-10-16T12:17:02.904Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2024-10-16T12:17:02.904Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2024-10-16T12:17:02.910Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/sports-arena-39a32 [none]
+[debug] [2024-10-16T12:17:03.473Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/sports-arena-39a32 200
+[debug] [2024-10-16T12:17:03.473Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/sports-arena-39a32 {"projectId":"sports-arena-39a32","projectNumber":"824217457615","displayName":"Sports Arena","name":"projects/sports-arena-39a32","resources":{"hostingSite":"sports-arena-39a32","storageBucket":"sports-arena-39a32.appspot.com","locationId":"europe-west"},"state":"ACTIVE","etag":"1_c42a5f46-ff80-4a02-8e5f-bfb511ae8c83"}
+[debug] [2024-10-16T12:17:03.496Z] [logging] Logging Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2024-10-16T12:17:03.497Z] [hosting] Hosting Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2024-10-16T12:17:03.497Z] [storage] Storage Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2024-10-16T12:17:03.497Z] assigned listening specs for emulators {"user":{"hub":[{"address":"127.0.0.1","family":"IPv4","port":4400},{"address":"::1","family":"IPv6","port":4400}],"ui":[{"address":"127.0.0.1","family":"IPv4","port":4000},{"address":"::1","family":"IPv6","port":4000}],"logging":[{"address":"127.0.0.1","family":"IPv4","port":4500}],"hosting":[{"address":"127.0.0.1","family":"IPv4","port":5002}],"storage":[{"address":"127.0.0.1","family":"IPv4","port":9199}]},"metadata":{"message":"assigned listening specs for emulators"}}
+[debug] [2024-10-16T12:17:03.504Z] [hub] writing locator at C:\Users\eakol\AppData\Local\Temp\hub-sports-arena-39a32.json
+[debug] [2024-10-16T12:17:03.514Z] [Extensions] Started Extensions emulator, this is a noop.
+[debug] [2024-10-16T12:17:03.524Z] [functions] Functions Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2024-10-16T12:17:03.524Z] [eventarc] Eventarc Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2024-10-16T12:17:03.524Z] [tasks] Cloud Tasks Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2024-10-16T12:17:03.525Z] late-assigned ports for functions and eventarc emulators {"user":{"hub":[{"address":"127.0.0.1","family":"IPv4","port":4400},{"address":"::1","family":"IPv6","port":4400}],"ui":[{"address":"127.0.0.1","family":"IPv4","port":4000},{"address":"::1","family":"IPv6","port":4000}],"logging":[{"address":"127.0.0.1","family":"IPv4","port":4500}],"hosting":[{"address":"127.0.0.1","family":"IPv4","port":5002}],"storage":[{"address":"127.0.0.1","family":"IPv4","port":9199}],"functions":[{"address":"127.0.0.1","family":"IPv4","port":5001}],"eventarc":[{"address":"127.0.0.1","family":"IPv4","port":9299}],"tasks":[{"address":"127.0.0.1","family":"IPv4","port":9499}]},"metadata":{"message":"late-assigned ports for functions and eventarc emulators"}}
+[warn] !  functions: The following emulators are not running, calls to these services from the Functions emulator will affect production: auth, firestore, database, pubsub, dataconnect {"metadata":{"emulator":{"name":"functions"},"message":"The following emulators are not running, calls to these services from the Functions emulator will affect production: \u001b[1mauth, firestore, database, pubsub, dataconnect\u001b[22m"}}
+[debug] [2024-10-16T12:17:03.532Z] defaultcredentials: writing to file C:\Users\eakol\AppData\Roaming\firebase\eakoledoye_gmail_com_application_default_credentials.json
+[debug] [2024-10-16T12:17:03.539Z] Setting GAC to C:\Users\eakol\AppData\Roaming\firebase\eakoledoye_gmail_com_application_default_credentials.json {"metadata":{"emulator":{"name":"functions"},"message":"Setting GAC to C:\\Users\\eakol\\AppData\\Roaming\\firebase\\eakoledoye_gmail_com_application_default_credentials.json"}}
+[debug] [2024-10-16T12:17:03.540Z] Checked if tokens are valid: true, expires at: 1729084621904
+[debug] [2024-10-16T12:17:03.540Z] Checked if tokens are valid: true, expires at: 1729084621904
+[debug] [2024-10-16T12:17:03.540Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/sports-arena-39a32/adminSdkConfig [none]
+[debug] [2024-10-16T12:17:04.082Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/sports-arena-39a32/adminSdkConfig 200
+[debug] [2024-10-16T12:17:04.082Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/sports-arena-39a32/adminSdkConfig {"projectId":"sports-arena-39a32","storageBucket":"sports-arena-39a32.appspot.com","locationId":"europe-west"}
+[debug] [2024-10-16T12:17:04.115Z] Ignoring unsupported arg: port {"metadata":{"emulator":{"name":"storage"},"message":"Ignoring unsupported arg: port"}}
+[debug] [2024-10-16T12:17:05.575Z] Temp file directory for storage emulator: C:\Users\eakol\AppData\Local\Temp/firebase/storage/blobs {"metadata":{"emulator":{"name":"storage"},"message":"Temp file directory for storage emulator: C:\\Users\\eakol\\AppData\\Local\\Temp/firebase/storage/blobs"}}
+[debug] [2024-10-16T12:17:05.585Z] Checked if tokens are valid: true, expires at: 1729084621904
+[debug] [2024-10-16T12:17:05.585Z] Checked if tokens are valid: true, expires at: 1729084621904
+[debug] [2024-10-16T12:17:05.585Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/sports-arena-39a32/sites 
+[debug] [2024-10-16T12:17:06.689Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/sports-arena-39a32/sites 200
+[debug] [2024-10-16T12:17:06.689Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/sports-arena-39a32/sites {"sites":[{"name":"projects/sports-arena-39a32/sites/sports-arena-39a32","defaultUrl":"https://sports-arena-39a32.web.app","appId":"1:824217457615:web:ffe4b462519b86accc38ba","type":"DEFAULT_SITE"}]}
+[debug] [2024-10-16T12:17:06.689Z] Checked if tokens are valid: true, expires at: 1729084621904
+[debug] [2024-10-16T12:17:06.689Z] Checked if tokens are valid: true, expires at: 1729084621904
+[debug] [2024-10-16T12:17:06.690Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/sports-arena-39a32/webApps/1:824217457615:web:ffe4b462519b86accc38ba/config [none]
+[debug] [2024-10-16T12:17:07.475Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/sports-arena-39a32/webApps/1:824217457615:web:ffe4b462519b86accc38ba/config 200
+[debug] [2024-10-16T12:17:07.475Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/sports-arena-39a32/webApps/1:824217457615:web:ffe4b462519b86accc38ba/config {"projectId":"sports-arena-39a32","appId":"1:824217457615:web:ffe4b462519b86accc38ba","storageBucket":"sports-arena-39a32.appspot.com","locationId":"europe-west","apiKey":"AIzaSyBOPQ3euAts_r7tObkfMU_tUllIdTtGR48","authDomain":"sports-arena-39a32.firebaseapp.com","messagingSenderId":"824217457615","measurementId":"G-GTFC067X5G"}
+[debug] [2024-10-16T12:17:07.484Z] Checked if tokens are valid: true, expires at: 1729084621904
+[debug] [2024-10-16T12:17:07.485Z] Checked if tokens are valid: true, expires at: 1729084621904
+[debug] [2024-10-16T12:17:07.485Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/sports-arena-39a32 [none]
+[debug] [2024-10-16T12:17:07.742Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/sports-arena-39a32 200
+[debug] [2024-10-16T12:17:07.742Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/sports-arena-39a32 {"projectId":"sports-arena-39a32","projectNumber":"824217457615","displayName":"Sports Arena","name":"projects/sports-arena-39a32","resources":{"hostingSite":"sports-arena-39a32","storageBucket":"sports-arena-39a32.appspot.com","locationId":"europe-west"},"state":"ACTIVE","etag":"1_c42a5f46-ff80-4a02-8e5f-bfb511ae8c83"}
+[info] i  hosting[sports-arena-39a32]: Serving hosting files from: public {"metadata":{"emulator":{"name":"hosting"},"message":"Serving hosting files from: \u001b[1mpublic\u001b[22m"}}
+[info] +  hosting[sports-arena-39a32]: Local server: http://127.0.0.1:5002 {"metadata":{"emulator":{"name":"hosting"},"message":"Local server: \u001b[4m\u001b[1mhttp://127.0.0.1:5002\u001b[22m\u001b[24m"}}
+[debug] [2024-10-16T12:17:07.778Z] Ignoring unsupported arg: auto_download {"metadata":{"emulator":{"name":"ui"},"message":"Ignoring unsupported arg: auto_download"}}
+[debug] [2024-10-16T12:17:07.779Z] Ignoring unsupported arg: port {"metadata":{"emulator":{"name":"ui"},"message":"Ignoring unsupported arg: port"}}
+[debug] [2024-10-16T12:17:07.779Z] Starting Emulator UI with command {"binary":"node","args":["C:\\Users\\eakol\\.cache\\firebase\\emulators\\ui-v1.14.0\\server\\server.mjs"],"optionalArgs":[],"joinArgs":false,"shell":false,"port":4000} {"metadata":{"emulator":{"name":"ui"},"message":"Starting Emulator UI with command {\"binary\":\"node\",\"args\":[\"C:\\\\Users\\\\eakol\\\\.cache\\\\firebase\\\\emulators\\\\ui-v1.14.0\\\\server\\\\server.mjs\"],\"optionalArgs\":[],\"joinArgs\":false,\"shell\":false,\"port\":4000}"}}
+[info] i  ui: Emulator UI logging to ui-debug.log {"metadata":{"emulator":{"name":"ui"},"message":"Emulator UI logging to \u001b[1mui-debug.log\u001b[22m"}}
+[debug] [2024-10-16T12:17:07.974Z] Web / API server started at 127.0.0.1:4000
+ {"metadata":{"emulator":{"name":"ui"},"message":"Web / API server started at 127.0.0.1:4000\n"}}
+[debug] [2024-10-16T12:17:07.975Z] Web / API server started at ::1:4000
+ {"metadata":{"emulator":{"name":"ui"},"message":"Web / API server started at ::1:4000\n"}}
+[debug] [2024-10-16T12:17:08.008Z] [Extensions] Connecting Extensions emulator, this is a noop.
+[info] i  functions: Watching "C:\Users\eakol\OneDrive\Desktop\Emmanuel K\college stuff\year 3\Agile Processes\Sports-Arena\functions" for Cloud Functions... {"metadata":{"emulator":{"name":"functions"},"message":"Watching \"C:\\Users\\eakol\\OneDrive\\Desktop\\Emmanuel K\\college stuff\\year 3\\Agile Processes\\Sports-Arena\\functions\" for Cloud Functions..."}}
+[debug] [2024-10-16T12:17:08.014Z] Validating nodejs source
+[debug] [2024-10-16T12:17:09.364Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "scripts": {
+    "shell": "firebase functions:shell",
+    "start": "firebase emulators:start",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "20"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "firebase-admin": "^12.6.0",
+    "firebase-functions": "^6.0.1",
+    "firebase-tools": "^1.2.0"
+  },
+  "devDependencies": {
+    "firebase-functions-test": "^3.1.0"
+  },
+  "private": true
+}
+[debug] [2024-10-16T12:17:09.365Z] Building nodejs source
+[debug] [2024-10-16T12:17:09.365Z] Failed to find version of module node: reached end of search path C:\Users\eakol\OneDrive\Desktop\Emmanuel K\college stuff\year 3\Agile Processes\Sports-Arena\functions\node_modules
+[warn] !  functions: Your requested "node" version "20" doesn't match your global version "18". Using node@18 from host. 
+[debug] [2024-10-16T12:17:09.367Z] Could not find functions.yaml. Must use http discovery
+[debug] [2024-10-16T12:17:09.374Z] Found firebase-functions binary at 'C:\Users\eakol\OneDrive\Desktop\Emmanuel K\college stuff\year 3\Agile Processes\Sports-Arena\functions\node_modules\.bin\firebase-functions'
+[info] Serving at port 8305
+
+[debug] [2024-10-16T12:17:12.119Z] Got response from /__/functions.yaml {"endpoints":{"showDB":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","region":["europe-west2"],"labels":{},"httpsTrigger":{},"entryPoint":"showDB"},"verifyUser":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","region":["europe-west2"],"labels":{},"httpsTrigger":{},"entryPoint":"verifyUser"},"addUser":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","region":["europe-west2"],"labels":{},"httpsTrigger":{},"entryPoint":"addUser"}},"specVersion":"v1alpha1","requiredAPIs":[],"extensions":{}}
+[debug] [2024-10-16T12:17:12.152Z] defaultcredentials: writing to file C:\Users\eakol\AppData\Roaming\firebase\eakoledoye_gmail_com_application_default_credentials.json
+[debug] [2024-10-16T12:17:12.153Z] Setting GAC to C:\Users\eakol\AppData\Roaming\firebase\eakoledoye_gmail_com_application_default_credentials.json {"metadata":{"emulator":{"name":"functions"},"message":"Setting GAC to C:\\Users\\eakol\\AppData\\Roaming\\firebase\\eakoledoye_gmail_com_application_default_credentials.json"}}
+[info] +  functions: Loaded functions definitions from source: showDB, verifyUser, addUser. {"metadata":{"emulator":{"name":"functions"},"message":"Loaded functions definitions from source: showDB, verifyUser, addUser."}}
+[info] +  functions[europe-west2-showDB]: http function initialized (http://127.0.0.1:5001/sports-arena-39a32/europe-west2/showDB). {"metadata":{"emulator":{"name":"functions"},"message":"\u001b[1mhttp\u001b[22m function initialized (http://127.0.0.1:5001/sports-arena-39a32/europe-west2/showDB)."}}
+[info] +  functions[europe-west2-verifyUser]: http function initialized (http://127.0.0.1:5001/sports-arena-39a32/europe-west2/verifyUser). {"metadata":{"emulator":{"name":"functions"},"message":"\u001b[1mhttp\u001b[22m function initialized (http://127.0.0.1:5001/sports-arena-39a32/europe-west2/verifyUser)."}}
+[info] +  functions[europe-west2-addUser]: http function initialized (http://127.0.0.1:5001/sports-arena-39a32/europe-west2/addUser). {"metadata":{"emulator":{"name":"functions"},"message":"\u001b[1mhttp\u001b[22m function initialized (http://127.0.0.1:5001/sports-arena-39a32/europe-west2/addUser)."}}
+[debug] [2024-10-16T12:17:12.169Z] Could not find VSCode notification endpoint: FetchError: request to http://localhost:40001/vscode/notify failed, reason: connect ECONNREFUSED ::1:40001. If you are not running the Firebase Data Connect VSCode extension, this is expected and not an issue.
+[info] 
+┌─────────────────────────────────────────────────────────────┐
+│ ✔  All emulators ready! It is now safe to connect your app. │
+│ i  View Emulator UI at http://127.0.0.1:4000/               │
+└─────────────────────────────────────────────────────────────┘
+
+┌─────────────┬────────────────┬──────────────────────────────────┐
+│ Emulator    │ Host:Port      │ View in Emulator UI              │
+├─────────────┼────────────────┼──────────────────────────────────┤
+│ Functions   │ 127.0.0.1:5001 │ http://127.0.0.1:4000/functions  │
+├─────────────┼────────────────┼──────────────────────────────────┤
+│ Hosting     │ 127.0.0.1:5002 │ n/a                              │
+├─────────────┼────────────────┼──────────────────────────────────┤
+│ Storage     │ 127.0.0.1:9199 │ http://127.0.0.1:4000/storage    │
+├─────────────┼────────────────┼──────────────────────────────────┤
+│ Cloud Tasks │ 127.0.0.1:9499 │ n/a                              │
+├─────────────┼────────────────┼──────────────────────────────────┤
+│ Extensions  │ 127.0.0.1:5001 │ http://127.0.0.1:4000/extensions │
+└─────────────┴────────────────┴──────────────────────────────────┘
+  Emulator Hub running at 127.0.0.1:4400
+  Other reserved ports: 4500
+┌─────────────────────────┬───────────────┬─────────────────────┐
+│ Extension Instance Name │ Extension Ref │ View in Emulator UI │
+└─────────────────────────┴───────────────┴─────────────────────┘
+Issues? Report them at https://github.com/firebase/firebase-tools/issues and attach the *-debug.log files.
+ 
+[debug] [2024-10-16T12:17:37.271Z] File C:\Users\eakol\OneDrive\Desktop\Emmanuel K\college stuff\year 3\Agile Processes\Sports-Arena\functions\clientSideTest.js changed, reloading triggers {"metadata":{"emulator":{"name":"functions"},"message":"File C:\\Users\\eakol\\OneDrive\\Desktop\\Emmanuel K\\college stuff\\year 3\\Agile Processes\\Sports-Arena\\functions\\clientSideTest.js changed, reloading triggers"}}
+[debug] [2024-10-16T12:17:38.286Z] Validating nodejs source
+[debug] [2024-10-16T12:17:39.338Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "scripts": {
+    "shell": "firebase functions:shell",
+    "start": "firebase emulators:start",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "20"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "firebase-admin": "^12.6.0",
+    "firebase-functions": "^6.0.1",
+    "firebase-tools": "^1.2.0"
+  },
+  "devDependencies": {
+    "firebase-functions-test": "^3.1.0"
+  },
+  "private": true
+}
+[debug] [2024-10-16T12:17:39.338Z] Building nodejs source
+[debug] [2024-10-16T12:17:39.338Z] Failed to find version of module node: reached end of search path C:\Users\eakol\OneDrive\Desktop\Emmanuel K\college stuff\year 3\Agile Processes\Sports-Arena\functions\node_modules
+[warn] !  functions: Your requested "node" version "20" doesn't match your global version "18". Using node@18 from host. 
+[debug] [2024-10-16T12:17:39.340Z] Could not find functions.yaml. Must use http discovery
+[debug] [2024-10-16T12:17:39.348Z] Found firebase-functions binary at 'C:\Users\eakol\OneDrive\Desktop\Emmanuel K\college stuff\year 3\Agile Processes\Sports-Arena\functions\node_modules\.bin\firebase-functions'
+[info] Serving at port 8656
+
+[debug] [2024-10-16T12:17:40.215Z] Got response from /__/functions.yaml {"endpoints":{"showDB":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","region":["europe-west2"],"labels":{},"httpsTrigger":{},"entryPoint":"showDB"},"verifyUser":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","region":["europe-west2"],"labels":{},"httpsTrigger":{},"entryPoint":"verifyUser"},"addUser":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","region":["europe-west2"],"labels":{},"httpsTrigger":{},"entryPoint":"addUser"}},"specVersion":"v1alpha1","requiredAPIs":[],"extensions":{}}
+[debug] [2024-10-16T12:17:40.246Z] defaultcredentials: writing to file C:\Users\eakol\AppData\Roaming\firebase\eakoledoye_gmail_com_application_default_credentials.json
+[debug] [2024-10-16T12:17:40.247Z] Setting GAC to C:\Users\eakol\AppData\Roaming\firebase\eakoledoye_gmail_com_application_default_credentials.json {"metadata":{"emulator":{"name":"functions"},"message":"Setting GAC to C:\\Users\\eakol\\AppData\\Roaming\\firebase\\eakoledoye_gmail_com_application_default_credentials.json"}}
+[info] +  functions: Loaded functions definitions from source: showDB, verifyUser, addUser. {"metadata":{"emulator":{"name":"functions"},"message":"Loaded functions definitions from source: showDB, verifyUser, addUser."}}
+[debug] [2024-10-16T12:18:09.723Z] Functions emulator received unknown request at path /rd-year-project-1f41d/europe-west2/verifyUser
+[debug] [2024-10-16T12:18:21.925Z] [work-queue] {"queuedWork":["/sports-arena-39a32/europe-west2/showDB-2024-10-16T12:18:21.924Z"],"queueLength":1,"runningWork":[],"workRunningCount":0}
+[debug] [2024-10-16T12:18:21.925Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":["/sports-arena-39a32/europe-west2/showDB-2024-10-16T12:18:21.924Z"],"workRunningCount":1}
+[debug] [2024-10-16T12:18:21.926Z] Accepted request GET /sports-arena-39a32/europe-west2/showDB --> europe-west2-showDB
+[debug] [2024-10-16T12:18:21.933Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2024-10-16T12:18:21.933Z] [functions] Got req.url=/sports-arena-39a32/europe-west2/showDB, mapping to path=/ {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/sports-arena-39a32/europe-west2/showDB, mapping to path=/"}}
+[debug] [2024-10-16T12:18:21.946Z] [worker-pool] addWorker(europe-west2-showDB) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] addWorker(europe-west2-showDB)"}}
+[debug] [2024-10-16T12:18:21.949Z] [worker-pool] Adding worker with key europe-west2-showDB, total=1 {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] Adding worker with key europe-west2-showDB, total=1"}}
+[debug] [2024-10-16T12:18:24.301Z] [runtime-status] [3860] Resolved module firebase-admin {"declared":true,"installed":true,"version":"12.6.0","resolution":"C:\\Users\\eakol\\OneDrive\\Desktop\\Emmanuel K\\college stuff\\year 3\\Agile Processes\\Sports-Arena\\functions\\node_modules\\firebase-admin\\lib\\index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"europe-west2-showDB"},"extension":{},"message":"[runtime-status] [3860] Resolved module firebase-admin {\"declared\":true,\"installed\":true,\"version\":\"12.6.0\",\"resolution\":\"C:\\\\Users\\\\eakol\\\\OneDrive\\\\Desktop\\\\Emmanuel K\\\\college stuff\\\\year 3\\\\Agile Processes\\\\Sports-Arena\\\\functions\\\\node_modules\\\\firebase-admin\\\\lib\\\\index.js\"}"}}
+[debug] [2024-10-16T12:18:24.303Z] [runtime-status] [3860] Resolved module firebase-functions {"declared":true,"installed":true,"version":"6.0.1","resolution":"C:\\Users\\eakol\\OneDrive\\Desktop\\Emmanuel K\\college stuff\\year 3\\Agile Processes\\Sports-Arena\\functions\\node_modules\\firebase-functions\\lib\\v2\\index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"europe-west2-showDB"},"extension":{},"message":"[runtime-status] [3860] Resolved module firebase-functions {\"declared\":true,\"installed\":true,\"version\":\"6.0.1\",\"resolution\":\"C:\\\\Users\\\\eakol\\\\OneDrive\\\\Desktop\\\\Emmanuel K\\\\college stuff\\\\year 3\\\\Agile Processes\\\\Sports-Arena\\\\functions\\\\node_modules\\\\firebase-functions\\\\lib\\\\v2\\\\index.js\"}"}}
+[debug] [2024-10-16T12:18:24.303Z] [runtime-status] [3860] Outgoing network have been stubbed. [{"name":"http","status":"mocked"},{"name":"http","status":"mocked"},{"name":"https","status":"mocked"},{"name":"https","status":"mocked"},{"name":"net","status":"mocked"}] {"metadata":{"emulator":{"name":"functions"},"function":{"name":"europe-west2-showDB"},"extension":{},"message":"[runtime-status] [3860] Outgoing network have been stubbed. [{\"name\":\"http\",\"status\":\"mocked\"},{\"name\":\"http\",\"status\":\"mocked\"},{\"name\":\"https\",\"status\":\"mocked\"},{\"name\":\"https\",\"status\":\"mocked\"},{\"name\":\"net\",\"status\":\"mocked\"}]"}}
+[debug] [2024-10-16T12:18:24.304Z] [runtime-status] [3860] Resolved module firebase-functions {"declared":true,"installed":true,"version":"6.0.1","resolution":"C:\\Users\\eakol\\OneDrive\\Desktop\\Emmanuel K\\college stuff\\year 3\\Agile Processes\\Sports-Arena\\functions\\node_modules\\firebase-functions\\lib\\v2\\index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"europe-west2-showDB"},"extension":{},"message":"[runtime-status] [3860] Resolved module firebase-functions {\"declared\":true,\"installed\":true,\"version\":\"6.0.1\",\"resolution\":\"C:\\\\Users\\\\eakol\\\\OneDrive\\\\Desktop\\\\Emmanuel K\\\\college stuff\\\\year 3\\\\Agile Processes\\\\Sports-Arena\\\\functions\\\\node_modules\\\\firebase-functions\\\\lib\\\\v2\\\\index.js\"}"}}
+[debug] [2024-10-16T12:18:25.518Z] [runtime-status] [3860] Checked functions.config() {"config":{}} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"europe-west2-showDB"},"extension":{},"message":"[runtime-status] [3860] Checked functions.config() {\"config\":{}}"}}
+[debug] [2024-10-16T12:18:25.518Z] [runtime-status] [3860] firebase-functions has been stubbed. {"functionsResolution":{"declared":true,"installed":true,"version":"6.0.1","resolution":"C:\\Users\\eakol\\OneDrive\\Desktop\\Emmanuel K\\college stuff\\year 3\\Agile Processes\\Sports-Arena\\functions\\node_modules\\firebase-functions\\lib\\v2\\index.js"}} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"europe-west2-showDB"},"extension":{},"message":"[runtime-status] [3860] firebase-functions has been stubbed. {\"functionsResolution\":{\"declared\":true,\"installed\":true,\"version\":\"6.0.1\",\"resolution\":\"C:\\\\Users\\\\eakol\\\\OneDrive\\\\Desktop\\\\Emmanuel K\\\\college stuff\\\\year 3\\\\Agile Processes\\\\Sports-Arena\\\\functions\\\\node_modules\\\\firebase-functions\\\\lib\\\\v2\\\\index.js\"}}"}}
+[debug] [2024-10-16T12:18:25.520Z] [runtime-status] [3860] Resolved module firebase-functions {"declared":true,"installed":true,"version":"6.0.1","resolution":"C:\\Users\\eakol\\OneDrive\\Desktop\\Emmanuel K\\college stuff\\year 3\\Agile Processes\\Sports-Arena\\functions\\node_modules\\firebase-functions\\lib\\v2\\index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"europe-west2-showDB"},"extension":{},"message":"[runtime-status] [3860] Resolved module firebase-functions {\"declared\":true,\"installed\":true,\"version\":\"6.0.1\",\"resolution\":\"C:\\\\Users\\\\eakol\\\\OneDrive\\\\Desktop\\\\Emmanuel K\\\\college stuff\\\\year 3\\\\Agile Processes\\\\Sports-Arena\\\\functions\\\\node_modules\\\\firebase-functions\\\\lib\\\\v2\\\\index.js\"}"}}
+[debug] [2024-10-16T12:18:25.532Z] [runtime-status] [3860] Resolved module firebase-admin {"declared":true,"installed":true,"version":"12.6.0","resolution":"C:\\Users\\eakol\\OneDrive\\Desktop\\Emmanuel K\\college stuff\\year 3\\Agile Processes\\Sports-Arena\\functions\\node_modules\\firebase-admin\\lib\\index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"europe-west2-showDB"},"extension":{},"message":"[runtime-status] [3860] Resolved module firebase-admin {\"declared\":true,\"installed\":true,\"version\":\"12.6.0\",\"resolution\":\"C:\\\\Users\\\\eakol\\\\OneDrive\\\\Desktop\\\\Emmanuel K\\\\college stuff\\\\year 3\\\\Agile Processes\\\\Sports-Arena\\\\functions\\\\node_modules\\\\firebase-admin\\\\lib\\\\index.js\"}"}}
+[debug] [2024-10-16T12:18:25.540Z] [runtime-status] [3860] Resolved module firebase-functions {"declared":true,"installed":true,"version":"6.0.1","resolution":"C:\\Users\\eakol\\OneDrive\\Desktop\\Emmanuel K\\college stuff\\year 3\\Agile Processes\\Sports-Arena\\functions\\node_modules\\firebase-functions\\lib\\v2\\index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"europe-west2-showDB"},"extension":{},"message":"[runtime-status] [3860] Resolved module firebase-functions {\"declared\":true,\"installed\":true,\"version\":\"6.0.1\",\"resolution\":\"C:\\\\Users\\\\eakol\\\\OneDrive\\\\Desktop\\\\Emmanuel K\\\\college stuff\\\\year 3\\\\Agile Processes\\\\Sports-Arena\\\\functions\\\\node_modules\\\\firebase-functions\\\\lib\\\\v2\\\\index.js\"}"}}
+[debug] [2024-10-16T12:18:25.540Z] [runtime-status] [3860] firebase-admin has been stubbed. {"adminResolution":{"declared":true,"installed":true,"version":"12.6.0","resolution":"C:\\Users\\eakol\\OneDrive\\Desktop\\Emmanuel K\\college stuff\\year 3\\Agile Processes\\Sports-Arena\\functions\\node_modules\\firebase-admin\\lib\\index.js"}} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"europe-west2-showDB"},"extension":{},"message":"[runtime-status] [3860] firebase-admin has been stubbed. {\"adminResolution\":{\"declared\":true,\"installed\":true,\"version\":\"12.6.0\",\"resolution\":\"C:\\\\Users\\\\eakol\\\\OneDrive\\\\Desktop\\\\Emmanuel K\\\\college stuff\\\\year 3\\\\Agile Processes\\\\Sports-Arena\\\\functions\\\\node_modules\\\\firebase-admin\\\\lib\\\\index.js\"}}"}}
+[debug] [2024-10-16T12:18:25.750Z] [runtime-status] [3860] Functions runtime initialized. {"cwd":"C:\\Users\\eakol\\OneDrive\\Desktop\\Emmanuel K\\college stuff\\year 3\\Agile Processes\\Sports-Arena\\functions","node_version":"18.17.1"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"europe-west2-showDB"},"extension":{},"message":"[runtime-status] [3860] Functions runtime initialized. {\"cwd\":\"C:\\\\Users\\\\eakol\\\\OneDrive\\\\Desktop\\\\Emmanuel K\\\\college stuff\\\\year 3\\\\Agile Processes\\\\Sports-Arena\\\\functions\",\"node_version\":\"18.17.1\"}"}}
+[debug] [2024-10-16T12:18:25.751Z] [runtime-status] [3860] Listening to port: \\?\pipe\fire_emu_24f62a52b5084a51 {"metadata":{"emulator":{"name":"functions"},"function":{"name":"europe-west2-showDB"},"extension":{},"message":"[runtime-status] [3860] Listening to port: \\\\?\\pipe\\fire_emu_24f62a52b5084a51"}}
+[debug] [2024-10-16T12:18:25.760Z] [worker-europe-west2-showDB-c9be3464-34ba-4c47-a430-a8a2d52a59ee]: IDLE {"metadata":{"emulator":{"name":"functions"},"function":{"name":"europe-west2-showDB"},"extension":{},"message":"[worker-europe-west2-showDB-c9be3464-34ba-4c47-a430-a8a2d52a59ee]: IDLE"}}
+[debug] [2024-10-16T12:18:25.761Z] [worker-pool] submitRequest(triggerId=europe-west2-showDB) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=europe-west2-showDB)"}}
+[info] i  functions: Beginning execution of "europe-west2-showDB" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"europe-west2-showDB"},"extension":{},"message":"Beginning execution of \"europe-west2-showDB\""}}
+[debug] [2024-10-16T12:18:25.761Z] [worker-europe-west2-showDB-c9be3464-34ba-4c47-a430-a8a2d52a59ee]: BUSY {"metadata":{"emulator":{"name":"functions"},"function":{"name":"europe-west2-showDB"},"extension":{},"message":"[worker-europe-west2-showDB-c9be3464-34ba-4c47-a430-a8a2d52a59ee]: BUSY"}}
+[debug] [2024-10-16T12:18:26.542Z] Finishing up request with event=pause {"metadata":{"emulator":{"name":"functions"},"function":{"name":"europe-west2-showDB"},"extension":{},"message":"Finishing up request with event=pause"}}
+[info] i  functions: Finished "europe-west2-showDB" in 781.9746ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"europe-west2-showDB"},"extension":{},"message":"Finished \"europe-west2-showDB\" in 781.9746ms"}}
+[debug] [2024-10-16T12:18:26.547Z] [worker-europe-west2-showDB-c9be3464-34ba-4c47-a430-a8a2d52a59ee]: IDLE {"metadata":{"emulator":{"name":"functions"},"function":{"name":"europe-west2-showDB"},"extension":{},"message":"[worker-europe-west2-showDB-c9be3464-34ba-4c47-a430-a8a2d52a59ee]: IDLE"}}
+[debug] [2024-10-16T12:18:26.548Z] Finishing up request with event=finish {"metadata":{"emulator":{"name":"functions"},"function":{"name":"europe-west2-showDB"},"extension":{},"message":"Finishing up request with event=finish"}}
+[debug] [2024-10-16T12:18:26.548Z] Finishing up request with event=close {"metadata":{"emulator":{"name":"functions"},"function":{"name":"europe-west2-showDB"},"extension":{},"message":"Finishing up request with event=close"}}
+[debug] [2024-10-16T12:18:26.548Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":[],"workRunningCount":0}
+[debug] [2024-10-16T12:18:26.808Z] Functions emulator received unknown request at path /favicon.ico
+[debug] [2024-10-16T12:19:31.742Z] Functions emulator received unknown request at path /rd-year-project-1f41d/europe-west2/verifyUser
+[debug] [2024-10-16T12:19:38.307Z] [work-queue] {"queuedWork":["/sports-arena-39a32/europe-west2/showDB-2024-10-16T12:19:38.307Z"],"queueLength":1,"runningWork":[],"workRunningCount":0}
+[debug] [2024-10-16T12:19:38.307Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":["/sports-arena-39a32/europe-west2/showDB-2024-10-16T12:19:38.307Z"],"workRunningCount":1}
+[debug] [2024-10-16T12:19:38.307Z] Accepted request GET /sports-arena-39a32/europe-west2/showDB --> europe-west2-showDB
+[debug] [2024-10-16T12:19:38.312Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2024-10-16T12:19:38.312Z] [functions] Got req.url=/sports-arena-39a32/europe-west2/showDB, mapping to path=/ {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/sports-arena-39a32/europe-west2/showDB, mapping to path=/"}}
+[debug] [2024-10-16T12:19:38.312Z] [worker-pool] submitRequest(triggerId=europe-west2-showDB) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=europe-west2-showDB)"}}
+[info] i  functions: Beginning execution of "europe-west2-showDB" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"europe-west2-showDB"},"extension":{},"message":"Beginning execution of \"europe-west2-showDB\""}}
+[debug] [2024-10-16T12:19:38.313Z] [worker-europe-west2-showDB-c9be3464-34ba-4c47-a430-a8a2d52a59ee]: BUSY {"metadata":{"emulator":{"name":"functions"},"function":{"name":"europe-west2-showDB"},"extension":{},"message":"[worker-europe-west2-showDB-c9be3464-34ba-4c47-a430-a8a2d52a59ee]: BUSY"}}
+[debug] [2024-10-16T12:19:38.827Z] Finishing up request with event=pause {"metadata":{"emulator":{"name":"functions"},"function":{"name":"europe-west2-showDB"},"extension":{},"message":"Finishing up request with event=pause"}}
+[info] i  functions: Finished "europe-west2-showDB" in 513.7616ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"europe-west2-showDB"},"extension":{},"message":"Finished \"europe-west2-showDB\" in 513.7616ms"}}
+[debug] [2024-10-16T12:19:38.828Z] [worker-europe-west2-showDB-c9be3464-34ba-4c47-a430-a8a2d52a59ee]: IDLE {"metadata":{"emulator":{"name":"functions"},"function":{"name":"europe-west2-showDB"},"extension":{},"message":"[worker-europe-west2-showDB-c9be3464-34ba-4c47-a430-a8a2d52a59ee]: IDLE"}}
+[debug] [2024-10-16T12:19:38.828Z] Finishing up request with event=finish {"metadata":{"emulator":{"name":"functions"},"function":{"name":"europe-west2-showDB"},"extension":{},"message":"Finishing up request with event=finish"}}
+[debug] [2024-10-16T12:19:38.828Z] Finishing up request with event=close {"metadata":{"emulator":{"name":"functions"},"function":{"name":"europe-west2-showDB"},"extension":{},"message":"Finishing up request with event=close"}}
+[debug] [2024-10-16T12:19:38.828Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":[],"workRunningCount":0}
+[debug] [2024-10-16T12:20:04.013Z] File C:\Users\eakol\OneDrive\Desktop\Emmanuel K\college stuff\year 3\Agile Processes\Sports-Arena\functions\index.js changed, reloading triggers {"metadata":{"emulator":{"name":"functions"},"message":"File C:\\Users\\eakol\\OneDrive\\Desktop\\Emmanuel K\\college stuff\\year 3\\Agile Processes\\Sports-Arena\\functions\\index.js changed, reloading triggers"}}
+[debug] [2024-10-16T12:20:05.021Z] Validating nodejs source
+[debug] [2024-10-16T12:20:06.084Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "scripts": {
+    "shell": "firebase functions:shell",
+    "start": "firebase emulators:start",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "20"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "firebase-admin": "^12.6.0",
+    "firebase-functions": "^6.0.1",
+    "firebase-tools": "^1.2.0"
+  },
+  "devDependencies": {
+    "firebase-functions-test": "^3.1.0"
+  },
+  "private": true
+}
+[debug] [2024-10-16T12:20:06.085Z] Building nodejs source
+[debug] [2024-10-16T12:20:06.085Z] Failed to find version of module node: reached end of search path C:\Users\eakol\OneDrive\Desktop\Emmanuel K\college stuff\year 3\Agile Processes\Sports-Arena\functions\node_modules
+[warn] !  functions: Your requested "node" version "20" doesn't match your global version "18". Using node@18 from host. 
+[debug] [2024-10-16T12:20:06.086Z] Could not find functions.yaml. Must use http discovery
+[debug] [2024-10-16T12:20:06.092Z] Found firebase-functions binary at 'C:\Users\eakol\OneDrive\Desktop\Emmanuel K\college stuff\year 3\Agile Processes\Sports-Arena\functions\node_modules\.bin\firebase-functions'
+[info] Serving at port 8595
+
+[debug] [2024-10-16T12:20:06.906Z] Got response from /__/functions.yaml {"endpoints":{"showDB":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","region":["europe-west2"],"labels":{},"httpsTrigger":{},"entryPoint":"showDB"},"verifyUser":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","region":["europe-west2"],"labels":{},"httpsTrigger":{},"entryPoint":"verifyUser"},"addUser":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","region":["europe-west2"],"labels":{},"httpsTrigger":{},"entryPoint":"addUser"}},"specVersion":"v1alpha1","requiredAPIs":[],"extensions":{}}
+[debug] [2024-10-16T12:20:06.946Z] defaultcredentials: writing to file C:\Users\eakol\AppData\Roaming\firebase\eakoledoye_gmail_com_application_default_credentials.json
+[debug] [2024-10-16T12:20:06.947Z] Setting GAC to C:\Users\eakol\AppData\Roaming\firebase\eakoledoye_gmail_com_application_default_credentials.json {"metadata":{"emulator":{"name":"functions"},"message":"Setting GAC to C:\\Users\\eakol\\AppData\\Roaming\\firebase\\eakoledoye_gmail_com_application_default_credentials.json"}}
+[info] +  functions: Loaded functions definitions from source: showDB, verifyUser, addUser. {"metadata":{"emulator":{"name":"functions"},"message":"Loaded functions definitions from source: showDB, verifyUser, addUser."}}
+[debug] [2024-10-16T12:20:06.949Z] [worker-pool] Shutting down IDLE worker (europe-west2-showDB) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] Shutting down IDLE worker (europe-west2-showDB)"}}
+[debug] [2024-10-16T12:20:06.949Z] [worker-europe-west2-showDB-c9be3464-34ba-4c47-a430-a8a2d52a59ee]: FINISHING {"metadata":{"emulator":{"name":"functions"},"function":{"name":"europe-west2-showDB"},"extension":{},"message":"[worker-europe-west2-showDB-c9be3464-34ba-4c47-a430-a8a2d52a59ee]: FINISHING"}}
+[debug] [2024-10-16T12:20:06.970Z] [worker-europe-west2-showDB-c9be3464-34ba-4c47-a430-a8a2d52a59ee]: exited {"metadata":{"emulator":{"name":"functions"},"function":{"name":"europe-west2-showDB"},"extension":{},"message":"[worker-europe-west2-showDB-c9be3464-34ba-4c47-a430-a8a2d52a59ee]: exited"}}
+[debug] [2024-10-16T12:20:06.971Z] [worker-europe-west2-showDB-c9be3464-34ba-4c47-a430-a8a2d52a59ee]: FINISHED {"metadata":{"emulator":{"name":"functions"},"function":{"name":"europe-west2-showDB"},"extension":{},"message":"[worker-europe-west2-showDB-c9be3464-34ba-4c47-a430-a8a2d52a59ee]: FINISHED"}}
+[debug] [2024-10-16T12:20:07.865Z] File C:\Users\eakol\OneDrive\Desktop\Emmanuel K\college stuff\year 3\Agile Processes\Sports-Arena\functions\index.js changed, reloading triggers {"metadata":{"emulator":{"name":"functions"},"message":"File C:\\Users\\eakol\\OneDrive\\Desktop\\Emmanuel K\\college stuff\\year 3\\Agile Processes\\Sports-Arena\\functions\\index.js changed, reloading triggers"}}
+[debug] [2024-10-16T12:20:08.880Z] Validating nodejs source
+[debug] [2024-10-16T12:20:09.977Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "scripts": {
+    "shell": "firebase functions:shell",
+    "start": "firebase emulators:start",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "20"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "firebase-admin": "^12.6.0",
+    "firebase-functions": "^6.0.1",
+    "firebase-tools": "^1.2.0"
+  },
+  "devDependencies": {
+    "firebase-functions-test": "^3.1.0"
+  },
+  "private": true
+}
+[debug] [2024-10-16T12:20:09.977Z] Building nodejs source
+[debug] [2024-10-16T12:20:09.977Z] Failed to find version of module node: reached end of search path C:\Users\eakol\OneDrive\Desktop\Emmanuel K\college stuff\year 3\Agile Processes\Sports-Arena\functions\node_modules
+[warn] !  functions: Your requested "node" version "20" doesn't match your global version "18". Using node@18 from host. 
+[debug] [2024-10-16T12:20:09.979Z] Could not find functions.yaml. Must use http discovery
+[debug] [2024-10-16T12:20:09.985Z] Found firebase-functions binary at 'C:\Users\eakol\OneDrive\Desktop\Emmanuel K\college stuff\year 3\Agile Processes\Sports-Arena\functions\node_modules\.bin\firebase-functions'
+[debug] [2024-10-16T12:20:09.995Z] File C:\Users\eakol\OneDrive\Desktop\Emmanuel K\college stuff\year 3\Agile Processes\Sports-Arena\functions\index.js changed, reloading triggers {"metadata":{"emulator":{"name":"functions"},"message":"File C:\\Users\\eakol\\OneDrive\\Desktop\\Emmanuel K\\college stuff\\year 3\\Agile Processes\\Sports-Arena\\functions\\index.js changed, reloading triggers"}}
+[info] Serving at port 8671
+
+[debug] [2024-10-16T12:20:10.706Z] Got response from /__/functions.yaml {"endpoints":{"showDB":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","region":["europe-west2"],"labels":{},"httpsTrigger":{},"entryPoint":"showDB"},"verifyUser":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","region":["europe-west2"],"labels":{},"httpsTrigger":{},"entryPoint":"verifyUser"},"addUser":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","region":["europe-west2"],"labels":{},"httpsTrigger":{},"entryPoint":"addUser"}},"specVersion":"v1alpha1","requiredAPIs":[],"extensions":{}}
+[debug] [2024-10-16T12:20:10.735Z] defaultcredentials: writing to file C:\Users\eakol\AppData\Roaming\firebase\eakoledoye_gmail_com_application_default_credentials.json
+[debug] [2024-10-16T12:20:10.736Z] Setting GAC to C:\Users\eakol\AppData\Roaming\firebase\eakoledoye_gmail_com_application_default_credentials.json {"metadata":{"emulator":{"name":"functions"},"message":"Setting GAC to C:\\Users\\eakol\\AppData\\Roaming\\firebase\\eakoledoye_gmail_com_application_default_credentials.json"}}
+[info] +  functions: Loaded functions definitions from source: showDB, verifyUser, addUser. {"metadata":{"emulator":{"name":"functions"},"message":"Loaded functions definitions from source: showDB, verifyUser, addUser."}}
+[debug] [2024-10-16T12:20:11.012Z] Validating nodejs source
+[debug] [2024-10-16T12:20:11.989Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "scripts": {
+    "shell": "firebase functions:shell",
+    "start": "firebase emulators:start",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "20"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "firebase-admin": "^12.6.0",
+    "firebase-functions": "^6.0.1",
+    "firebase-tools": "^1.2.0"
+  },
+  "devDependencies": {
+    "firebase-functions-test": "^3.1.0"
+  },
+  "private": true
+}
+[debug] [2024-10-16T12:20:11.989Z] Building nodejs source
+[debug] [2024-10-16T12:20:11.989Z] Failed to find version of module node: reached end of search path C:\Users\eakol\OneDrive\Desktop\Emmanuel K\college stuff\year 3\Agile Processes\Sports-Arena\functions\node_modules
+[warn] !  functions: Your requested "node" version "20" doesn't match your global version "18". Using node@18 from host. 
+[debug] [2024-10-16T12:20:11.992Z] Could not find functions.yaml. Must use http discovery
+[debug] [2024-10-16T12:20:12.001Z] Found firebase-functions binary at 'C:\Users\eakol\OneDrive\Desktop\Emmanuel K\college stuff\year 3\Agile Processes\Sports-Arena\functions\node_modules\.bin\firebase-functions'
+[info] Serving at port 8101
+
+[debug] [2024-10-16T12:20:12.758Z] Got response from /__/functions.yaml {"endpoints":{"showDB":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","region":["europe-west2"],"labels":{},"httpsTrigger":{},"entryPoint":"showDB"},"verifyUser":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","region":["europe-west2"],"labels":{},"httpsTrigger":{},"entryPoint":"verifyUser"},"addUser":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","region":["europe-west2"],"labels":{},"httpsTrigger":{},"entryPoint":"addUser"}},"specVersion":"v1alpha1","requiredAPIs":[],"extensions":{}}
+[debug] [2024-10-16T12:20:12.788Z] defaultcredentials: writing to file C:\Users\eakol\AppData\Roaming\firebase\eakoledoye_gmail_com_application_default_credentials.json
+[debug] [2024-10-16T12:20:12.789Z] Setting GAC to C:\Users\eakol\AppData\Roaming\firebase\eakoledoye_gmail_com_application_default_credentials.json {"metadata":{"emulator":{"name":"functions"},"message":"Setting GAC to C:\\Users\\eakol\\AppData\\Roaming\\firebase\\eakoledoye_gmail_com_application_default_credentials.json"}}
+[info] +  functions: Loaded functions definitions from source: showDB, verifyUser, addUser. {"metadata":{"emulator":{"name":"functions"},"message":"Loaded functions definitions from source: showDB, verifyUser, addUser."}}
+[debug] [2024-10-16T12:20:13.455Z] File C:\Users\eakol\OneDrive\Desktop\Emmanuel K\college stuff\year 3\Agile Processes\Sports-Arena\functions\index.js changed, reloading triggers {"metadata":{"emulator":{"name":"functions"},"message":"File C:\\Users\\eakol\\OneDrive\\Desktop\\Emmanuel K\\college stuff\\year 3\\Agile Processes\\Sports-Arena\\functions\\index.js changed, reloading triggers"}}
+[debug] [2024-10-16T12:20:14.461Z] Validating nodejs source
+[debug] [2024-10-16T12:20:15.327Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "scripts": {
+    "shell": "firebase functions:shell",
+    "start": "firebase emulators:start",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "20"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "firebase-admin": "^12.6.0",
+    "firebase-functions": "^6.0.1",
+    "firebase-tools": "^1.2.0"
+  },
+  "devDependencies": {
+    "firebase-functions-test": "^3.1.0"
+  },
+  "private": true
+}
+[debug] [2024-10-16T12:20:15.327Z] Building nodejs source
+[debug] [2024-10-16T12:20:15.327Z] Failed to find version of module node: reached end of search path C:\Users\eakol\OneDrive\Desktop\Emmanuel K\college stuff\year 3\Agile Processes\Sports-Arena\functions\node_modules
+[warn] !  functions: Your requested "node" version "20" doesn't match your global version "18". Using node@18 from host. 
+[debug] [2024-10-16T12:20:15.328Z] Could not find functions.yaml. Must use http discovery
+[debug] [2024-10-16T12:20:15.335Z] Found firebase-functions binary at 'C:\Users\eakol\OneDrive\Desktop\Emmanuel K\college stuff\year 3\Agile Processes\Sports-Arena\functions\node_modules\.bin\firebase-functions'
+[info] Serving at port 8098
+
+[debug] [2024-10-16T12:20:16.125Z] Got response from /__/functions.yaml {"endpoints":{"showDB":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","region":["europe-west2"],"labels":{},"httpsTrigger":{},"entryPoint":"showDB"},"verifyUser":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","region":["europe-west2"],"labels":{},"httpsTrigger":{},"entryPoint":"verifyUser"},"addUser":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","region":["europe-west2"],"labels":{},"httpsTrigger":{},"entryPoint":"addUser"}},"specVersion":"v1alpha1","requiredAPIs":[],"extensions":{}}
+[debug] [2024-10-16T12:20:16.147Z] defaultcredentials: writing to file C:\Users\eakol\AppData\Roaming\firebase\eakoledoye_gmail_com_application_default_credentials.json
+[debug] [2024-10-16T12:20:16.148Z] Setting GAC to C:\Users\eakol\AppData\Roaming\firebase\eakoledoye_gmail_com_application_default_credentials.json {"metadata":{"emulator":{"name":"functions"},"message":"Setting GAC to C:\\Users\\eakol\\AppData\\Roaming\\firebase\\eakoledoye_gmail_com_application_default_credentials.json"}}
+[info] +  functions: Loaded functions definitions from source: showDB, verifyUser, addUser. {"metadata":{"emulator":{"name":"functions"},"message":"Loaded functions definitions from source: showDB, verifyUser, addUser."}}
+[debug] [2024-10-16T12:20:21.181Z] File C:\Users\eakol\OneDrive\Desktop\Emmanuel K\college stuff\year 3\Agile Processes\Sports-Arena\functions\index.js changed, reloading triggers {"metadata":{"emulator":{"name":"functions"},"message":"File C:\\Users\\eakol\\OneDrive\\Desktop\\Emmanuel K\\college stuff\\year 3\\Agile Processes\\Sports-Arena\\functions\\index.js changed, reloading triggers"}}
+[debug] [2024-10-16T12:20:22.197Z] Validating nodejs source
+[debug] [2024-10-16T12:20:23.081Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "scripts": {
+    "shell": "firebase functions:shell",
+    "start": "firebase emulators:start",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "20"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "firebase-admin": "^12.6.0",
+    "firebase-functions": "^6.0.1",
+    "firebase-tools": "^1.2.0"
+  },
+  "devDependencies": {
+    "firebase-functions-test": "^3.1.0"
+  },
+  "private": true
+}
+[debug] [2024-10-16T12:20:23.082Z] Building nodejs source
+[debug] [2024-10-16T12:20:23.082Z] Failed to find version of module node: reached end of search path C:\Users\eakol\OneDrive\Desktop\Emmanuel K\college stuff\year 3\Agile Processes\Sports-Arena\functions\node_modules
+[warn] !  functions: Your requested "node" version "20" doesn't match your global version "18". Using node@18 from host. 
+[debug] [2024-10-16T12:20:23.084Z] Could not find functions.yaml. Must use http discovery
+[debug] [2024-10-16T12:20:23.091Z] Found firebase-functions binary at 'C:\Users\eakol\OneDrive\Desktop\Emmanuel K\college stuff\year 3\Agile Processes\Sports-Arena\functions\node_modules\.bin\firebase-functions'
+[info] Serving at port 8533
+
+[debug] [2024-10-16T12:20:23.823Z] Got response from /__/functions.yaml {"endpoints":{"showDB":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","region":["europe-west2"],"labels":{},"httpsTrigger":{},"entryPoint":"showDB"},"verifyUser":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","region":["europe-west2"],"labels":{},"httpsTrigger":{},"entryPoint":"verifyUser"},"addUser":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","region":["europe-west2"],"labels":{},"httpsTrigger":{},"entryPoint":"addUser"}},"specVersion":"v1alpha1","requiredAPIs":[],"extensions":{}}
+[debug] [2024-10-16T12:20:23.849Z] defaultcredentials: writing to file C:\Users\eakol\AppData\Roaming\firebase\eakoledoye_gmail_com_application_default_credentials.json
+[debug] [2024-10-16T12:20:23.850Z] Setting GAC to C:\Users\eakol\AppData\Roaming\firebase\eakoledoye_gmail_com_application_default_credentials.json {"metadata":{"emulator":{"name":"functions"},"message":"Setting GAC to C:\\Users\\eakol\\AppData\\Roaming\\firebase\\eakoledoye_gmail_com_application_default_credentials.json"}}
+[info] +  functions: Loaded functions definitions from source: showDB, verifyUser, addUser. {"metadata":{"emulator":{"name":"functions"},"message":"Loaded functions definitions from source: showDB, verifyUser, addUser."}}
+[debug] [2024-10-16T12:20:35.892Z] File C:\Users\eakol\OneDrive\Desktop\Emmanuel K\college stuff\year 3\Agile Processes\Sports-Arena\functions\index.js changed, reloading triggers {"metadata":{"emulator":{"name":"functions"},"message":"File C:\\Users\\eakol\\OneDrive\\Desktop\\Emmanuel K\\college stuff\\year 3\\Agile Processes\\Sports-Arena\\functions\\index.js changed, reloading triggers"}}
+[debug] [2024-10-16T12:20:36.900Z] Validating nodejs source
+[debug] [2024-10-16T12:20:37.737Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "scripts": {
+    "shell": "firebase functions:shell",
+    "start": "firebase emulators:start",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "20"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "firebase-admin": "^12.6.0",
+    "firebase-functions": "^6.0.1",
+    "firebase-tools": "^1.2.0"
+  },
+  "devDependencies": {
+    "firebase-functions-test": "^3.1.0"
+  },
+  "private": true
+}
+[debug] [2024-10-16T12:20:37.737Z] Building nodejs source
+[debug] [2024-10-16T12:20:37.738Z] Failed to find version of module node: reached end of search path C:\Users\eakol\OneDrive\Desktop\Emmanuel K\college stuff\year 3\Agile Processes\Sports-Arena\functions\node_modules
+[warn] !  functions: Your requested "node" version "20" doesn't match your global version "18". Using node@18 from host. 
+[debug] [2024-10-16T12:20:37.740Z] Could not find functions.yaml. Must use http discovery
+[debug] [2024-10-16T12:20:37.749Z] Found firebase-functions binary at 'C:\Users\eakol\OneDrive\Desktop\Emmanuel K\college stuff\year 3\Agile Processes\Sports-Arena\functions\node_modules\.bin\firebase-functions'
+[info] Serving at port 8727
+
+[debug] [2024-10-16T12:20:38.509Z] Got response from /__/functions.yaml {"endpoints":{"showDB":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","region":["europe-west2"],"labels":{},"httpsTrigger":{},"entryPoint":"showDB"},"verifyUser":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","region":["europe-west2"],"labels":{},"httpsTrigger":{},"entryPoint":"verifyUser"},"addUser":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","region":["europe-west2"],"labels":{},"httpsTrigger":{},"entryPoint":"addUser"}},"specVersion":"v1alpha1","requiredAPIs":[],"extensions":{}}
+[debug] [2024-10-16T12:20:38.538Z] defaultcredentials: writing to file C:\Users\eakol\AppData\Roaming\firebase\eakoledoye_gmail_com_application_default_credentials.json
+[debug] [2024-10-16T12:20:38.539Z] Setting GAC to C:\Users\eakol\AppData\Roaming\firebase\eakoledoye_gmail_com_application_default_credentials.json {"metadata":{"emulator":{"name":"functions"},"message":"Setting GAC to C:\\Users\\eakol\\AppData\\Roaming\\firebase\\eakoledoye_gmail_com_application_default_credentials.json"}}
+[info] +  functions: Loaded functions definitions from source: showDB, verifyUser, addUser. {"metadata":{"emulator":{"name":"functions"},"message":"Loaded functions definitions from source: showDB, verifyUser, addUser."}}
+[debug] [2024-10-16T12:20:47.408Z] File C:\Users\eakol\OneDrive\Desktop\Emmanuel K\college stuff\year 3\Agile Processes\Sports-Arena\functions\index.js changed, reloading triggers {"metadata":{"emulator":{"name":"functions"},"message":"File C:\\Users\\eakol\\OneDrive\\Desktop\\Emmanuel K\\college stuff\\year 3\\Agile Processes\\Sports-Arena\\functions\\index.js changed, reloading triggers"}}
+[debug] [2024-10-16T12:20:48.423Z] Validating nodejs source
+[debug] [2024-10-16T12:20:49.377Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "scripts": {
+    "shell": "firebase functions:shell",
+    "start": "firebase emulators:start",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "20"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "firebase-admin": "^12.6.0",
+    "firebase-functions": "^6.0.1",
+    "firebase-tools": "^1.2.0"
+  },
+  "devDependencies": {
+    "firebase-functions-test": "^3.1.0"
+  },
+  "private": true
+}
+[debug] [2024-10-16T12:20:49.378Z] Building nodejs source
+[debug] [2024-10-16T12:20:49.379Z] Failed to find version of module node: reached end of search path C:\Users\eakol\OneDrive\Desktop\Emmanuel K\college stuff\year 3\Agile Processes\Sports-Arena\functions\node_modules
+[warn] !  functions: Your requested "node" version "20" doesn't match your global version "18". Using node@18 from host. 
+[debug] [2024-10-16T12:20:49.381Z] Could not find functions.yaml. Must use http discovery
+[debug] [2024-10-16T12:20:49.387Z] Found firebase-functions binary at 'C:\Users\eakol\OneDrive\Desktop\Emmanuel K\college stuff\year 3\Agile Processes\Sports-Arena\functions\node_modules\.bin\firebase-functions'
+[info] Serving at port 8966
+
+[debug] [2024-10-16T12:20:50.143Z] Got response from /__/functions.yaml {"endpoints":{"showDB":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","region":["europe-west2"],"labels":{},"httpsTrigger":{},"entryPoint":"showDB"},"verifyUser":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","region":["europe-west2"],"labels":{},"httpsTrigger":{},"entryPoint":"verifyUser"},"addUser":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","region":["europe-west2"],"labels":{},"httpsTrigger":{},"entryPoint":"addUser"}},"specVersion":"v1alpha1","requiredAPIs":[],"extensions":{}}
+[debug] [2024-10-16T12:20:50.166Z] defaultcredentials: writing to file C:\Users\eakol\AppData\Roaming\firebase\eakoledoye_gmail_com_application_default_credentials.json
+[debug] [2024-10-16T12:20:50.167Z] Setting GAC to C:\Users\eakol\AppData\Roaming\firebase\eakoledoye_gmail_com_application_default_credentials.json {"metadata":{"emulator":{"name":"functions"},"message":"Setting GAC to C:\\Users\\eakol\\AppData\\Roaming\\firebase\\eakoledoye_gmail_com_application_default_credentials.json"}}
+[info] +  functions: Loaded functions definitions from source: showDB, verifyUser, addUser. {"metadata":{"emulator":{"name":"functions"},"message":"Loaded functions definitions from source: showDB, verifyUser, addUser."}}
+[debug] [2024-10-16T12:20:53.620Z] File C:\Users\eakol\OneDrive\Desktop\Emmanuel K\college stuff\year 3\Agile Processes\Sports-Arena\functions\index.js changed, reloading triggers {"metadata":{"emulator":{"name":"functions"},"message":"File C:\\Users\\eakol\\OneDrive\\Desktop\\Emmanuel K\\college stuff\\year 3\\Agile Processes\\Sports-Arena\\functions\\index.js changed, reloading triggers"}}
+[debug] [2024-10-16T12:20:54.632Z] Validating nodejs source
+[debug] [2024-10-16T12:20:55.533Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "scripts": {
+    "shell": "firebase functions:shell",
+    "start": "firebase emulators:start",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "20"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "firebase-admin": "^12.6.0",
+    "firebase-functions": "^6.0.1",
+    "firebase-tools": "^1.2.0"
+  },
+  "devDependencies": {
+    "firebase-functions-test": "^3.1.0"
+  },
+  "private": true
+}
+[debug] [2024-10-16T12:20:55.534Z] Building nodejs source
+[debug] [2024-10-16T12:20:55.534Z] Failed to find version of module node: reached end of search path C:\Users\eakol\OneDrive\Desktop\Emmanuel K\college stuff\year 3\Agile Processes\Sports-Arena\functions\node_modules
+[warn] !  functions: Your requested "node" version "20" doesn't match your global version "18". Using node@18 from host. 
+[debug] [2024-10-16T12:20:55.536Z] Could not find functions.yaml. Must use http discovery
+[debug] [2024-10-16T12:20:55.545Z] Found firebase-functions binary at 'C:\Users\eakol\OneDrive\Desktop\Emmanuel K\college stuff\year 3\Agile Processes\Sports-Arena\functions\node_modules\.bin\firebase-functions'
+[info] Serving at port 8432
+
+[debug] [2024-10-16T12:20:56.340Z] Got response from /__/functions.yaml {"endpoints":{"showDB":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","region":["europe-west2"],"labels":{},"httpsTrigger":{},"entryPoint":"showDB"},"verifyUser":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","region":["europe-west2"],"labels":{},"httpsTrigger":{},"entryPoint":"verifyUser"},"addUser":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","region":["europe-west2"],"labels":{},"httpsTrigger":{},"entryPoint":"addUser"}},"specVersion":"v1alpha1","requiredAPIs":[],"extensions":{}}
+[debug] [2024-10-16T12:20:56.368Z] defaultcredentials: writing to file C:\Users\eakol\AppData\Roaming\firebase\eakoledoye_gmail_com_application_default_credentials.json
+[debug] [2024-10-16T12:20:56.369Z] Setting GAC to C:\Users\eakol\AppData\Roaming\firebase\eakoledoye_gmail_com_application_default_credentials.json {"metadata":{"emulator":{"name":"functions"},"message":"Setting GAC to C:\\Users\\eakol\\AppData\\Roaming\\firebase\\eakoledoye_gmail_com_application_default_credentials.json"}}
+[info] +  functions: Loaded functions definitions from source: showDB, verifyUser, addUser. {"metadata":{"emulator":{"name":"functions"},"message":"Loaded functions definitions from source: showDB, verifyUser, addUser."}}
+[debug] [2024-10-16T12:21:02.045Z] File C:\Users\eakol\OneDrive\Desktop\Emmanuel K\college stuff\year 3\Agile Processes\Sports-Arena\functions\index.js changed, reloading triggers {"metadata":{"emulator":{"name":"functions"},"message":"File C:\\Users\\eakol\\OneDrive\\Desktop\\Emmanuel K\\college stuff\\year 3\\Agile Processes\\Sports-Arena\\functions\\index.js changed, reloading triggers"}}
+[debug] [2024-10-16T12:21:03.060Z] Validating nodejs source
+[debug] [2024-10-16T12:21:04.084Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "scripts": {
+    "shell": "firebase functions:shell",
+    "start": "firebase emulators:start",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "20"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "firebase-admin": "^12.6.0",
+    "firebase-functions": "^6.0.1",
+    "firebase-tools": "^1.2.0"
+  },
+  "devDependencies": {
+    "firebase-functions-test": "^3.1.0"
+  },
+  "private": true
+}
+[debug] [2024-10-16T12:21:04.084Z] Building nodejs source
+[debug] [2024-10-16T12:21:04.084Z] Failed to find version of module node: reached end of search path C:\Users\eakol\OneDrive\Desktop\Emmanuel K\college stuff\year 3\Agile Processes\Sports-Arena\functions\node_modules
+[warn] !  functions: Your requested "node" version "20" doesn't match your global version "18". Using node@18 from host. 
+[debug] [2024-10-16T12:21:04.087Z] Could not find functions.yaml. Must use http discovery
+[debug] [2024-10-16T12:21:04.096Z] Found firebase-functions binary at 'C:\Users\eakol\OneDrive\Desktop\Emmanuel K\college stuff\year 3\Agile Processes\Sports-Arena\functions\node_modules\.bin\firebase-functions'
+[info] Serving at port 8142
+
+[debug] [2024-10-16T12:21:04.954Z] Got response from /__/functions.yaml {"endpoints":{"showDB":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","region":["europe-west2"],"labels":{},"httpsTrigger":{},"entryPoint":"showDB"},"verifyUser":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","region":["europe-west2"],"labels":{},"httpsTrigger":{},"entryPoint":"verifyUser"},"addUser":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","region":["europe-west2"],"labels":{},"httpsTrigger":{},"entryPoint":"addUser"}},"specVersion":"v1alpha1","requiredAPIs":[],"extensions":{}}
+[debug] [2024-10-16T12:21:04.981Z] defaultcredentials: writing to file C:\Users\eakol\AppData\Roaming\firebase\eakoledoye_gmail_com_application_default_credentials.json
+[debug] [2024-10-16T12:21:04.982Z] Setting GAC to C:\Users\eakol\AppData\Roaming\firebase\eakoledoye_gmail_com_application_default_credentials.json {"metadata":{"emulator":{"name":"functions"},"message":"Setting GAC to C:\\Users\\eakol\\AppData\\Roaming\\firebase\\eakoledoye_gmail_com_application_default_credentials.json"}}
+[info] +  functions: Loaded functions definitions from source: showDB, verifyUser, addUser. {"metadata":{"emulator":{"name":"functions"},"message":"Loaded functions definitions from source: showDB, verifyUser, addUser."}}
+[debug] [2024-10-16T12:21:23.173Z] File C:\Users\eakol\OneDrive\Desktop\Emmanuel K\college stuff\year 3\Agile Processes\Sports-Arena\functions\index.js changed, reloading triggers {"metadata":{"emulator":{"name":"functions"},"message":"File C:\\Users\\eakol\\OneDrive\\Desktop\\Emmanuel K\\college stuff\\year 3\\Agile Processes\\Sports-Arena\\functions\\index.js changed, reloading triggers"}}
+[debug] [2024-10-16T12:21:24.189Z] Validating nodejs source
+[debug] [2024-10-16T12:21:25.093Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "scripts": {
+    "shell": "firebase functions:shell",
+    "start": "firebase emulators:start",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "20"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "firebase-admin": "^12.6.0",
+    "firebase-functions": "^6.0.1",
+    "firebase-tools": "^1.2.0"
+  },
+  "devDependencies": {
+    "firebase-functions-test": "^3.1.0"
+  },
+  "private": true
+}
+[debug] [2024-10-16T12:21:25.093Z] Building nodejs source
+[debug] [2024-10-16T12:21:25.093Z] Failed to find version of module node: reached end of search path C:\Users\eakol\OneDrive\Desktop\Emmanuel K\college stuff\year 3\Agile Processes\Sports-Arena\functions\node_modules
+[warn] !  functions: Your requested "node" version "20" doesn't match your global version "18". Using node@18 from host. 
+[debug] [2024-10-16T12:21:25.097Z] Could not find functions.yaml. Must use http discovery
+[debug] [2024-10-16T12:21:25.105Z] Found firebase-functions binary at 'C:\Users\eakol\OneDrive\Desktop\Emmanuel K\college stuff\year 3\Agile Processes\Sports-Arena\functions\node_modules\.bin\firebase-functions'
+[info] Serving at port 8965
+
+[debug] [2024-10-16T12:21:25.856Z] Got response from /__/functions.yaml {"endpoints":{"showDB":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","region":["europe-west2"],"labels":{},"httpsTrigger":{},"entryPoint":"showDB"},"verifyUser":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","region":["europe-west2"],"labels":{},"httpsTrigger":{},"entryPoint":"verifyUser"},"addUser":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","region":["europe-west2"],"labels":{},"httpsTrigger":{},"entryPoint":"addUser"}},"specVersion":"v1alpha1","requiredAPIs":[],"extensions":{}}
+[debug] [2024-10-16T12:21:25.884Z] defaultcredentials: writing to file C:\Users\eakol\AppData\Roaming\firebase\eakoledoye_gmail_com_application_default_credentials.json
+[debug] [2024-10-16T12:21:25.884Z] Setting GAC to C:\Users\eakol\AppData\Roaming\firebase\eakoledoye_gmail_com_application_default_credentials.json {"metadata":{"emulator":{"name":"functions"},"message":"Setting GAC to C:\\Users\\eakol\\AppData\\Roaming\\firebase\\eakoledoye_gmail_com_application_default_credentials.json"}}
+[info] +  functions: Loaded functions definitions from source: showDB, verifyUser, addUser. {"metadata":{"emulator":{"name":"functions"},"message":"Loaded functions definitions from source: showDB, verifyUser, addUser."}}
+[debug] [2024-10-16T12:21:29.116Z] File C:\Users\eakol\OneDrive\Desktop\Emmanuel K\college stuff\year 3\Agile Processes\Sports-Arena\functions\index.js changed, reloading triggers {"metadata":{"emulator":{"name":"functions"},"message":"File C:\\Users\\eakol\\OneDrive\\Desktop\\Emmanuel K\\college stuff\\year 3\\Agile Processes\\Sports-Arena\\functions\\index.js changed, reloading triggers"}}
+[debug] [2024-10-16T12:21:30.128Z] Validating nodejs source
+[debug] [2024-10-16T12:21:31.025Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "scripts": {
+    "shell": "firebase functions:shell",
+    "start": "firebase emulators:start",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "20"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "firebase-admin": "^12.6.0",
+    "firebase-functions": "^6.0.1",
+    "firebase-tools": "^1.2.0"
+  },
+  "devDependencies": {
+    "firebase-functions-test": "^3.1.0"
+  },
+  "private": true
+}
+[debug] [2024-10-16T12:21:31.026Z] Building nodejs source
+[debug] [2024-10-16T12:21:31.026Z] Failed to find version of module node: reached end of search path C:\Users\eakol\OneDrive\Desktop\Emmanuel K\college stuff\year 3\Agile Processes\Sports-Arena\functions\node_modules
+[warn] !  functions: Your requested "node" version "20" doesn't match your global version "18". Using node@18 from host. 
+[debug] [2024-10-16T12:21:31.028Z] Could not find functions.yaml. Must use http discovery
+[debug] [2024-10-16T12:21:31.035Z] Found firebase-functions binary at 'C:\Users\eakol\OneDrive\Desktop\Emmanuel K\college stuff\year 3\Agile Processes\Sports-Arena\functions\node_modules\.bin\firebase-functions'
+[info] Serving at port 8910
+
+[debug] [2024-10-16T12:21:31.339Z] File C:\Users\eakol\OneDrive\Desktop\Emmanuel K\college stuff\year 3\Agile Processes\Sports-Arena\functions\index.js changed, reloading triggers {"metadata":{"emulator":{"name":"functions"},"message":"File C:\\Users\\eakol\\OneDrive\\Desktop\\Emmanuel K\\college stuff\\year 3\\Agile Processes\\Sports-Arena\\functions\\index.js changed, reloading triggers"}}
+[debug] [2024-10-16T12:21:31.848Z] Got response from /__/functions.yaml {"endpoints":{"showDB":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","region":["europe-west2"],"labels":{},"httpsTrigger":{},"entryPoint":"showDB"},"verifyUser":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","region":["europe-west2"],"labels":{},"httpsTrigger":{},"entryPoint":"verifyUser"},"addUser":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","region":["europe-west2"],"labels":{},"httpsTrigger":{},"entryPoint":"addUser"}},"specVersion":"v1alpha1","requiredAPIs":[],"extensions":{}}
+[debug] [2024-10-16T12:21:31.878Z] defaultcredentials: writing to file C:\Users\eakol\AppData\Roaming\firebase\eakoledoye_gmail_com_application_default_credentials.json
+[debug] [2024-10-16T12:21:31.879Z] Setting GAC to C:\Users\eakol\AppData\Roaming\firebase\eakoledoye_gmail_com_application_default_credentials.json {"metadata":{"emulator":{"name":"functions"},"message":"Setting GAC to C:\\Users\\eakol\\AppData\\Roaming\\firebase\\eakoledoye_gmail_com_application_default_credentials.json"}}
+[info] +  functions: Loaded functions definitions from source: showDB, verifyUser, addUser. {"metadata":{"emulator":{"name":"functions"},"message":"Loaded functions definitions from source: showDB, verifyUser, addUser."}}
+[debug] [2024-10-16T12:21:32.355Z] Validating nodejs source
+[debug] [2024-10-16T12:21:33.351Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "scripts": {
+    "shell": "firebase functions:shell",
+    "start": "firebase emulators:start",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "20"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "firebase-admin": "^12.6.0",
+    "firebase-functions": "^6.0.1",
+    "firebase-tools": "^1.2.0"
+  },
+  "devDependencies": {
+    "firebase-functions-test": "^3.1.0"
+  },
+  "private": true
+}
+[debug] [2024-10-16T12:21:33.351Z] Building nodejs source
+[debug] [2024-10-16T12:21:33.351Z] Failed to find version of module node: reached end of search path C:\Users\eakol\OneDrive\Desktop\Emmanuel K\college stuff\year 3\Agile Processes\Sports-Arena\functions\node_modules
+[warn] !  functions: Your requested "node" version "20" doesn't match your global version "18". Using node@18 from host. 
+[debug] [2024-10-16T12:21:33.353Z] Could not find functions.yaml. Must use http discovery
+[debug] [2024-10-16T12:21:33.360Z] Found firebase-functions binary at 'C:\Users\eakol\OneDrive\Desktop\Emmanuel K\college stuff\year 3\Agile Processes\Sports-Arena\functions\node_modules\.bin\firebase-functions'
+[info] Serving at port 8878
+
+[debug] [2024-10-16T12:21:34.159Z] Got response from /__/functions.yaml {"endpoints":{"showDB":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","region":["europe-west2"],"labels":{},"httpsTrigger":{},"entryPoint":"showDB"},"verifyUser":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","region":["europe-west2"],"labels":{},"httpsTrigger":{},"entryPoint":"verifyUser"},"addUser":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","region":["europe-west2"],"labels":{},"httpsTrigger":{},"entryPoint":"addUser"}},"specVersion":"v1alpha1","requiredAPIs":[],"extensions":{}}
+[debug] [2024-10-16T12:21:34.191Z] defaultcredentials: writing to file C:\Users\eakol\AppData\Roaming\firebase\eakoledoye_gmail_com_application_default_credentials.json
+[debug] [2024-10-16T12:21:34.192Z] Setting GAC to C:\Users\eakol\AppData\Roaming\firebase\eakoledoye_gmail_com_application_default_credentials.json {"metadata":{"emulator":{"name":"functions"},"message":"Setting GAC to C:\\Users\\eakol\\AppData\\Roaming\\firebase\\eakoledoye_gmail_com_application_default_credentials.json"}}
+[info] +  functions: Loaded functions definitions from source: showDB, verifyUser, addUser. {"metadata":{"emulator":{"name":"functions"},"message":"Loaded functions definitions from source: showDB, verifyUser, addUser."}}
+[debug] [2024-10-16T12:21:38.484Z] File C:\Users\eakol\OneDrive\Desktop\Emmanuel K\college stuff\year 3\Agile Processes\Sports-Arena\functions\index.js changed, reloading triggers {"metadata":{"emulator":{"name":"functions"},"message":"File C:\\Users\\eakol\\OneDrive\\Desktop\\Emmanuel K\\college stuff\\year 3\\Agile Processes\\Sports-Arena\\functions\\index.js changed, reloading triggers"}}
+[debug] [2024-10-16T12:21:39.499Z] Validating nodejs source
+[debug] [2024-10-16T12:21:40.474Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "scripts": {
+    "shell": "firebase functions:shell",
+    "start": "firebase emulators:start",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "20"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "firebase-admin": "^12.6.0",
+    "firebase-functions": "^6.0.1",
+    "firebase-tools": "^1.2.0"
+  },
+  "devDependencies": {
+    "firebase-functions-test": "^3.1.0"
+  },
+  "private": true
+}
+[debug] [2024-10-16T12:21:40.474Z] Building nodejs source
+[debug] [2024-10-16T12:21:40.474Z] Failed to find version of module node: reached end of search path C:\Users\eakol\OneDrive\Desktop\Emmanuel K\college stuff\year 3\Agile Processes\Sports-Arena\functions\node_modules
+[warn] !  functions: Your requested "node" version "20" doesn't match your global version "18". Using node@18 from host. 
+[debug] [2024-10-16T12:21:40.475Z] Could not find functions.yaml. Must use http discovery
+[debug] [2024-10-16T12:21:40.480Z] Found firebase-functions binary at 'C:\Users\eakol\OneDrive\Desktop\Emmanuel K\college stuff\year 3\Agile Processes\Sports-Arena\functions\node_modules\.bin\firebase-functions'
+[info] Serving at port 8581
+
+[debug] [2024-10-16T12:21:41.298Z] Got response from /__/functions.yaml {"endpoints":{"showDB":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","region":["europe-west2"],"labels":{},"httpsTrigger":{},"entryPoint":"showDB"},"verifyUser":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","region":["europe-west2"],"labels":{},"httpsTrigger":{},"entryPoint":"verifyUser"},"addUser":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","region":["europe-west2"],"labels":{},"httpsTrigger":{},"entryPoint":"addUser"}},"specVersion":"v1alpha1","requiredAPIs":[],"extensions":{}}
+[debug] [2024-10-16T12:21:41.331Z] defaultcredentials: writing to file C:\Users\eakol\AppData\Roaming\firebase\eakoledoye_gmail_com_application_default_credentials.json
+[debug] [2024-10-16T12:21:41.332Z] Setting GAC to C:\Users\eakol\AppData\Roaming\firebase\eakoledoye_gmail_com_application_default_credentials.json {"metadata":{"emulator":{"name":"functions"},"message":"Setting GAC to C:\\Users\\eakol\\AppData\\Roaming\\firebase\\eakoledoye_gmail_com_application_default_credentials.json"}}
+[info] +  functions: Loaded functions definitions from source: showDB, verifyUser, addUser. {"metadata":{"emulator":{"name":"functions"},"message":"Loaded functions definitions from source: showDB, verifyUser, addUser."}}
+[debug] [2024-10-16T12:21:44.875Z] File C:\Users\eakol\OneDrive\Desktop\Emmanuel K\college stuff\year 3\Agile Processes\Sports-Arena\functions\clientSideTest.js changed, reloading triggers {"metadata":{"emulator":{"name":"functions"},"message":"File C:\\Users\\eakol\\OneDrive\\Desktop\\Emmanuel K\\college stuff\\year 3\\Agile Processes\\Sports-Arena\\functions\\clientSideTest.js changed, reloading triggers"}}
+[debug] [2024-10-16T12:21:45.889Z] Validating nodejs source
+[debug] [2024-10-16T12:21:46.769Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "scripts": {
+    "shell": "firebase functions:shell",
+    "start": "firebase emulators:start",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "20"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "firebase-admin": "^12.6.0",
+    "firebase-functions": "^6.0.1",
+    "firebase-tools": "^1.2.0"
+  },
+  "devDependencies": {
+    "firebase-functions-test": "^3.1.0"
+  },
+  "private": true
+}
+[debug] [2024-10-16T12:21:46.769Z] Building nodejs source
+[debug] [2024-10-16T12:21:46.769Z] Failed to find version of module node: reached end of search path C:\Users\eakol\OneDrive\Desktop\Emmanuel K\college stuff\year 3\Agile Processes\Sports-Arena\functions\node_modules
+[warn] !  functions: Your requested "node" version "20" doesn't match your global version "18". Using node@18 from host. 
+[debug] [2024-10-16T12:21:46.771Z] Could not find functions.yaml. Must use http discovery
+[debug] [2024-10-16T12:21:46.777Z] Found firebase-functions binary at 'C:\Users\eakol\OneDrive\Desktop\Emmanuel K\college stuff\year 3\Agile Processes\Sports-Arena\functions\node_modules\.bin\firebase-functions'
+[info] Serving at port 8492
+
+[debug] [2024-10-16T12:21:47.525Z] Got response from /__/functions.yaml {"endpoints":{"showDB":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","region":["europe-west2"],"labels":{},"httpsTrigger":{},"entryPoint":"showDB"},"verifyUser":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","region":["europe-west2"],"labels":{},"httpsTrigger":{},"entryPoint":"verifyUser"},"addUser":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","region":["europe-west2"],"labels":{},"httpsTrigger":{},"entryPoint":"addUser"}},"specVersion":"v1alpha1","requiredAPIs":[],"extensions":{}}
+[debug] [2024-10-16T12:21:47.547Z] defaultcredentials: writing to file C:\Users\eakol\AppData\Roaming\firebase\eakoledoye_gmail_com_application_default_credentials.json
+[debug] [2024-10-16T12:21:47.548Z] Setting GAC to C:\Users\eakol\AppData\Roaming\firebase\eakoledoye_gmail_com_application_default_credentials.json {"metadata":{"emulator":{"name":"functions"},"message":"Setting GAC to C:\\Users\\eakol\\AppData\\Roaming\\firebase\\eakoledoye_gmail_com_application_default_credentials.json"}}
+[info] +  functions: Loaded functions definitions from source: showDB, verifyUser, addUser. {"metadata":{"emulator":{"name":"functions"},"message":"Loaded functions definitions from source: showDB, verifyUser, addUser."}}
+[debug] [2024-10-16T12:22:07.955Z] [work-queue] {"queuedWork":["/sports-arena-39a32/europe-west2/verifyUser-2024-10-16T12:22:07.955Z"],"queueLength":1,"runningWork":[],"workRunningCount":0}
+[debug] [2024-10-16T12:22:07.956Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":["/sports-arena-39a32/europe-west2/verifyUser-2024-10-16T12:22:07.955Z"],"workRunningCount":1}
+[debug] [2024-10-16T12:22:07.956Z] Accepted request POST /sports-arena-39a32/europe-west2/verifyUser --> europe-west2-verifyUser
+[debug] [2024-10-16T12:22:07.962Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2024-10-16T12:22:07.963Z] [functions] Got req.url=/sports-arena-39a32/europe-west2/verifyUser, mapping to path=/ {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/sports-arena-39a32/europe-west2/verifyUser, mapping to path=/"}}
+[debug] [2024-10-16T12:22:07.963Z] [worker-pool] Cleaned up workers for europe-west2-showDB: 1 --> 0 {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] Cleaned up workers for europe-west2-showDB: 1 --> 0"}}
+[debug] [2024-10-16T12:22:07.969Z] [worker-pool] addWorker(europe-west2-verifyUser) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] addWorker(europe-west2-verifyUser)"}}
+[debug] [2024-10-16T12:22:07.970Z] [worker-pool] Adding worker with key europe-west2-verifyUser, total=1 {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] Adding worker with key europe-west2-verifyUser, total=1"}}
+[debug] [2024-10-16T12:22:09.274Z] [runtime-status] [16608] Resolved module firebase-admin {"declared":true,"installed":true,"version":"12.6.0","resolution":"C:\\Users\\eakol\\OneDrive\\Desktop\\Emmanuel K\\college stuff\\year 3\\Agile Processes\\Sports-Arena\\functions\\node_modules\\firebase-admin\\lib\\index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"europe-west2-verifyUser"},"extension":{},"message":"[runtime-status] [16608] Resolved module firebase-admin {\"declared\":true,\"installed\":true,\"version\":\"12.6.0\",\"resolution\":\"C:\\\\Users\\\\eakol\\\\OneDrive\\\\Desktop\\\\Emmanuel K\\\\college stuff\\\\year 3\\\\Agile Processes\\\\Sports-Arena\\\\functions\\\\node_modules\\\\firebase-admin\\\\lib\\\\index.js\"}"}}
+[debug] [2024-10-16T12:22:09.275Z] [runtime-status] [16608] Resolved module firebase-functions {"declared":true,"installed":true,"version":"6.0.1","resolution":"C:\\Users\\eakol\\OneDrive\\Desktop\\Emmanuel K\\college stuff\\year 3\\Agile Processes\\Sports-Arena\\functions\\node_modules\\firebase-functions\\lib\\v2\\index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"europe-west2-verifyUser"},"extension":{},"message":"[runtime-status] [16608] Resolved module firebase-functions {\"declared\":true,\"installed\":true,\"version\":\"6.0.1\",\"resolution\":\"C:\\\\Users\\\\eakol\\\\OneDrive\\\\Desktop\\\\Emmanuel K\\\\college stuff\\\\year 3\\\\Agile Processes\\\\Sports-Arena\\\\functions\\\\node_modules\\\\firebase-functions\\\\lib\\\\v2\\\\index.js\"}"}}
+[debug] [2024-10-16T12:22:09.275Z] [runtime-status] [16608] Outgoing network have been stubbed. [{"name":"http","status":"mocked"},{"name":"http","status":"mocked"},{"name":"https","status":"mocked"},{"name":"https","status":"mocked"},{"name":"net","status":"mocked"}] {"metadata":{"emulator":{"name":"functions"},"function":{"name":"europe-west2-verifyUser"},"extension":{},"message":"[runtime-status] [16608] Outgoing network have been stubbed. [{\"name\":\"http\",\"status\":\"mocked\"},{\"name\":\"http\",\"status\":\"mocked\"},{\"name\":\"https\",\"status\":\"mocked\"},{\"name\":\"https\",\"status\":\"mocked\"},{\"name\":\"net\",\"status\":\"mocked\"}]"}}
+[debug] [2024-10-16T12:22:09.276Z] [runtime-status] [16608] Resolved module firebase-functions {"declared":true,"installed":true,"version":"6.0.1","resolution":"C:\\Users\\eakol\\OneDrive\\Desktop\\Emmanuel K\\college stuff\\year 3\\Agile Processes\\Sports-Arena\\functions\\node_modules\\firebase-functions\\lib\\v2\\index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"europe-west2-verifyUser"},"extension":{},"message":"[runtime-status] [16608] Resolved module firebase-functions {\"declared\":true,\"installed\":true,\"version\":\"6.0.1\",\"resolution\":\"C:\\\\Users\\\\eakol\\\\OneDrive\\\\Desktop\\\\Emmanuel K\\\\college stuff\\\\year 3\\\\Agile Processes\\\\Sports-Arena\\\\functions\\\\node_modules\\\\firebase-functions\\\\lib\\\\v2\\\\index.js\"}"}}
+[debug] [2024-10-16T12:22:09.561Z] [runtime-status] [16608] Checked functions.config() {"config":{}} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"europe-west2-verifyUser"},"extension":{},"message":"[runtime-status] [16608] Checked functions.config() {\"config\":{}}"}}
+[debug] [2024-10-16T12:22:09.562Z] [runtime-status] [16608] firebase-functions has been stubbed. {"functionsResolution":{"declared":true,"installed":true,"version":"6.0.1","resolution":"C:\\Users\\eakol\\OneDrive\\Desktop\\Emmanuel K\\college stuff\\year 3\\Agile Processes\\Sports-Arena\\functions\\node_modules\\firebase-functions\\lib\\v2\\index.js"}} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"europe-west2-verifyUser"},"extension":{},"message":"[runtime-status] [16608] firebase-functions has been stubbed. {\"functionsResolution\":{\"declared\":true,\"installed\":true,\"version\":\"6.0.1\",\"resolution\":\"C:\\\\Users\\\\eakol\\\\OneDrive\\\\Desktop\\\\Emmanuel K\\\\college stuff\\\\year 3\\\\Agile Processes\\\\Sports-Arena\\\\functions\\\\node_modules\\\\firebase-functions\\\\lib\\\\v2\\\\index.js\"}}"}}
+[debug] [2024-10-16T12:22:09.564Z] [runtime-status] [16608] Resolved module firebase-functions {"declared":true,"installed":true,"version":"6.0.1","resolution":"C:\\Users\\eakol\\OneDrive\\Desktop\\Emmanuel K\\college stuff\\year 3\\Agile Processes\\Sports-Arena\\functions\\node_modules\\firebase-functions\\lib\\v2\\index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"europe-west2-verifyUser"},"extension":{},"message":"[runtime-status] [16608] Resolved module firebase-functions {\"declared\":true,\"installed\":true,\"version\":\"6.0.1\",\"resolution\":\"C:\\\\Users\\\\eakol\\\\OneDrive\\\\Desktop\\\\Emmanuel K\\\\college stuff\\\\year 3\\\\Agile Processes\\\\Sports-Arena\\\\functions\\\\node_modules\\\\firebase-functions\\\\lib\\\\v2\\\\index.js\"}"}}
+[debug] [2024-10-16T12:22:09.569Z] [runtime-status] [16608] Resolved module firebase-admin {"declared":true,"installed":true,"version":"12.6.0","resolution":"C:\\Users\\eakol\\OneDrive\\Desktop\\Emmanuel K\\college stuff\\year 3\\Agile Processes\\Sports-Arena\\functions\\node_modules\\firebase-admin\\lib\\index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"europe-west2-verifyUser"},"extension":{},"message":"[runtime-status] [16608] Resolved module firebase-admin {\"declared\":true,\"installed\":true,\"version\":\"12.6.0\",\"resolution\":\"C:\\\\Users\\\\eakol\\\\OneDrive\\\\Desktop\\\\Emmanuel K\\\\college stuff\\\\year 3\\\\Agile Processes\\\\Sports-Arena\\\\functions\\\\node_modules\\\\firebase-admin\\\\lib\\\\index.js\"}"}}
+[debug] [2024-10-16T12:22:09.571Z] [runtime-status] [16608] Resolved module firebase-functions {"declared":true,"installed":true,"version":"6.0.1","resolution":"C:\\Users\\eakol\\OneDrive\\Desktop\\Emmanuel K\\college stuff\\year 3\\Agile Processes\\Sports-Arena\\functions\\node_modules\\firebase-functions\\lib\\v2\\index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"europe-west2-verifyUser"},"extension":{},"message":"[runtime-status] [16608] Resolved module firebase-functions {\"declared\":true,\"installed\":true,\"version\":\"6.0.1\",\"resolution\":\"C:\\\\Users\\\\eakol\\\\OneDrive\\\\Desktop\\\\Emmanuel K\\\\college stuff\\\\year 3\\\\Agile Processes\\\\Sports-Arena\\\\functions\\\\node_modules\\\\firebase-functions\\\\lib\\\\v2\\\\index.js\"}"}}
+[debug] [2024-10-16T12:22:09.571Z] [runtime-status] [16608] firebase-admin has been stubbed. {"adminResolution":{"declared":true,"installed":true,"version":"12.6.0","resolution":"C:\\Users\\eakol\\OneDrive\\Desktop\\Emmanuel K\\college stuff\\year 3\\Agile Processes\\Sports-Arena\\functions\\node_modules\\firebase-admin\\lib\\index.js"}} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"europe-west2-verifyUser"},"extension":{},"message":"[runtime-status] [16608] firebase-admin has been stubbed. {\"adminResolution\":{\"declared\":true,\"installed\":true,\"version\":\"12.6.0\",\"resolution\":\"C:\\\\Users\\\\eakol\\\\OneDrive\\\\Desktop\\\\Emmanuel K\\\\college stuff\\\\year 3\\\\Agile Processes\\\\Sports-Arena\\\\functions\\\\node_modules\\\\firebase-admin\\\\lib\\\\index.js\"}}"}}
+[debug] [2024-10-16T12:22:09.765Z] [runtime-status] [16608] Functions runtime initialized. {"cwd":"C:\\Users\\eakol\\OneDrive\\Desktop\\Emmanuel K\\college stuff\\year 3\\Agile Processes\\Sports-Arena\\functions","node_version":"18.17.1"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"europe-west2-verifyUser"},"extension":{},"message":"[runtime-status] [16608] Functions runtime initialized. {\"cwd\":\"C:\\\\Users\\\\eakol\\\\OneDrive\\\\Desktop\\\\Emmanuel K\\\\college stuff\\\\year 3\\\\Agile Processes\\\\Sports-Arena\\\\functions\",\"node_version\":\"18.17.1\"}"}}
+[debug] [2024-10-16T12:22:09.765Z] [runtime-status] [16608] Listening to port: \\?\pipe\fire_emu_c491c61014086756 {"metadata":{"emulator":{"name":"functions"},"function":{"name":"europe-west2-verifyUser"},"extension":{},"message":"[runtime-status] [16608] Listening to port: \\\\?\\pipe\\fire_emu_c491c61014086756"}}
+[debug] [2024-10-16T12:22:09.828Z] [worker-europe-west2-verifyUser-b4fd86c6-b957-414e-a7da-f421c429bfd9]: IDLE {"metadata":{"emulator":{"name":"functions"},"function":{"name":"europe-west2-verifyUser"},"extension":{},"message":"[worker-europe-west2-verifyUser-b4fd86c6-b957-414e-a7da-f421c429bfd9]: IDLE"}}
+[debug] [2024-10-16T12:22:09.828Z] [worker-pool] submitRequest(triggerId=europe-west2-verifyUser) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=europe-west2-verifyUser)"}}
+[info] i  functions: Beginning execution of "europe-west2-verifyUser" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"europe-west2-verifyUser"},"extension":{},"message":"Beginning execution of \"europe-west2-verifyUser\""}}
+[debug] [2024-10-16T12:22:09.829Z] [worker-europe-west2-verifyUser-b4fd86c6-b957-414e-a7da-f421c429bfd9]: BUSY {"metadata":{"emulator":{"name":"functions"},"function":{"name":"europe-west2-verifyUser"},"extension":{},"message":"[worker-europe-west2-verifyUser-b4fd86c6-b957-414e-a7da-f421c429bfd9]: BUSY"}}
+[debug] [2024-10-16T12:22:10.447Z] Finishing up request with event=pause {"metadata":{"emulator":{"name":"functions"},"function":{"name":"europe-west2-verifyUser"},"extension":{},"message":"Finishing up request with event=pause"}}
+[info] i  functions: Finished "europe-west2-verifyUser" in 617.9655ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"europe-west2-verifyUser"},"extension":{},"message":"Finished \"europe-west2-verifyUser\" in 617.9655ms"}}
+[debug] [2024-10-16T12:22:10.448Z] [worker-europe-west2-verifyUser-b4fd86c6-b957-414e-a7da-f421c429bfd9]: IDLE {"metadata":{"emulator":{"name":"functions"},"function":{"name":"europe-west2-verifyUser"},"extension":{},"message":"[worker-europe-west2-verifyUser-b4fd86c6-b957-414e-a7da-f421c429bfd9]: IDLE"}}
+[debug] [2024-10-16T12:22:10.448Z] Finishing up request with event=finish {"metadata":{"emulator":{"name":"functions"},"function":{"name":"europe-west2-verifyUser"},"extension":{},"message":"Finishing up request with event=finish"}}
+[debug] [2024-10-16T12:22:10.448Z] Finishing up request with event=close {"metadata":{"emulator":{"name":"functions"},"function":{"name":"europe-west2-verifyUser"},"extension":{},"message":"Finishing up request with event=close"}}
+[debug] [2024-10-16T12:22:10.448Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":[],"workRunningCount":0}
+[debug] [2024-10-16T12:22:20.748Z] File C:\Users\eakol\OneDrive\Desktop\Emmanuel K\college stuff\year 3\Agile Processes\Sports-Arena\functions\index.js changed, reloading triggers {"metadata":{"emulator":{"name":"functions"},"message":"File C:\\Users\\eakol\\OneDrive\\Desktop\\Emmanuel K\\college stuff\\year 3\\Agile Processes\\Sports-Arena\\functions\\index.js changed, reloading triggers"}}
+[debug] [2024-10-16T12:22:21.760Z] Validating nodejs source
+[debug] [2024-10-16T12:22:22.754Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "scripts": {
+    "shell": "firebase functions:shell",
+    "start": "firebase emulators:start",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "20"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "firebase-admin": "^12.6.0",
+    "firebase-functions": "^6.0.1",
+    "firebase-tools": "^1.2.0"
+  },
+  "devDependencies": {
+    "firebase-functions-test": "^3.1.0"
+  },
+  "private": true
+}
+[debug] [2024-10-16T12:22:22.754Z] Building nodejs source
+[debug] [2024-10-16T12:22:22.754Z] Failed to find version of module node: reached end of search path C:\Users\eakol\OneDrive\Desktop\Emmanuel K\college stuff\year 3\Agile Processes\Sports-Arena\functions\node_modules
+[warn] !  functions: Your requested "node" version "20" doesn't match your global version "18". Using node@18 from host. 
+[debug] [2024-10-16T12:22:22.758Z] Could not find functions.yaml. Must use http discovery
+[debug] [2024-10-16T12:22:22.769Z] Found firebase-functions binary at 'C:\Users\eakol\OneDrive\Desktop\Emmanuel K\college stuff\year 3\Agile Processes\Sports-Arena\functions\node_modules\.bin\firebase-functions'
+[info] Serving at port 8573
+
+[error] C:\Users\eakol\OneDrive\Desktop\Emmanuel K\college stuff\year 3\Agile Processes\Sports-Arena\functions\index.js:88
+            });
+            ^
+
+SyntaxError: Unexpected token '}'
+    at internalCompileFunction (node:internal/vm:73:18)
+    at wrapSafe (node:internal/modules/cjs/loader:1178:20)
+    at Module._compile (node:internal/modules/cjs/loader:1220:27)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1310:10)
+    at Module.load (node:internal/modules/cjs/loader:1119:32)
+    at Module._load (node:internal/modules/cjs/loader:960:12)
+    at Module.require (node:internal/modules/cjs/loader:1143:19)
+    at require (node:internal/modules/cjs/helpers:121:18)
+    at loadModule (C:\Users\eakol\OneDrive\Desktop\Emmanuel K\college stuff\year 3\Agile Processes\Sports-Arena\functions\node_modules\firebase-functions\lib\runtime\loader.js:40:16)
+    at loadStack (C:\Users\eakol\OneDrive\Desktop\Emmanuel K\college stuff\year 3\Agile Processes\Sports-Arena\functions\node_modules\firebase-functions\lib\runtime\loader.js:157:23)
+
+[debug] [2024-10-16T12:22:23.125Z] Got response code 400; body Failed to generate manifest from function source: SyntaxError: Unexpected token '}'
+[error] !!  functions: Failed to load function definition from source: FirebaseError: Functions codebase could not be analyzed successfully. It may have a syntax or runtime error {"metadata":{"emulator":{"name":"functions"},"message":"Failed to load function definition from source: FirebaseError: Functions codebase could not be analyzed successfully. It may have a syntax or runtime error"}}
+[debug] [2024-10-16T12:22:32.552Z] File C:\Users\eakol\OneDrive\Desktop\Emmanuel K\college stuff\year 3\Agile Processes\Sports-Arena\functions\index.js changed, reloading triggers {"metadata":{"emulator":{"name":"functions"},"message":"File C:\\Users\\eakol\\OneDrive\\Desktop\\Emmanuel K\\college stuff\\year 3\\Agile Processes\\Sports-Arena\\functions\\index.js changed, reloading triggers"}}
+[debug] [2024-10-16T12:22:33.567Z] Validating nodejs source
+[debug] [2024-10-16T12:22:34.408Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "scripts": {
+    "shell": "firebase functions:shell",
+    "start": "firebase emulators:start",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "20"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "firebase-admin": "^12.6.0",
+    "firebase-functions": "^6.0.1",
+    "firebase-tools": "^1.2.0"
+  },
+  "devDependencies": {
+    "firebase-functions-test": "^3.1.0"
+  },
+  "private": true
+}
+[debug] [2024-10-16T12:22:34.408Z] Building nodejs source
+[debug] [2024-10-16T12:22:34.409Z] Failed to find version of module node: reached end of search path C:\Users\eakol\OneDrive\Desktop\Emmanuel K\college stuff\year 3\Agile Processes\Sports-Arena\functions\node_modules
+[warn] !  functions: Your requested "node" version "20" doesn't match your global version "18". Using node@18 from host. 
+[debug] [2024-10-16T12:22:34.411Z] Could not find functions.yaml. Must use http discovery
+[debug] [2024-10-16T12:22:34.418Z] Found firebase-functions binary at 'C:\Users\eakol\OneDrive\Desktop\Emmanuel K\college stuff\year 3\Agile Processes\Sports-Arena\functions\node_modules\.bin\firebase-functions'
+[info] Serving at port 8766
+
+[debug] [2024-10-16T12:22:35.194Z] Got response from /__/functions.yaml {"endpoints":{"showDB":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","region":["europe-west2"],"labels":{},"httpsTrigger":{},"entryPoint":"showDB"},"verifyUser":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","region":["europe-west2"],"labels":{},"httpsTrigger":{},"entryPoint":"verifyUser"},"addUser":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","region":["europe-west2"],"labels":{},"httpsTrigger":{},"entryPoint":"addUser"}},"specVersion":"v1alpha1","requiredAPIs":[],"extensions":{}}
+[debug] [2024-10-16T12:22:35.218Z] defaultcredentials: writing to file C:\Users\eakol\AppData\Roaming\firebase\eakoledoye_gmail_com_application_default_credentials.json
+[debug] [2024-10-16T12:22:35.219Z] Setting GAC to C:\Users\eakol\AppData\Roaming\firebase\eakoledoye_gmail_com_application_default_credentials.json {"metadata":{"emulator":{"name":"functions"},"message":"Setting GAC to C:\\Users\\eakol\\AppData\\Roaming\\firebase\\eakoledoye_gmail_com_application_default_credentials.json"}}
+[info] +  functions: Loaded functions definitions from source: showDB, verifyUser, addUser. {"metadata":{"emulator":{"name":"functions"},"message":"Loaded functions definitions from source: showDB, verifyUser, addUser."}}
+[debug] [2024-10-16T12:22:35.219Z] [worker-pool] Shutting down IDLE worker (europe-west2-verifyUser) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] Shutting down IDLE worker (europe-west2-verifyUser)"}}
+[debug] [2024-10-16T12:22:35.219Z] [worker-europe-west2-verifyUser-b4fd86c6-b957-414e-a7da-f421c429bfd9]: FINISHING {"metadata":{"emulator":{"name":"functions"},"function":{"name":"europe-west2-verifyUser"},"extension":{},"message":"[worker-europe-west2-verifyUser-b4fd86c6-b957-414e-a7da-f421c429bfd9]: FINISHING"}}
+[debug] [2024-10-16T12:22:35.235Z] [worker-europe-west2-verifyUser-b4fd86c6-b957-414e-a7da-f421c429bfd9]: exited {"metadata":{"emulator":{"name":"functions"},"function":{"name":"europe-west2-verifyUser"},"extension":{},"message":"[worker-europe-west2-verifyUser-b4fd86c6-b957-414e-a7da-f421c429bfd9]: exited"}}
+[debug] [2024-10-16T12:22:35.235Z] [worker-europe-west2-verifyUser-b4fd86c6-b957-414e-a7da-f421c429bfd9]: FINISHED {"metadata":{"emulator":{"name":"functions"},"function":{"name":"europe-west2-verifyUser"},"extension":{},"message":"[worker-europe-west2-verifyUser-b4fd86c6-b957-414e-a7da-f421c429bfd9]: FINISHED"}}
+[debug] [2024-10-16T12:22:37.225Z] [work-queue] {"queuedWork":["/sports-arena-39a32/europe-west2/verifyUser-2024-10-16T12:22:37.225Z"],"queueLength":1,"runningWork":[],"workRunningCount":0}
+[debug] [2024-10-16T12:22:37.225Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":["/sports-arena-39a32/europe-west2/verifyUser-2024-10-16T12:22:37.225Z"],"workRunningCount":1}
+[debug] [2024-10-16T12:22:37.225Z] Accepted request POST /sports-arena-39a32/europe-west2/verifyUser --> europe-west2-verifyUser
+[debug] [2024-10-16T12:22:37.226Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2024-10-16T12:22:37.227Z] [functions] Got req.url=/sports-arena-39a32/europe-west2/verifyUser, mapping to path=/ {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/sports-arena-39a32/europe-west2/verifyUser, mapping to path=/"}}
+[debug] [2024-10-16T12:22:37.227Z] [worker-pool] Cleaned up workers for europe-west2-verifyUser: 1 --> 0 {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] Cleaned up workers for europe-west2-verifyUser: 1 --> 0"}}
+[debug] [2024-10-16T12:22:37.233Z] [worker-pool] addWorker(europe-west2-verifyUser) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] addWorker(europe-west2-verifyUser)"}}
+[debug] [2024-10-16T12:22:37.233Z] [worker-pool] Adding worker with key europe-west2-verifyUser, total=1 {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] Adding worker with key europe-west2-verifyUser, total=1"}}
+[debug] [2024-10-16T12:22:38.572Z] [runtime-status] [12916] Resolved module firebase-admin {"declared":true,"installed":true,"version":"12.6.0","resolution":"C:\\Users\\eakol\\OneDrive\\Desktop\\Emmanuel K\\college stuff\\year 3\\Agile Processes\\Sports-Arena\\functions\\node_modules\\firebase-admin\\lib\\index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"europe-west2-verifyUser"},"extension":{},"message":"[runtime-status] [12916] Resolved module firebase-admin {\"declared\":true,\"installed\":true,\"version\":\"12.6.0\",\"resolution\":\"C:\\\\Users\\\\eakol\\\\OneDrive\\\\Desktop\\\\Emmanuel K\\\\college stuff\\\\year 3\\\\Agile Processes\\\\Sports-Arena\\\\functions\\\\node_modules\\\\firebase-admin\\\\lib\\\\index.js\"}"}}
+[debug] [2024-10-16T12:22:38.574Z] [runtime-status] [12916] Resolved module firebase-functions {"declared":true,"installed":true,"version":"6.0.1","resolution":"C:\\Users\\eakol\\OneDrive\\Desktop\\Emmanuel K\\college stuff\\year 3\\Agile Processes\\Sports-Arena\\functions\\node_modules\\firebase-functions\\lib\\v2\\index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"europe-west2-verifyUser"},"extension":{},"message":"[runtime-status] [12916] Resolved module firebase-functions {\"declared\":true,\"installed\":true,\"version\":\"6.0.1\",\"resolution\":\"C:\\\\Users\\\\eakol\\\\OneDrive\\\\Desktop\\\\Emmanuel K\\\\college stuff\\\\year 3\\\\Agile Processes\\\\Sports-Arena\\\\functions\\\\node_modules\\\\firebase-functions\\\\lib\\\\v2\\\\index.js\"}"}}
+[debug] [2024-10-16T12:22:38.574Z] [runtime-status] [12916] Outgoing network have been stubbed. [{"name":"http","status":"mocked"},{"name":"http","status":"mocked"},{"name":"https","status":"mocked"},{"name":"https","status":"mocked"},{"name":"net","status":"mocked"}] {"metadata":{"emulator":{"name":"functions"},"function":{"name":"europe-west2-verifyUser"},"extension":{},"message":"[runtime-status] [12916] Outgoing network have been stubbed. [{\"name\":\"http\",\"status\":\"mocked\"},{\"name\":\"http\",\"status\":\"mocked\"},{\"name\":\"https\",\"status\":\"mocked\"},{\"name\":\"https\",\"status\":\"mocked\"},{\"name\":\"net\",\"status\":\"mocked\"}]"}}
+[debug] [2024-10-16T12:22:38.575Z] [runtime-status] [12916] Resolved module firebase-functions {"declared":true,"installed":true,"version":"6.0.1","resolution":"C:\\Users\\eakol\\OneDrive\\Desktop\\Emmanuel K\\college stuff\\year 3\\Agile Processes\\Sports-Arena\\functions\\node_modules\\firebase-functions\\lib\\v2\\index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"europe-west2-verifyUser"},"extension":{},"message":"[runtime-status] [12916] Resolved module firebase-functions {\"declared\":true,\"installed\":true,\"version\":\"6.0.1\",\"resolution\":\"C:\\\\Users\\\\eakol\\\\OneDrive\\\\Desktop\\\\Emmanuel K\\\\college stuff\\\\year 3\\\\Agile Processes\\\\Sports-Arena\\\\functions\\\\node_modules\\\\firebase-functions\\\\lib\\\\v2\\\\index.js\"}"}}
+[debug] [2024-10-16T12:22:38.854Z] [runtime-status] [12916] Checked functions.config() {"config":{}} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"europe-west2-verifyUser"},"extension":{},"message":"[runtime-status] [12916] Checked functions.config() {\"config\":{}}"}}
+[debug] [2024-10-16T12:22:38.854Z] [runtime-status] [12916] firebase-functions has been stubbed. {"functionsResolution":{"declared":true,"installed":true,"version":"6.0.1","resolution":"C:\\Users\\eakol\\OneDrive\\Desktop\\Emmanuel K\\college stuff\\year 3\\Agile Processes\\Sports-Arena\\functions\\node_modules\\firebase-functions\\lib\\v2\\index.js"}} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"europe-west2-verifyUser"},"extension":{},"message":"[runtime-status] [12916] firebase-functions has been stubbed. {\"functionsResolution\":{\"declared\":true,\"installed\":true,\"version\":\"6.0.1\",\"resolution\":\"C:\\\\Users\\\\eakol\\\\OneDrive\\\\Desktop\\\\Emmanuel K\\\\college stuff\\\\year 3\\\\Agile Processes\\\\Sports-Arena\\\\functions\\\\node_modules\\\\firebase-functions\\\\lib\\\\v2\\\\index.js\"}}"}}
+[debug] [2024-10-16T12:22:38.855Z] [runtime-status] [12916] Resolved module firebase-functions {"declared":true,"installed":true,"version":"6.0.1","resolution":"C:\\Users\\eakol\\OneDrive\\Desktop\\Emmanuel K\\college stuff\\year 3\\Agile Processes\\Sports-Arena\\functions\\node_modules\\firebase-functions\\lib\\v2\\index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"europe-west2-verifyUser"},"extension":{},"message":"[runtime-status] [12916] Resolved module firebase-functions {\"declared\":true,\"installed\":true,\"version\":\"6.0.1\",\"resolution\":\"C:\\\\Users\\\\eakol\\\\OneDrive\\\\Desktop\\\\Emmanuel K\\\\college stuff\\\\year 3\\\\Agile Processes\\\\Sports-Arena\\\\functions\\\\node_modules\\\\firebase-functions\\\\lib\\\\v2\\\\index.js\"}"}}
+[debug] [2024-10-16T12:22:38.858Z] [runtime-status] [12916] Resolved module firebase-admin {"declared":true,"installed":true,"version":"12.6.0","resolution":"C:\\Users\\eakol\\OneDrive\\Desktop\\Emmanuel K\\college stuff\\year 3\\Agile Processes\\Sports-Arena\\functions\\node_modules\\firebase-admin\\lib\\index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"europe-west2-verifyUser"},"extension":{},"message":"[runtime-status] [12916] Resolved module firebase-admin {\"declared\":true,\"installed\":true,\"version\":\"12.6.0\",\"resolution\":\"C:\\\\Users\\\\eakol\\\\OneDrive\\\\Desktop\\\\Emmanuel K\\\\college stuff\\\\year 3\\\\Agile Processes\\\\Sports-Arena\\\\functions\\\\node_modules\\\\firebase-admin\\\\lib\\\\index.js\"}"}}
+[debug] [2024-10-16T12:22:38.860Z] [runtime-status] [12916] Resolved module firebase-functions {"declared":true,"installed":true,"version":"6.0.1","resolution":"C:\\Users\\eakol\\OneDrive\\Desktop\\Emmanuel K\\college stuff\\year 3\\Agile Processes\\Sports-Arena\\functions\\node_modules\\firebase-functions\\lib\\v2\\index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"europe-west2-verifyUser"},"extension":{},"message":"[runtime-status] [12916] Resolved module firebase-functions {\"declared\":true,\"installed\":true,\"version\":\"6.0.1\",\"resolution\":\"C:\\\\Users\\\\eakol\\\\OneDrive\\\\Desktop\\\\Emmanuel K\\\\college stuff\\\\year 3\\\\Agile Processes\\\\Sports-Arena\\\\functions\\\\node_modules\\\\firebase-functions\\\\lib\\\\v2\\\\index.js\"}"}}
+[debug] [2024-10-16T12:22:38.860Z] [runtime-status] [12916] firebase-admin has been stubbed. {"adminResolution":{"declared":true,"installed":true,"version":"12.6.0","resolution":"C:\\Users\\eakol\\OneDrive\\Desktop\\Emmanuel K\\college stuff\\year 3\\Agile Processes\\Sports-Arena\\functions\\node_modules\\firebase-admin\\lib\\index.js"}} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"europe-west2-verifyUser"},"extension":{},"message":"[runtime-status] [12916] firebase-admin has been stubbed. {\"adminResolution\":{\"declared\":true,\"installed\":true,\"version\":\"12.6.0\",\"resolution\":\"C:\\\\Users\\\\eakol\\\\OneDrive\\\\Desktop\\\\Emmanuel K\\\\college stuff\\\\year 3\\\\Agile Processes\\\\Sports-Arena\\\\functions\\\\node_modules\\\\firebase-admin\\\\lib\\\\index.js\"}}"}}
+[debug] [2024-10-16T12:22:39.026Z] [runtime-status] [12916] Functions runtime initialized. {"cwd":"C:\\Users\\eakol\\OneDrive\\Desktop\\Emmanuel K\\college stuff\\year 3\\Agile Processes\\Sports-Arena\\functions","node_version":"18.17.1"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"europe-west2-verifyUser"},"extension":{},"message":"[runtime-status] [12916] Functions runtime initialized. {\"cwd\":\"C:\\\\Users\\\\eakol\\\\OneDrive\\\\Desktop\\\\Emmanuel K\\\\college stuff\\\\year 3\\\\Agile Processes\\\\Sports-Arena\\\\functions\",\"node_version\":\"18.17.1\"}"}}
+[debug] [2024-10-16T12:22:39.027Z] [runtime-status] [12916] Listening to port: \\?\pipe\fire_emu_e9db85965b567109 {"metadata":{"emulator":{"name":"functions"},"function":{"name":"europe-west2-verifyUser"},"extension":{},"message":"[runtime-status] [12916] Listening to port: \\\\?\\pipe\\fire_emu_e9db85965b567109"}}
+[debug] [2024-10-16T12:22:39.080Z] [worker-europe-west2-verifyUser-cb00bd73-f32a-4758-8848-7b3b80e56452]: IDLE {"metadata":{"emulator":{"name":"functions"},"function":{"name":"europe-west2-verifyUser"},"extension":{},"message":"[worker-europe-west2-verifyUser-cb00bd73-f32a-4758-8848-7b3b80e56452]: IDLE"}}
+[debug] [2024-10-16T12:22:39.080Z] [worker-pool] submitRequest(triggerId=europe-west2-verifyUser) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=europe-west2-verifyUser)"}}
+[info] i  functions: Beginning execution of "europe-west2-verifyUser" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"europe-west2-verifyUser"},"extension":{},"message":"Beginning execution of \"europe-west2-verifyUser\""}}
+[debug] [2024-10-16T12:22:39.081Z] [worker-europe-west2-verifyUser-cb00bd73-f32a-4758-8848-7b3b80e56452]: BUSY {"metadata":{"emulator":{"name":"functions"},"function":{"name":"europe-west2-verifyUser"},"extension":{},"message":"[worker-europe-west2-verifyUser-cb00bd73-f32a-4758-8848-7b3b80e56452]: BUSY"}}
+[debug] [2024-10-16T12:22:39.716Z] Finishing up request with event=pause {"metadata":{"emulator":{"name":"functions"},"function":{"name":"europe-west2-verifyUser"},"extension":{},"message":"Finishing up request with event=pause"}}
+[info] i  functions: Finished "europe-west2-verifyUser" in 635.4448ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"europe-west2-verifyUser"},"extension":{},"message":"Finished \"europe-west2-verifyUser\" in 635.4448ms"}}
+[debug] [2024-10-16T12:22:39.718Z] [worker-europe-west2-verifyUser-cb00bd73-f32a-4758-8848-7b3b80e56452]: IDLE {"metadata":{"emulator":{"name":"functions"},"function":{"name":"europe-west2-verifyUser"},"extension":{},"message":"[worker-europe-west2-verifyUser-cb00bd73-f32a-4758-8848-7b3b80e56452]: IDLE"}}
+[debug] [2024-10-16T12:22:39.718Z] Finishing up request with event=finish {"metadata":{"emulator":{"name":"functions"},"function":{"name":"europe-west2-verifyUser"},"extension":{},"message":"Finishing up request with event=finish"}}
+[debug] [2024-10-16T12:22:39.718Z] Finishing up request with event=close {"metadata":{"emulator":{"name":"functions"},"function":{"name":"europe-west2-verifyUser"},"extension":{},"message":"Finishing up request with event=close"}}
+[debug] [2024-10-16T12:22:39.718Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":[],"workRunningCount":0}
+[debug] [2024-10-16T12:22:50.998Z] File C:\Users\eakol\OneDrive\Desktop\Emmanuel K\college stuff\year 3\Agile Processes\Sports-Arena\functions\index.js changed, reloading triggers {"metadata":{"emulator":{"name":"functions"},"message":"File C:\\Users\\eakol\\OneDrive\\Desktop\\Emmanuel K\\college stuff\\year 3\\Agile Processes\\Sports-Arena\\functions\\index.js changed, reloading triggers"}}
+[debug] [2024-10-16T12:22:52.007Z] Validating nodejs source
+[debug] [2024-10-16T12:22:52.904Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "scripts": {
+    "shell": "firebase functions:shell",
+    "start": "firebase emulators:start",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "20"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "firebase-admin": "^12.6.0",
+    "firebase-functions": "^6.0.1",
+    "firebase-tools": "^1.2.0"
+  },
+  "devDependencies": {
+    "firebase-functions-test": "^3.1.0"
+  },
+  "private": true
+}
+[debug] [2024-10-16T12:22:52.904Z] Building nodejs source
+[debug] [2024-10-16T12:22:52.904Z] Failed to find version of module node: reached end of search path C:\Users\eakol\OneDrive\Desktop\Emmanuel K\college stuff\year 3\Agile Processes\Sports-Arena\functions\node_modules
+[warn] !  functions: Your requested "node" version "20" doesn't match your global version "18". Using node@18 from host. 
+[debug] [2024-10-16T12:22:52.906Z] Could not find functions.yaml. Must use http discovery
+[debug] [2024-10-16T12:22:52.910Z] Found firebase-functions binary at 'C:\Users\eakol\OneDrive\Desktop\Emmanuel K\college stuff\year 3\Agile Processes\Sports-Arena\functions\node_modules\.bin\firebase-functions'
+[info] Serving at port 8035
+
+[error] C:\Users\eakol\OneDrive\Desktop\Emmanuel K\college stuff\year 3\Agile Processes\Sports-Arena\functions\index.js:88
+                'creds': db[key]
+                ^^^^^^^
+
+SyntaxError: Unexpected string
+    at internalCompileFunction (node:internal/vm:73:18)
+    at wrapSafe (node:internal/modules/cjs/loader:1178:20)
+    at Module._compile (node:internal/modules/cjs/loader:1220:27)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1310:10)
+    at Module.load (node:internal/modules/cjs/loader:1119:32)
+    at Module._load (node:internal/modules/cjs/loader:960:12)
+    at Module.require (node:internal/modules/cjs/loader:1143:19)
+    at require (node:internal/modules/cjs/helpers:121:18)
+    at loadModule (C:\Users\eakol\OneDrive\Desktop\Emmanuel K\college stuff\year 3\Agile Processes\Sports-Arena\functions\node_modules\firebase-functions\lib\runtime\loader.js:40:16)
+    at loadStack (C:\Users\eakol\OneDrive\Desktop\Emmanuel K\college stuff\year 3\Agile Processes\Sports-Arena\functions\node_modules\firebase-functions\lib\runtime\loader.js:157:23)
+
+[debug] [2024-10-16T12:22:53.263Z] Got response code 400; body Failed to generate manifest from function source: SyntaxError: Unexpected string
+[error] !!  functions: Failed to load function definition from source: FirebaseError: Functions codebase could not be analyzed successfully. It may have a syntax or runtime error {"metadata":{"emulator":{"name":"functions"},"message":"Failed to load function definition from source: FirebaseError: Functions codebase could not be analyzed successfully. It may have a syntax or runtime error"}}
+[debug] [2024-10-16T12:23:02.043Z] File C:\Users\eakol\OneDrive\Desktop\Emmanuel K\college stuff\year 3\Agile Processes\Sports-Arena\functions\index.js changed, reloading triggers {"metadata":{"emulator":{"name":"functions"},"message":"File C:\\Users\\eakol\\OneDrive\\Desktop\\Emmanuel K\\college stuff\\year 3\\Agile Processes\\Sports-Arena\\functions\\index.js changed, reloading triggers"}}
+[debug] [2024-10-16T12:23:03.058Z] Validating nodejs source
+[debug] [2024-10-16T12:23:03.957Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "scripts": {
+    "shell": "firebase functions:shell",
+    "start": "firebase emulators:start",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "20"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "firebase-admin": "^12.6.0",
+    "firebase-functions": "^6.0.1",
+    "firebase-tools": "^1.2.0"
+  },
+  "devDependencies": {
+    "firebase-functions-test": "^3.1.0"
+  },
+  "private": true
+}
+[debug] [2024-10-16T12:23:03.958Z] Building nodejs source
+[debug] [2024-10-16T12:23:03.958Z] Failed to find version of module node: reached end of search path C:\Users\eakol\OneDrive\Desktop\Emmanuel K\college stuff\year 3\Agile Processes\Sports-Arena\functions\node_modules
+[warn] !  functions: Your requested "node" version "20" doesn't match your global version "18". Using node@18 from host. 
+[debug] [2024-10-16T12:23:03.960Z] Could not find functions.yaml. Must use http discovery
+[debug] [2024-10-16T12:23:03.967Z] Found firebase-functions binary at 'C:\Users\eakol\OneDrive\Desktop\Emmanuel K\college stuff\year 3\Agile Processes\Sports-Arena\functions\node_modules\.bin\firebase-functions'
+[info] Serving at port 8729
+
+[error] C:\Users\eakol\OneDrive\Desktop\Emmanuel K\college stuff\year 3\Agile Processes\Sports-Arena\functions\index.js:86
+            res.status(200).json({
+            ^^^
+
+SyntaxError: Unexpected identifier
+    at internalCompileFunction (node:internal/vm:73:18)
+    at wrapSafe (node:internal/modules/cjs/loader:1178:20)
+    at Module._compile (node:internal/modules/cjs/loader:1220:27)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1310:10)
+    at Module.load (node:internal/modules/cjs/loader:1119:32)
+    at Module._load (node:internal/modules/cjs/loader:960:12)
+    at Module.require (node:internal/modules/cjs/loader:1143:19)
+    at require (node:internal/modules/cjs/helpers:121:18)
+    at loadModule (C:\Users\eakol\OneDrive\Desktop\Emmanuel K\college stuff\year 3\Agile Processes\Sports-Arena\functions\node_modules\firebase-functions\lib\runtime\loader.js:40:16)
+    at loadStack (C:\Users\eakol\OneDrive\Desktop\Emmanuel K\college stuff\year 3\Agile Processes\Sports-Arena\functions\node_modules\firebase-functions\lib\runtime\loader.js:157:23)
+
+[debug] [2024-10-16T12:23:04.310Z] Got response code 400; body Failed to generate manifest from function source: SyntaxError: Unexpected identifier
+[error] !!  functions: Failed to load function definition from source: FirebaseError: Functions codebase could not be analyzed successfully. It may have a syntax or runtime error {"metadata":{"emulator":{"name":"functions"},"message":"Failed to load function definition from source: FirebaseError: Functions codebase could not be analyzed successfully. It may have a syntax or runtime error"}}
+[debug] [2024-10-16T12:23:10.518Z] File C:\Users\eakol\OneDrive\Desktop\Emmanuel K\college stuff\year 3\Agile Processes\Sports-Arena\functions\index.js changed, reloading triggers {"metadata":{"emulator":{"name":"functions"},"message":"File C:\\Users\\eakol\\OneDrive\\Desktop\\Emmanuel K\\college stuff\\year 3\\Agile Processes\\Sports-Arena\\functions\\index.js changed, reloading triggers"}}
+[debug] [2024-10-16T12:23:11.526Z] Validating nodejs source
+[debug] [2024-10-16T12:23:12.417Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "scripts": {
+    "shell": "firebase functions:shell",
+    "start": "firebase emulators:start",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "20"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "firebase-admin": "^12.6.0",
+    "firebase-functions": "^6.0.1",
+    "firebase-tools": "^1.2.0"
+  },
+  "devDependencies": {
+    "firebase-functions-test": "^3.1.0"
+  },
+  "private": true
+}
+[debug] [2024-10-16T12:23:12.417Z] Building nodejs source
+[debug] [2024-10-16T12:23:12.418Z] Failed to find version of module node: reached end of search path C:\Users\eakol\OneDrive\Desktop\Emmanuel K\college stuff\year 3\Agile Processes\Sports-Arena\functions\node_modules
+[warn] !  functions: Your requested "node" version "20" doesn't match your global version "18". Using node@18 from host. 
+[debug] [2024-10-16T12:23:12.419Z] Could not find functions.yaml. Must use http discovery
+[debug] [2024-10-16T12:23:12.426Z] Found firebase-functions binary at 'C:\Users\eakol\OneDrive\Desktop\Emmanuel K\college stuff\year 3\Agile Processes\Sports-Arena\functions\node_modules\.bin\firebase-functions'
+[info] Serving at port 8638
+
+[error] C:\Users\eakol\OneDrive\Desktop\Emmanuel K\college stuff\year 3\Agile Processes\Sports-Arena\functions\index.js:88
+                'creds': db[key]
+                ^^^^^^^
+
+SyntaxError: Unexpected string
+    at internalCompileFunction (node:internal/vm:73:18)
+    at wrapSafe (node:internal/modules/cjs/loader:1178:20)
+    at Module._compile (node:internal/modules/cjs/loader:1220:27)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1310:10)
+    at Module.load (node:internal/modules/cjs/loader:1119:32)
+    at Module._load (node:internal/modules/cjs/loader:960:12)
+    at Module.require (node:internal/modules/cjs/loader:1143:19)
+    at require (node:internal/modules/cjs/helpers:121:18)
+    at loadModule (C:\Users\eakol\OneDrive\Desktop\Emmanuel K\college stuff\year 3\Agile Processes\Sports-Arena\functions\node_modules\firebase-functions\lib\runtime\loader.js:40:16)
+    at loadStack (C:\Users\eakol\OneDrive\Desktop\Emmanuel K\college stuff\year 3\Agile Processes\Sports-Arena\functions\node_modules\firebase-functions\lib\runtime\loader.js:157:23)
+
+[debug] [2024-10-16T12:23:12.925Z] Got response code 400; body Failed to generate manifest from function source: SyntaxError: Unexpected string
+[error] !!  functions: Failed to load function definition from source: FirebaseError: Functions codebase could not be analyzed successfully. It may have a syntax or runtime error {"metadata":{"emulator":{"name":"functions"},"message":"Failed to load function definition from source: FirebaseError: Functions codebase could not be analyzed successfully. It may have a syntax or runtime error"}}
+[debug] [2024-10-16T12:23:23.003Z] File C:\Users\eakol\OneDrive\Desktop\Emmanuel K\college stuff\year 3\Agile Processes\Sports-Arena\functions\index.js changed, reloading triggers {"metadata":{"emulator":{"name":"functions"},"message":"File C:\\Users\\eakol\\OneDrive\\Desktop\\Emmanuel K\\college stuff\\year 3\\Agile Processes\\Sports-Arena\\functions\\index.js changed, reloading triggers"}}
+[debug] [2024-10-16T12:23:24.006Z] Validating nodejs source
+[debug] [2024-10-16T12:23:24.922Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "scripts": {
+    "shell": "firebase functions:shell",
+    "start": "firebase emulators:start",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "20"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "firebase-admin": "^12.6.0",
+    "firebase-functions": "^6.0.1",
+    "firebase-tools": "^1.2.0"
+  },
+  "devDependencies": {
+    "firebase-functions-test": "^3.1.0"
+  },
+  "private": true
+}
+[debug] [2024-10-16T12:23:24.922Z] Building nodejs source
+[debug] [2024-10-16T12:23:24.922Z] Failed to find version of module node: reached end of search path C:\Users\eakol\OneDrive\Desktop\Emmanuel K\college stuff\year 3\Agile Processes\Sports-Arena\functions\node_modules
+[warn] !  functions: Your requested "node" version "20" doesn't match your global version "18". Using node@18 from host. 
+[debug] [2024-10-16T12:23:24.924Z] Could not find functions.yaml. Must use http discovery
+[debug] [2024-10-16T12:23:24.931Z] Found firebase-functions binary at 'C:\Users\eakol\OneDrive\Desktop\Emmanuel K\college stuff\year 3\Agile Processes\Sports-Arena\functions\node_modules\.bin\firebase-functions'
+[info] Serving at port 8629
+
+[error] C:\Users\eakol\OneDrive\Desktop\Emmanuel K\college stuff\year 3\Agile Processes\Sports-Arena\functions\index.js:88
+                'creds': db[key]
+                ^^^^^^^
+
+SyntaxError: Unexpected string
+    at internalCompileFunction (node:internal/vm:73:18)
+    at wrapSafe (node:internal/modules/cjs/loader:1178:20)
+    at Module._compile (node:internal/modules/cjs/loader:1220:27)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1310:10)
+    at Module.load (node:internal/modules/cjs/loader:1119:32)
+    at Module._load (node:internal/modules/cjs/loader:960:12)
+    at Module.require (node:internal/modules/cjs/loader:1143:19)
+    at require (node:internal/modules/cjs/helpers:121:18)
+    at loadModule (C:\Users\eakol\OneDrive\Desktop\Emmanuel K\college stuff\year 3\Agile Processes\Sports-Arena\functions\node_modules\firebase-functions\lib\runtime\loader.js:40:16)
+    at loadStack (C:\Users\eakol\OneDrive\Desktop\Emmanuel K\college stuff\year 3\Agile Processes\Sports-Arena\functions\node_modules\firebase-functions\lib\runtime\loader.js:157:23)
+
+[debug] [2024-10-16T12:23:25.232Z] Got response code 400; body Failed to generate manifest from function source: SyntaxError: Unexpected string
+[error] !!  functions: Failed to load function definition from source: FirebaseError: Functions codebase could not be analyzed successfully. It may have a syntax or runtime error {"metadata":{"emulator":{"name":"functions"},"message":"Failed to load function definition from source: FirebaseError: Functions codebase could not be analyzed successfully. It may have a syntax or runtime error"}}
+[debug] [2024-10-16T12:23:26.408Z] File C:\Users\eakol\OneDrive\Desktop\Emmanuel K\college stuff\year 3\Agile Processes\Sports-Arena\functions\index.js changed, reloading triggers {"metadata":{"emulator":{"name":"functions"},"message":"File C:\\Users\\eakol\\OneDrive\\Desktop\\Emmanuel K\\college stuff\\year 3\\Agile Processes\\Sports-Arena\\functions\\index.js changed, reloading triggers"}}
+[debug] [2024-10-16T12:23:27.416Z] Validating nodejs source
+[debug] [2024-10-16T12:23:28.260Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "scripts": {
+    "shell": "firebase functions:shell",
+    "start": "firebase emulators:start",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "20"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "firebase-admin": "^12.6.0",
+    "firebase-functions": "^6.0.1",
+    "firebase-tools": "^1.2.0"
+  },
+  "devDependencies": {
+    "firebase-functions-test": "^3.1.0"
+  },
+  "private": true
+}
+[debug] [2024-10-16T12:23:28.261Z] Building nodejs source
+[debug] [2024-10-16T12:23:28.261Z] Failed to find version of module node: reached end of search path C:\Users\eakol\OneDrive\Desktop\Emmanuel K\college stuff\year 3\Agile Processes\Sports-Arena\functions\node_modules
+[warn] !  functions: Your requested "node" version "20" doesn't match your global version "18". Using node@18 from host. 
+[debug] [2024-10-16T12:23:28.262Z] Could not find functions.yaml. Must use http discovery
+[debug] [2024-10-16T12:23:28.268Z] Found firebase-functions binary at 'C:\Users\eakol\OneDrive\Desktop\Emmanuel K\college stuff\year 3\Agile Processes\Sports-Arena\functions\node_modules\.bin\firebase-functions'
+[info] Serving at port 8495
+
+[debug] [2024-10-16T12:23:29.137Z] Got response from /__/functions.yaml {"endpoints":{"showDB":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","region":["europe-west2"],"labels":{},"httpsTrigger":{},"entryPoint":"showDB"},"verifyUser":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","region":["europe-west2"],"labels":{},"httpsTrigger":{},"entryPoint":"verifyUser"},"addUser":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","region":["europe-west2"],"labels":{},"httpsTrigger":{},"entryPoint":"addUser"}},"specVersion":"v1alpha1","requiredAPIs":[],"extensions":{}}
+[debug] [2024-10-16T12:23:29.165Z] defaultcredentials: writing to file C:\Users\eakol\AppData\Roaming\firebase\eakoledoye_gmail_com_application_default_credentials.json
+[debug] [2024-10-16T12:23:29.166Z] Setting GAC to C:\Users\eakol\AppData\Roaming\firebase\eakoledoye_gmail_com_application_default_credentials.json {"metadata":{"emulator":{"name":"functions"},"message":"Setting GAC to C:\\Users\\eakol\\AppData\\Roaming\\firebase\\eakoledoye_gmail_com_application_default_credentials.json"}}
+[info] +  functions: Loaded functions definitions from source: showDB, verifyUser, addUser. {"metadata":{"emulator":{"name":"functions"},"message":"Loaded functions definitions from source: showDB, verifyUser, addUser."}}
+[debug] [2024-10-16T12:23:29.168Z] [worker-pool] Shutting down IDLE worker (europe-west2-verifyUser) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] Shutting down IDLE worker (europe-west2-verifyUser)"}}
+[debug] [2024-10-16T12:23:29.168Z] [worker-europe-west2-verifyUser-cb00bd73-f32a-4758-8848-7b3b80e56452]: FINISHING {"metadata":{"emulator":{"name":"functions"},"function":{"name":"europe-west2-verifyUser"},"extension":{},"message":"[worker-europe-west2-verifyUser-cb00bd73-f32a-4758-8848-7b3b80e56452]: FINISHING"}}
+[debug] [2024-10-16T12:23:29.183Z] [worker-europe-west2-verifyUser-cb00bd73-f32a-4758-8848-7b3b80e56452]: exited {"metadata":{"emulator":{"name":"functions"},"function":{"name":"europe-west2-verifyUser"},"extension":{},"message":"[worker-europe-west2-verifyUser-cb00bd73-f32a-4758-8848-7b3b80e56452]: exited"}}
+[debug] [2024-10-16T12:23:29.183Z] [worker-europe-west2-verifyUser-cb00bd73-f32a-4758-8848-7b3b80e56452]: FINISHED {"metadata":{"emulator":{"name":"functions"},"function":{"name":"europe-west2-verifyUser"},"extension":{},"message":"[worker-europe-west2-verifyUser-cb00bd73-f32a-4758-8848-7b3b80e56452]: FINISHED"}}

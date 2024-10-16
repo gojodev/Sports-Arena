@@ -1,14 +1,14 @@
-async function verifyUser() {
+async function verifyUser_client(username, email, password) {
     try {
-        const response = await fetch('http://127.0.0.1:5001/rd-year-project-1f41d/europe-west2/hashCreds', {
+        const response = await fetch('http://127.0.0.1:5001/sports-arena-39a32/europe-west2/verifyUser', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                username: 'user1',
-                email: "user1@gmail.com",
-                password: "user1_password!"
+                username: username,
+                email: email,
+                password: password,
             }),
         });
 
@@ -17,12 +17,16 @@ async function verifyUser() {
         }
 
         const userData = await response.json();
-        console.log('User Credentials:', userData);
+        return userData;
     } catch (error) {
         console.error('Error fetching user data:', error);
     }
 }
 
 
+async function verifyUser_test() {
+    let verdict = await verifyUser_client('user1', 'user1@gmail.com', 'user1_password!')
+    console.log(verdict)
+}
 
-verifyUser()
+verifyUser_test()

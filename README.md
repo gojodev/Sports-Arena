@@ -1,4 +1,3 @@
-
 ```
 Sports-Arena
 ├─ .firebase
@@ -8,6 +7,8 @@ Sports-Arena
 ├─ database
 │  ├─ userCreds(plain).json
 │  └─ userCreds.json
+├─ docs
+│  └─ specs.pdf
 ├─ esbuild.config.js
 ├─ eslint.config.mjs
 ├─ firebase-debug.log

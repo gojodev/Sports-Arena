@@ -1,6 +1,8 @@
 const bcrypt = require('bcrypt')
 
+let hash = bcrypt.hashSync('member', 5)
+console.log(hash) // output is : $2b$05$lRPUzg6wOkQs4b93BvQpGebWQUGUyULH7t5PGwVU09/upfNHrLeVy
 
-let hash = bcrypt.hashSync("First3 Last3", 5)
 
-console.log(hash)
+// $2b$05$Yl4G2jizNe0CdEb7jqTEVOEBwhPOid4lYRkcDzQQJAeTLrnYYpsIi
+// $2b$05$pOayBiURli75wDqkuCJck.bgnT0PlD4pyby.wdE9RiND1zWyGJcTi

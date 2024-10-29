@@ -1,15 +1,16 @@
-async function addUser_client(username, name, email, password) {
+async function updateDetails_client(username, new_email, new_name, new_password) {
     try {
-        const response = await fetch('http://127.0.0.1:5001/sports-arena-39a32/europe-west2/addUser', {
+        const response = await fetch('http://127.0.0.1:5001/sports-arena-39a32/europe-west2/updateDetails', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
                 username: username,
-                name: name,
-                email: email,
-                password: password,
+
+                new_name: new_name,
+                new_email: new_email,
+                new_password: new_password,
             }),
         });
 
@@ -26,7 +27,7 @@ async function addUser_client(username, name, email, password) {
 
 
 async function verifyUser_test() {
-    let verdict = await addUser_client('user4', 'First4 Last4', 'user4@gmail.com', 'user4_password!')
+    let verdict = await updateDetails_client('user2', '_First2 _Last2', 'user_2@gmail.com', '_user2_password!')
     console.log(verdict)
 }
 

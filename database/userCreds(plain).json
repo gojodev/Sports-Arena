@@ -1,14 +1,17 @@
 {
     "user1": {
         "email": "user1@gmail.com",
+        "name": "First1 Last1",
         "password": "user1_password!"
     },
     "user2": {
         "email": "user2@gmail.com",
+        "name": "First2 Last2",
         "password": "user2_password!"
     },
     "user3": {
         "email": "user3@gmail.com",
+        "name": "First3 Last3",
         "password": "user3_password!"
     }
 }

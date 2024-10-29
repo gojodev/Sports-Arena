@@ -1,11 +1,13 @@
 [
     {
         "origin": [
-            "https://sports-arena-39a32.web.app",
-            "http://127.0.0.1:5500"
+            "*"
         ],
         "method": [
-            "GET"
+            "GET",
+            "POST",
+            "UPDATE",
+            "DELETE"
         ],
         "maxAgeSeconds": 3600
     }

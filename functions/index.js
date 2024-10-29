@@ -101,8 +101,7 @@ exports.verifyUser = onRequest({ 'region': 'europe-west2' }, async (req, res) =>
         res.status(500).json({ error: "Interal server error" })
     }
 });
-
-async function verifyUser_client(username, email, password, isFundManager) {
+async function verifyUser_client(username, email, password) {
     try {
         const response = await fetch('http://127.0.0.1:5001/sports-arena-39a32/europe-west2/verifyUser', {
             method: 'POST',
@@ -112,7 +111,7 @@ async function verifyUser_client(username, email, password, isFundManager) {
             body: JSON.stringify({
                 username: username,
                 email: email,
-                password: password
+                password: password,
             }),
         });
 
@@ -134,6 +133,7 @@ exports.addUser = onRequest({ 'region': 'europe-west2' }, async (req, res) => {
         }
 
         const client_username = req.body.username;
+        const client_name = req.body.name;
         const client_email = req.body.email;
         const client_password = req.body.password;
 
@@ -148,15 +148,16 @@ exports.addUser = onRequest({ 'region': 'europe-west2' }, async (req, res) => {
             const username_hash = bcrypt.hashSync(client_username, saltRounds)
             const email_hash = bcrypt.hashSync(client_email, saltRounds)
             const password_hash = bcrypt.hashSync(client_password, saltRounds)
+            const name_hash = bcrypt.hashSync(client_name, saltRounds)
 
             let newUser = {
                 [username_hash]:
                 {
                     email: email_hash,
+                    name: name_hash,
                     password: password_hash
                 }
             }
-
 
             const db = await loadInfo();
 
@@ -165,6 +166,7 @@ exports.addUser = onRequest({ 'region': 'europe-west2' }, async (req, res) => {
             uploadString(userCreds, JSON.stringify(db)).then(() => {
                 res.status(200).json({
                     'verdict': `New user ${client_username} has been created`,
+                    'newUser': newUser
                 });
             });
         }

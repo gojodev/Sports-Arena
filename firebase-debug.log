@@ -1873,3 +1873,4 @@ SyntaxError: Identifier 'userInfo' has already been declared
 [debug] [2024-10-29T21:51:08.862Z] defaultcredentials: writing to file C:\Users\GojoDev\AppData\Roaming\firebase\eakoledoye_gmail_com_application_default_credentials.json
 [debug] [2024-10-29T21:51:08.863Z] Setting GAC to C:\Users\GojoDev\AppData\Roaming\firebase\eakoledoye_gmail_com_application_default_credentials.json {"metadata":{"emulator":{"name":"functions"},"message":"Setting GAC to C:\\Users\\GojoDev\\AppData\\Roaming\\firebase\\eakoledoye_gmail_com_application_default_credentials.json"}}
 [info] +  functions: Loaded functions definitions from source: showDB, verifyUser, addUser, updateDetails. {"metadata":{"emulator":{"name":"functions"},"message":"Loaded functions definitions from source: showDB, verifyUser, addUser, updateDetails."}}
+[debug] [2024-10-29T21:52:05.472Z] Received signal SIGHUP 1

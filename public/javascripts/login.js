@@ -67,9 +67,19 @@ loginButton.addEventListener('click', async (event) => {
         errorHandler(error_message)
     }
     else {
-        let response = await verifyUser(username, email, password)
-        errorHandler("Login successfully check console for more details")
-        console.log(response)
+        let response = await verifyUser(username, email, password);
+        console.log(response);
+        if (response.verdict) {
+            if (response.role == "member"){
+            document.location.href = "memberhomepage.html";
+            }
+            else if (response.role == "trainer"){
+            document.location.href = "trainerhomepage.html";
+            }
+        }
+        else{
+            errorHandler("Authentication error!");
+        }
     }
 })
 

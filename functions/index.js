@@ -82,10 +82,14 @@ exports.verifyUser = onRequest({ 'region': 'europe-west2' }, async (req, res) =>
             let correctPassword = bcrypt.compareSync(client_password, db_password);
             let verdict = correctEmail && correctPassword;
 
+            const client_role = bcrypt.compareSync("member", userInfo.role) ? "member" :
+                    bcrypt.compareSync("trainer", userInfo.role) ? "trainer" : null;
+
             res.status(200).json({
                 'verdict': verdict,
                 'username': client_username,
-                'creds': db[key]
+                'creds': db[key],
+                'role': client_role
             });
         }
 
@@ -136,6 +140,7 @@ exports.addUser = onRequest({ 'region': 'europe-west2' }, async (req, res) => {
         const client_name = req.body.name;
         const client_email = req.body.email;
         const client_password = req.body.password;
+        const client_role = req.body.role;
 
         let isExistingUser = await verifyUser_client(client_username, client_email, client_password)
 
@@ -149,13 +154,15 @@ exports.addUser = onRequest({ 'region': 'europe-west2' }, async (req, res) => {
             const email_hash = bcrypt.hashSync(client_email, saltRounds)
             const password_hash = bcrypt.hashSync(client_password, saltRounds)
             const name_hash = bcrypt.hashSync(client_name, saltRounds)
+            const role_hash = bcrypt.hashSync(client_role, saltRounds)
 
             let newUser = {
                 [username_hash]:
                 {
                     email: email_hash,
                     name: name_hash,
-                    password: password_hash
+                    password: password_hash,
+                    role: role_hash
                 }
             }
 
@@ -166,7 +173,8 @@ exports.addUser = onRequest({ 'region': 'europe-west2' }, async (req, res) => {
             uploadString(userCreds, JSON.stringify(db)).then(() => {
                 res.status(200).json({
                     'verdict': `New user ${client_username} has been created`,
-                    'newUser': newUser
+                    'newUser': newUser,
+                    'role': client_role,
                 });
             });
         }
@@ -260,5 +268,5 @@ http://127.0.0.1:5001/sports-arena-39a32/europe-west2/updateDetails
 */
 
 /*
-? to start the backend server run "npm run start" or "firebase eumlators:start" in "functions" folder
+? to start the backend server run firebase eumlators:start" in "functions" folder
 */

@@ -6,7 +6,7 @@ DarkReader.auto({
     darkSchemeTextColor: 'white',
 });
 
-async function addUser(username, name, email, password) {
+async function addUser(username, name, email, password, role) {
     try {
         const response = await fetch('http://127.0.0.1:5001/sports-arena-39a32/europe-west2/addUser', {
             method: 'POST',
@@ -18,6 +18,7 @@ async function addUser(username, name, email, password) {
                 name: name,
                 email: email,
                 password: password,
+                role
             }),
         });
 
@@ -47,6 +48,7 @@ signUpButton.addEventListener('click', async (event) => {
     let email = document.getElementById("email").value
     let name = document.getElementById("name").value
     let password = document.getElementById("password").value
+    let role = document.querySelector('input[name="role"]:checked').value;
 
     var error_message = "";
 
@@ -75,9 +77,16 @@ signUpButton.addEventListener('click', async (event) => {
         errorHandler(error_message)
     }
     else {
-        let response = await addUser(username, name, email, password)
-        errorHandler("User added successfully check console for more details")
-        console.log(response)
+        let response = await addUser(username, name, email, password, role);
+        console.log(response);
+        //errorHandler("User added successfully check console for more details");
+  
+        if (response.role == "member"){
+          document.location.href = "memberhomepage.html";
+        }
+        else if (response.role == "trainer"){
+          document.location.href = "trainerhomepage.html";
+        }
     }
 })
 

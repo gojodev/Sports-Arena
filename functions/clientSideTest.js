@@ -1,16 +1,13 @@
-async function updateDetails_client(username, new_email, new_name, new_password) {
+async function client_test(BMR, description) {
     try {
-        const response = await fetch('http://127.0.0.1:5001/sports-arena-39a32/europe-west2/updateDetails', {
+        const response = await fetch('http://127.0.0.1:5001/sports-arena-39a32/europe-west2/dailyCalories', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                username: username,
-
-                new_name: new_name,
-                new_email: new_email,
-                new_password: new_password,
+                BMR: BMR,
+                description: description,
             }),
         });
 
@@ -27,7 +24,9 @@ async function updateDetails_client(username, new_email, new_name, new_password)
 
 
 async function verifyUser_test() {
-    let verdict = await updateDetails_client('user2', '_First2 _Last2', 'user_2@gmail.com', '_user2_password!')
+    const BMR = '1745';
+    const description = 'sedentary'
+    const verdict = await client_test(BMR, description)
     console.log(verdict)
 }
 

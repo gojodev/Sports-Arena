@@ -1,3 +1,4 @@
+
 ```
 Sports-Arena
 ├─ .firebase
@@ -15,6 +16,8 @@ Sports-Arena
 ├─ firebase.json
 ├─ functions
 │  ├─ clientSideTest.js
+│  ├─ firebase-debug.log
+│  ├─ hasher.js
 │  ├─ index.js
 │  ├─ package-lock.json
 │  ├─ package.json
@@ -33,9 +36,11 @@ Sports-Arena
 │  │  ├─ signup.js
 │  │  └─ signupBundle.js
 │  ├─ login.html
+│  ├─ memberhomepage.html
 │  ├─ shared_style
 │  │  └─ style.css
-│  └─ signup.html
+│  ├─ signup.html
+│  └─ trainerhomepage.html
 ├─ README.md
 ├─ storage.rules
 └─ ui-debug.log

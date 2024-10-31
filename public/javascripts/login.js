@@ -1,10 +1,10 @@
 const DarkReader = require('darkreader');
 
-// DarkReader.auto({
-//     brightness: 100,
-//     contrast: 100,
-//     darkSchemeTextColor: 'white',
-// });
+DarkReader.auto({
+    brightness: 100,
+    contrast: 100,
+    darkSchemeTextColor: 'white',
+});
 
 async function verifyUser(username, email, password) {
     try {

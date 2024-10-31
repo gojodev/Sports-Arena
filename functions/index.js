@@ -33,6 +33,17 @@ async function loadInfo() {
     return await Promise.resolve(getRef_json(userCreds));
 }
 
+function missingInfoWarning(arr) {
+    let missingItems = [];
+    for (var item in arr) {
+        if (!item) {
+            missingItems.push(item)
+        }
+    }
+
+    return missingItems
+}
+
 exports.showDB = onRequest({ 'region': 'europe-west2' }, async (req, res) => {
     try {
         let db = await loadInfo();
@@ -55,6 +66,13 @@ exports.verifyUser = onRequest({ 'region': 'europe-west2' }, async (req, res) =>
         const client_username = req.body.username;
         const client_email = req.body.email;
         const client_password = req.body.password;
+
+        const clientData = [client_username, client_email, client_password]
+        const missingItems = missingInfoWarning(clientData);
+
+        if (missingItems == []) {
+            res.status(200).json({ error: `${missingItems} is required in the JSON body` })
+        }
 
         let db_username = '';
 
@@ -83,7 +101,7 @@ exports.verifyUser = onRequest({ 'region': 'europe-west2' }, async (req, res) =>
             let verdict = correctEmail && correctPassword;
 
             const client_role = bcrypt.compareSync("member", userInfo.role) ? "member" :
-                    bcrypt.compareSync("trainer", userInfo.role) ? "trainer" : null;
+                bcrypt.compareSync("trainer", userInfo.role) ? "trainer" : null;
 
             res.status(200).json({
                 'verdict': verdict,
@@ -130,6 +148,17 @@ async function verifyUser_client(username, email, password) {
     }
 }
 
+function monthsAway() {
+    const today = new Date();
+    today.setMonth(today.getMonth() + 3);
+
+    const day = today.getDate();
+    const month = today.getMonth() + 1; // months are zero-based
+    const year = today.getFullYear();
+
+    return `${day}-${month}-${year}`;
+}
+
 exports.addUser = onRequest({ 'region': 'europe-west2' }, async (req, res) => {
     try {
         if (req.method != 'POST') {
@@ -141,6 +170,13 @@ exports.addUser = onRequest({ 'region': 'europe-west2' }, async (req, res) => {
         const client_email = req.body.email;
         const client_password = req.body.password;
         const client_role = req.body.role;
+
+        const clientData = [client_username, client_name, client_email, client_password, client_role]
+        const missingItems = missingInfoWarning(clientData);
+
+        if (missingItems == []) {
+            res.status(200).json({ error: `${missingItems} is required in the JSON body` })
+        }
 
         let isExistingUser = await verifyUser_client(client_username, client_email, client_password)
 
@@ -154,7 +190,6 @@ exports.addUser = onRequest({ 'region': 'europe-west2' }, async (req, res) => {
             const email_hash = bcrypt.hashSync(client_email, saltRounds)
             const password_hash = bcrypt.hashSync(client_password, saltRounds)
             const name_hash = bcrypt.hashSync(client_name, saltRounds)
-            const role_hash = bcrypt.hashSync(client_role, saltRounds)
 
             let newUser = {
                 [username_hash]:
@@ -162,7 +197,8 @@ exports.addUser = onRequest({ 'region': 'europe-west2' }, async (req, res) => {
                     email: email_hash,
                     name: name_hash,
                     password: password_hash,
-                    role: role_hash
+                    role: client_role,
+                    expiry_password: monthsAway() // no need to hash this
                 }
             }
 
@@ -174,7 +210,6 @@ exports.addUser = onRequest({ 'region': 'europe-west2' }, async (req, res) => {
                 res.status(200).json({
                     'verdict': `New user ${client_username} has been created`,
                     'newUser': newUser,
-                    'role': client_role,
                 });
             });
         }
@@ -197,6 +232,13 @@ exports.updateDetails = onRequest({ 'region': 'europe-west2' }, async (req, res)
         const new_email = req.body.new_email;
         const new_name = req.body.new_name;
         const new_password = req.body.new_password;
+
+        const clientData = [new_email, new_name, new_password]
+        const missingItems = missingInfoWarning(clientData);
+
+        if (missingItems == []) {
+            res.status(200).json({ error: `${missingItems} is required in the JSON body` })
+        }
 
         var db_username = '';
 
@@ -260,11 +302,88 @@ exports.updateDetails = onRequest({ 'region': 'europe-west2' }, async (req, res)
     }
 });
 
+exports.BMR = onRequest({ 'region': 'europe-west2' }, async (req, res) => {
+    try {
+        if (req.method != 'POST') {
+            res.status(405).json({ error: "Method not allowed" })
+        }
+
+        const gender = req.body.gender;
+
+        if (!gender) {
+            res.status(200).json({ error: 'Gender is required in the JSON body' })
+        }
+
+        const weight = Number(req.body.weight) * 2.205
+        const height = Number(req.body.height) / 2.54
+        const age = Number(req.body.age)
+
+        if (!gender || !weight || !height || !age) {
+            res.status(400).json({ error: "Gender, weight, height and age is required in the JSON body" });
+        }
+
+        const male_result = Math.round((66 + (6.3 * weight) + (12.9 * height) - (6.8 * age)) * 100) / 100
+        const female_result = Math.round((655 + (4.3 * weight) + (4.7 * height) - (6.8 * age)) * 100) / 100
+
+        const final_result = gender == 'male' ? male_result : female_result;
+
+        res.status(200).json({
+            BMR: final_result,
+            gender: gender
+        })
+
+    }
+
+    catch (error) {
+        console.log("Couldnt calculate BMR: ", error)
+        res.status(500).json({ error: "Interal server error" })
+    }
+})
+
+exports.dailyCalories = onRequest({ 'region': 'europe-west2' }, async (req, res) => {
+    try {
+        if (req.method != 'POST') {
+            res.status(405).json({ error: "Method not allowed" })
+        }
+
+        let BMR = req.body.BMR;
+        const description = req.body.description;
+
+        if (!BMR) {
+            res.status(400).json({ error: "BMR is required in the JSON body" });
+        }
+
+        const factors = {
+            'sedentary': 1.2,
+            'lightly active ': 1.375,
+            'moderately active': 1.55,
+            'very active': 1.725,
+            'extra active': 1.9,
+        }
+
+        const result = factors[description]
+        if (result != undefined) {
+            BMR = BMR * result;
+            res.status(200).json({ verdict: BMR })
+        }
+        else {
+            res.status(200).json({ verdict: 'Description not recognised' })
+        }
+    }
+    catch (error) {
+        console.log("Couldnt calculate BMR: ", error)
+        res.status(500).json({ error: "Interal server error" })
+    }
+})
+
+
 /* 
 http://127.0.0.1:5001/sports-arena-39a32/europe-west2/showDB
 http://127.0.0.1:5001/sports-arena-39a32/europe-west2/verifyUser
 http://127.0.0.1:5001/sports-arena-39a32/europe-west2/addUser
 http://127.0.0.1:5001/sports-arena-39a32/europe-west2/updateDetails
+http://127.0.0.1:5001/sports-arena-39a32/europe-west2/BMR
+http://127.0.0.1:5001/sports-arena-39a32/europe-west2/dailyCalories
 */
 
 /*

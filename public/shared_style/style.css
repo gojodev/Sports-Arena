@@ -1,0 +1,15 @@
+.box-shadow {
+    box-shadow: 10px 10px 5px grey;
+}
+
+#errorContainer {
+    background-color: black;
+    color: white;
+    text-align: center;
+    border-radius: 20px;
+    padding: 3px;
+}
+
+#errorContainer {
+    display: none;
+}

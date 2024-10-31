@@ -1,0 +1,25 @@
+[debug] [2024-10-31T02:01:38.399Z] ----------------------------------------------------------------------
+[debug] [2024-10-31T02:01:38.401Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\GojoDev\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js init
+[debug] [2024-10-31T02:01:38.401Z] CLI Version:   13.23.0
+[debug] [2024-10-31T02:01:38.401Z] Platform:      win32
+[debug] [2024-10-31T02:01:38.401Z] Node Version:  v20.13.1
+[debug] [2024-10-31T02:01:38.401Z] Time:          Thu Oct 31 2024 02:01:38 GMT+0000 (Greenwich Mean Time)
+[debug] [2024-10-31T02:01:38.401Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2024-10-31T02:01:38.446Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2024-10-31T02:01:38.447Z] > authorizing via signed-in user (eakoledoye@gmail.com)
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  C:\Users\GojoDev\Desktop\Emmanuel K\college stuff\year 3\Agile Prcoess\Sports-Arena
+
+Before we get started, keep in mind:
+
+  * You are initializing within an existing Firebase project directory
+

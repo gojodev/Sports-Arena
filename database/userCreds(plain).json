@@ -43,5 +43,13 @@
         "phone": "333 333 3333",
         "expiry_password": "31-1-2025",
         "bookings": []
+    },
+    
+    "admin": {
+        "name": "Daniel Jackson",
+        "email": "admin@gmail.com",
+        "password": "admin",
+        "expiry_password": "31-1-2025",
+        "role": "admin"
     }
 }

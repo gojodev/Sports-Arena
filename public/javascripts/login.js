@@ -68,25 +68,28 @@ loginButton.addEventListener('click', async (event) => {
     }
     else {
         let response = await verifyUser(username, email, password);
+
+        console.log('role : ', response.role)
         console.log(response);
         if (response.verdict) {
-            if (response.role == "member"){
-            document.location.href = "memberhomepage.html";
+            if (response.role === "member") {
+                document.location.href = "memberhomepage.html";
             }
-            else if (response.role == "trainer"){
-            document.location.href = "trainerhomepage.html";
+            if (response.role === "trainer") {
+                document.location.href = "trainerhomepage.html";
             }
         }
-        else{
+        else {
             errorHandler("Authentication error!");
+            console.log(response.role, 'trainer', response.role === 'trainer' )
         }
     }
 })
 
 function autofill() {
-    document.getElementById("username").value = "user1"
-    document.getElementById("email").value = "user1@gmail.com"
-    document.getElementById("password").value = "user1_password!"
+    document.getElementById("username").value = "user3"
+    document.getElementById("email").value = "user3@gmail.com"
+    document.getElementById("password").value = "user3_password!"
 }
 
 autofill()

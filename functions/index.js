@@ -17,6 +17,14 @@ initializeApp(firebaseConfig);
 
 const { getStorage, ref, getDownloadURL, uploadString } = require("firebase/storage");
 
+const cors = require('cors');
+const corsHandler = cors({
+    origin: true,
+    methods: ['DELETE', 'PUT', 'GET', 'POST', 'OPTIONS'],
+    // allowedHeaders: ['Content-Type', 'Authorization'],
+    maxAge: 3600, // Cache preflight response for 1 hour
+});
+
 async function getRef_json(refItem) {
     const url = await getDownloadURL(refItem);
     const response = await fetch(url, { mode: 'cors' });
@@ -52,76 +60,77 @@ exports.showDB = onRequest({ 'region': 'europe-west2' }, async (req, res) => {
     }
     catch (error) {
         console.log('Couldnt access the database: ', error)
-        res.status(500).json({ error: "Interal server error" })
+        return res.status(500).json({ error: "Interal server error" })
     }
 });
 
 
 exports.verifyUser = onRequest({ 'region': 'europe-west2' }, async (req, res) => {
-    try {
-        if (req.method != 'POST') {
-            res.status(405).json({ error: "Method not allowed" })
-        }
 
-        const client_username = req.body.username;
-        const client_email = req.body.email;
-        const client_password = req.body.password;
+    corsHandler(req, res, async () => {
+        try {
+            if (req.method != 'POST') {
+                return res.status(405).json({ error: "Method not allowed" })
+            }
 
-        const clientData = [client_username, client_email, client_password]
-        const missingItems = missingInfoWarning(clientData);
+            const client_username = req.body.username;
+            const client_email = req.body.email;
+            const client_password = req.body.password;
 
-        if (missingItems == []) {
-            res.status(200).json({ error: `${missingItems} is required in the JSON body` })
-        }
+            const clientData = [client_username, client_email, client_password]
+            const missingItems = missingInfoWarning(clientData);
 
-        let db_username = '';
+            if (missingItems == []) {
+                return res.status(200).json({ error: `${missingItems} is required in the JSON body` })
+            }
 
-        const db = await loadInfo();
+            let db_username = '';
 
-        for (var key in db) {
-            db_username = bcrypt.compareSync(client_username, key)
-            if (db_username) {
-                db_username = key
-                break
+            const db = await loadInfo();
+
+
+            for (var key in db) {
+                db_username = bcrypt.compareSync(client_username, key)
+                if (db_username) {
+                    db_username = key
+                    break
+                }
+            }
+
+            const userInfo = db[db_username];
+
+            if (userInfo != undefined) {
+                const db_email = userInfo.email;
+                const db_password = userInfo.password;
+
+                if (!client_email || !client_password || !client_username) {
+                    return res.status(400).json({ error: "Username, Email and Passowrd is required in the JSON body" });
+                }
+
+                let correctEmail = bcrypt.compareSync(client_email, db_email);
+                let correctPassword = bcrypt.compareSync(client_password, db_password);
+                let verdict = correctEmail && correctPassword;
+
+                return res.status(200).json({
+                    'verdict': verdict,
+                    'username': client_username,
+                    'creds': db[key],
+                    'role': db[key].role
+                });
+            }
+
+            else {
+                return res.status(200).json({
+                    'verdict': false
+                });
             }
         }
 
-        const userInfo = db[db_username];
-
-        if (userInfo != undefined) {
-            const db_email = userInfo.email;
-            const db_password = userInfo.password;
-
-            if (!client_email || !client_password || !client_username) {
-                res.status(400).json({ error: "Username, Email and Passowrd is required in the JSON body" });
-            }
-
-            let correctEmail = bcrypt.compareSync(client_email, db_email);
-            let correctPassword = bcrypt.compareSync(client_password, db_password);
-            let verdict = correctEmail && correctPassword;
-
-            const client_role = bcrypt.compareSync("member", userInfo.role) ? "member" :
-                bcrypt.compareSync("trainer", userInfo.role) ? "trainer" : null;
-
-            res.status(200).json({
-                'verdict': verdict,
-                'username': client_username,
-                'creds': db[key],
-                'role': client_role
-            });
+        catch (error) {
+            console.log("Couldnt has string: ", error)
+            return res.status(500).json({ error: "Interal server error" })
         }
-
-        else {
-            res.status(200).json({
-                'verdict': false
-            });
-        }
-    }
-
-    catch (error) {
-        console.log("Couldnt has string: ", error)
-        res.status(500).json({ error: "Interal server error" })
-    }
+    })
 });
 async function verifyUser_client(username, email, password) {
     try {
@@ -162,7 +171,7 @@ function monthsAway() {
 exports.addUser = onRequest({ 'region': 'europe-west2' }, async (req, res) => {
     try {
         if (req.method != 'POST') {
-            res.status(405).json({ error: "Method not allowed" })
+            return res.status(405).json({ error: "Method not allowed" })
         }
 
         const client_username = req.body.username;
@@ -175,13 +184,13 @@ exports.addUser = onRequest({ 'region': 'europe-west2' }, async (req, res) => {
         const missingItems = missingInfoWarning(clientData);
 
         if (missingItems == []) {
-            res.status(200).json({ error: `${missingItems} is required in the JSON body` })
+            return res.status(200).json({ error: `${missingItems} is required in the JSON body` })
         }
 
         let isExistingUser = await verifyUser_client(client_username, client_email, client_password)
 
         if (isExistingUser) {
-            res.status(200).json({ error: `Account with email ${client_email} already exists` });
+            return res.status(200).json({ error: `Account with email ${client_email} already exists` });
         }
 
         else {
@@ -207,7 +216,7 @@ exports.addUser = onRequest({ 'region': 'europe-west2' }, async (req, res) => {
             Object.assign(db, newUser)
 
             uploadString(userCreds, JSON.stringify(db)).then(() => {
-                res.status(200).json({
+                return res.status(200).json({
                     'verdict': `New user ${client_username} has been created`,
                     'newUser': newUser,
                 });
@@ -217,14 +226,14 @@ exports.addUser = onRequest({ 'region': 'europe-west2' }, async (req, res) => {
 
     catch (error) {
         console.log("Couldnt add new user: ", error)
-        res.status(500).json({ error: "Interal server error" })
+        return res.status(500).json({ error: "Interal server error" })
     }
 });
 
 exports.updateDetails = onRequest({ 'region': 'europe-west2' }, async (req, res) => {
     try {
         if (req.method != 'POST') {
-            res.status(405).json({ error: "Method not allowed" })
+            return res.status(405).json({ error: "Method not allowed" })
         }
 
         const client_username = req.body.username;
@@ -237,7 +246,7 @@ exports.updateDetails = onRequest({ 'region': 'europe-west2' }, async (req, res)
         const missingItems = missingInfoWarning(clientData);
 
         if (missingItems == []) {
-            res.status(200).json({ error: `${missingItems} is required in the JSON body` })
+            return res.status(200).json({ error: `${missingItems} is required in the JSON body` })
         }
 
         var db_username = '';
@@ -253,7 +262,7 @@ exports.updateDetails = onRequest({ 'region': 'europe-west2' }, async (req, res)
         }
 
         if (db_username == false) {
-            res.status(200).json({
+            return res.status(200).json({
                 verdict: `No data for: ${client_username} was found on file`
             });
         }
@@ -288,7 +297,7 @@ exports.updateDetails = onRequest({ 'region': 'europe-west2' }, async (req, res)
             db[db_username] = userInfo;
 
             uploadString(userCreds, JSON.stringify(db)).then(() => {
-                res.status(200).json({
+                return res.status(200).json({
                     'verdict': `Updated ${client_username}'s details successfully`,
                     'newDetails': userInfo
                 });
@@ -298,20 +307,20 @@ exports.updateDetails = onRequest({ 'region': 'europe-west2' }, async (req, res)
 
     catch (error) {
         console.log("Couldnt add new user: ", error)
-        res.status(500).json({ error: "Interal server error" })
+        return res.status(500).json({ error: "Interal server error" })
     }
 });
 
 exports.BMR = onRequest({ 'region': 'europe-west2' }, async (req, res) => {
     try {
         if (req.method != 'POST') {
-            res.status(405).json({ error: "Method not allowed" })
+            return res.status(405).json({ error: "Method not allowed" })
         }
 
         const gender = req.body.gender;
 
         if (!gender) {
-            res.status(200).json({ error: 'Gender is required in the JSON body' })
+            return res.status(200).json({ error: 'Gender is required in the JSON body' })
         }
 
         const weight = Number(req.body.weight) * 2.205
@@ -319,7 +328,7 @@ exports.BMR = onRequest({ 'region': 'europe-west2' }, async (req, res) => {
         const age = Number(req.body.age)
 
         if (!gender || !weight || !height || !age) {
-            res.status(400).json({ error: "Gender, weight, height and age is required in the JSON body" });
+            return res.status(400).json({ error: "Gender, weight, height and age is required in the JSON body" });
         }
 
         const male_result = Math.round((66 + (6.3 * weight) + (12.9 * height) - (6.8 * age)) * 100) / 100
@@ -327,7 +336,7 @@ exports.BMR = onRequest({ 'region': 'europe-west2' }, async (req, res) => {
 
         const final_result = gender == 'male' ? male_result : female_result;
 
-        res.status(200).json({
+        return res.status(200).json({
             BMR: final_result,
             gender: gender
         })
@@ -336,21 +345,21 @@ exports.BMR = onRequest({ 'region': 'europe-west2' }, async (req, res) => {
 
     catch (error) {
         console.log("Couldnt calculate BMR: ", error)
-        res.status(500).json({ error: "Interal server error" })
+        return res.status(500).json({ error: "Interal server error" })
     }
 })
 
 exports.dailyCalories = onRequest({ 'region': 'europe-west2' }, async (req, res) => {
     try {
         if (req.method != 'POST') {
-            res.status(405).json({ error: "Method not allowed" })
+            return res.status(405).json({ error: "Method not allowed" })
         }
 
         let BMR = req.body.BMR;
         const description = req.body.description;
 
         if (!BMR) {
-            res.status(400).json({ error: "BMR is required in the JSON body" });
+            return res.status(400).json({ error: "BMR is required in the JSON body" });
         }
 
         const factors = {
@@ -364,17 +373,58 @@ exports.dailyCalories = onRequest({ 'region': 'europe-west2' }, async (req, res)
         const result = factors[description]
         if (result != undefined) {
             BMR = BMR * result;
-            res.status(200).json({ verdict: BMR })
+            return res.status(200).json({ verdict: BMR })
         }
         else {
-            res.status(200).json({ verdict: 'Description not recognised' })
+            return res.status(200).json({ verdict: 'Description not recognised' })
         }
     }
     catch (error) {
         console.log("Couldnt calculate BMR: ", error)
-        res.status(500).json({ error: "Interal server error" })
+        return res.status(500).json({ error: "Interal server error" })
     }
 })
+
+
+exports.booking = onRequest({ 'region': 'europe-west2' }, async (req, res) => {
+    try {
+        if (req.method == 'POST') {
+
+            const username = req.body.username;
+            const club_name = req.body.club_name;
+            const booking_date = req.body.booking_date;
+
+
+            // ? remeber they just have to use at least one
+            // todo POST add a new booking
+            if (!club_name && !booking_date) {
+                const clientData = [club_name, booking_date, username]
+                const missingItems = missingInfoWarning(clientData);
+
+                if (missingItems == []) {
+                    return res.status(200).json({ error: `${missingItems} is required in the JSON body` })
+                }
+            }
+
+        }
+
+
+        // todo GET show bookings
+        if (req.method == 'GET') {
+            const db = loadInfo();
+
+            return res.status(200).json({ db })
+        }
+
+    }
+
+    catch (error) {
+        console.log("Couldnt make booking: ", error)
+        return res.status(500).json({ error: "Interal server error" })
+    }
+})
+
+
 
 
 /* 
@@ -384,6 +434,8 @@ http://127.0.0.1:5001/sports-arena-39a32/europe-west2/addUser
 http://127.0.0.1:5001/sports-arena-39a32/europe-west2/updateDetails
 http://127.0.0.1:5001/sports-arena-39a32/europe-west2/BMR
 http://127.0.0.1:5001/sports-arena-39a32/europe-west2/dailyCalories
+
+
 */
 
 /*

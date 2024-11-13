@@ -1,13 +1,14 @@
-async function client_test(BMR, description) {
+async function client_test(username, email, password) {
     try {
-        const response = await fetch('http://127.0.0.1:5001/sports-arena-39a32/europe-west2/dailyCalories', {
+        const response = await fetch('http://127.0.0.1:5001/sports-arena-39a32/europe-west2/verifyUser', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                BMR: BMR,
-                description: description,
+                username: username,
+                email: email,
+                password: password
             }),
         });
 
@@ -24,10 +25,11 @@ async function client_test(BMR, description) {
 
 
 async function verifyUser_test() {
-    const BMR = '1745';
-    const description = 'sedentary'
-    const verdict = await client_test(BMR, description)
-    console.log(verdict)
+    const username = 'user1';
+    const email = 'user1@gmail.com'
+    const password = 'user1_password!'
+    const verdict = await client_test(username, email, password)
+    console.log(verdict.role)
 }
 
 verifyUser_test()

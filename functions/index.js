@@ -693,7 +693,6 @@ exports.deleteClub = onRequest({ 'region': 'europe-west2' }, async (req, res) =>
             }
 
             const clubsData = await loadClubsInfo();
-
             const club = clubsData[clubID];
             if (!club) {
                 return res.status(404).json({ error: `Club with ID ${clubID} does not exist!` });

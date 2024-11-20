@@ -1,17 +1,17 @@
 {
-    "facility1": {
-        "name": "Basketball Court 1"
+    "Basketball Court 1": {
+        "location": "Downstairs to the left."
     },
-    "facility2": {
-        "name": "Basketball Court 2"
+    "Basketball Court 2": {
+        "location": "Downstairs to the left."
     },
-    "facility3": {
-        "name": "GAA Pitch 1"
+    "GAA Pitch 1": {
+        "location": "Outside the Arena building."
     },
-    "facility4": {
-        "name": "GAA Pitch 2"
+    "GAA Pitch 2": {
+        "location": "Outside the Arena building."
     },
-    "facility5": {
-        "name": "Elite Gym"
+    "Elite Gym": {
+        "location": "Inside the athletics building."
     }
 }

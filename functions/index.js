@@ -492,10 +492,10 @@ exports.bookFacility = onRequest({ 'region': 'europe-west2' }, async (req, res) 
 exports.createFacility = onRequest({ 'region': 'europe-west2' }, async (req, res) => {
     try {
         if (req.method == 'POST') {
-            const { facilityID, name } = req.body;
+            const { facilityID, location } = req.body;
 
-            if (!facilityID || !name) {
-                return res.status(400).json({ error: "facilityID and name are required!" });
+            if (!facilityID || !location) {
+                return res.status(400).json({ error: "facilityID and location are required!" });
             }
 
             const facilitiesData = await loadFacilitiesInfo();
@@ -504,9 +504,9 @@ exports.createFacility = onRequest({ 'region': 'europe-west2' }, async (req, res
                 return res.status(400).json({ error: `Facility with ID ${facilityID} already exists!` });
             }
 
-            facilitiesData[facilityID] = { name };
+            facilitiesData[facilityID] = { location };
 
-            uploadString('facilities.json', JSON.stringify(facilitiesData)).then(() => {
+            uploadString(facilities, JSON.stringify(facilitiesData)).then(() => {
                 return res.status(200).json({
                     message: `Facility ${facilityID} successfully created!`,
                     newFacility: facilitiesData[facilityID]
@@ -523,10 +523,10 @@ exports.createFacility = onRequest({ 'region': 'europe-west2' }, async (req, res
 exports.updateFacility = onRequest({ 'region': 'europe-west2' }, async (req, res) => {
     try {
         if (req.method == 'PUT') {
-            const { facilityID, newName } = req.body;
+            const { facilityID, newLocation } = req.body;
 
-            if (!facilityID || !newName) {
-                return res.status(400).json({ error: "facilityID and newName are required!" });
+            if (!facilityID || !newLocation) {
+                return res.status(400).json({ error: "facilityID and newLocation are required!" });
             }
 
             const facilitiesData = await loadFacilitiesInfo();
@@ -536,9 +536,9 @@ exports.updateFacility = onRequest({ 'region': 'europe-west2' }, async (req, res
                 return res.status(404).json({ error: `Facility with ID ${facilityID} does not exist!` });
             }
 
-            facility.name = newName;
+            facility.location = newLocation;
 
-            uploadString('facilities.json', JSON.stringify(facilitiesData)).then(() => {
+            uploadString(facilities, JSON.stringify(facilitiesData)).then(() => {
                 return res.status(200).json({
                     message: `Facility ${facilityID} successfully updated!`,
                     updatedFacility: facility
@@ -569,7 +569,7 @@ exports.deleteFacility = onRequest({ 'region': 'europe-west2' }, async (req, res
             }
 
             delete facilitiesData[facilityID];
-            uploadString('facilities.json', JSON.stringify(facilitiesData)).then(() => {
+            uploadString(facilities, JSON.stringify(facilitiesData)).then(() => {
                 return res.status(200).json({
                     message: `Facility ${facilityID} successfully deleted!`
                 });
@@ -611,7 +611,6 @@ exports.showAllClubs = onRequest({ 'region': 'europe-west2' }, async (req, res) 
             }
 
             return res.status(200).json({
-                message: "List of all clubs",
                 clubs: clubsData
             });
         }
@@ -639,7 +638,7 @@ exports.updateClub = onRequest({ 'region': 'europe-west2' }, async (req, res) =>
             }
             club.name = newName;
 
-            uploadString('clubs.json', JSON.stringify(clubsData)).then(() => {
+            uploadString(clubs, JSON.stringify(clubsData)).then(() => {
                 return res.status(200).json({
                     message: `Club ${clubID} successfully updated!`,
                     updatedClub: club

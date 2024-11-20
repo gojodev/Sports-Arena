@@ -84,6 +84,11 @@
             margin-left: 12.5%;
             padding: 20px;
             margin-top: 3%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
         }
 
 
@@ -99,7 +104,7 @@
         table {
             width: 60%;
             border-collapse: collapse;
-            margin-bottom: 2rem;
+            margin: 2rem auto;
         }
         table, th, td {
             border: 1px solid black;
@@ -110,6 +115,44 @@
         }
         th {
             background-color: #f2f2f2;
+        }
+        table a {
+            text-decoration: none;
+        }
+        main a {
+            text-decoration: none;
+        }
+
+        #facilityForm {
+            display: none;
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            box-sizing: border-box;
+        }
+
+        #facilityForm input {
+            margin: 5px 0;
+            padding: 8px;
+            width: calc(100% - 16px);
+            box-sizing: border-box;
+        }
+
+        #facilityForm button {
+            padding: 8px;
+            cursor: pointer;
+        }
+
+        main {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            flex: 1;
+            text-align: center; 
         }
     </style>
 </head>
@@ -134,10 +177,20 @@
     </header>
 
     <main>
+        <h2>Facilities <a href="#" title="Add Facility" onclick="toggleFacilityForm()">➕</a></h2>
+        <div id="facilityForm" style="display: none;">
+            <h3>Create Facility</h3>
+            <input type="text" id="facilityID" class="inputField" placeholder="Facility Name" required />
+            <input type="text" id="location" class="inputField" placeholder="Location" required />
+            <button class="heroButton" onclick="createFacility()">Add</button>
+            <button class="heroButton" onclick="toggleFacilityForm()">Cancel</button>
+        </div>
+        
         <table id="facilitiesTable">
             <thead>
                 <tr>
                     <th>Facility</th>
+                    <th>Location</th>
                     <th>Edit</th>
                     <th>Delete</th>
                 </tr>

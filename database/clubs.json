@@ -4,7 +4,7 @@
         "bookings": [
             {
                 "description":"Test booking for facility",
-                "facilityID":"facility1",
+                "facilityID":"Basketball Court 1",
                 "datetime":"2024-11-21T10:00:00.000Z",
                 "duration":60
             }

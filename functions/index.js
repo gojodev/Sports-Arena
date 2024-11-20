@@ -621,13 +621,44 @@ exports.showAllClubs = onRequest({ 'region': 'europe-west2' }, async (req, res) 
     }
 });
 
+exports.createClub = onRequest({ 'region': 'europe-west2' }, async (req, res) => {
+    try {
+        if (req.method == 'POST') {
+            const { clubID, caloryBurnRate } = req.body;
+
+            if (!clubID || !caloryBurnRate) {
+                return res.status(400).json({ error: "clubID and caloryBurnRate are required!" });
+            }
+
+            const clubsData = await loadClubsInfo();
+
+            if (clubsData[clubID]) {
+                return res.status(400).json({ error: `Club with ID ${clubID} already exists!` });
+            }
+
+            clubsData[clubID] = { caloryBurnRate };
+
+            uploadString(clubs, JSON.stringify(clubsData)).then(() => {
+                return res.status(200).json({
+                    message: `Club ${clubID} successfully created!`,
+                    newClub: clubsData[clubID]
+                });
+            });
+        }
+    } 
+    catch (error) {
+        console.log("Could not create the club: ", error);
+        return res.status(500).json({ error: "Internal server error" });
+    }
+});
+
 exports.updateClub = onRequest({ 'region': 'europe-west2' }, async (req, res) => {
     try {
         if (req.method == 'PUT') {
-            const { clubID, newName } = req.body;
+            const { clubID, newCaloryBurnRate } = req.body;
 
-            if (!clubID || !newName) {
-                return res.status(400).json({ error: "clubID and newName are required!" });
+            if (!clubID || !newCaloryBurnRate) {
+                return res.status(400).json({ error: "clubID and newCaloryBurnRate are required!" });
             }
 
             const clubsData = await loadClubsInfo();
@@ -636,7 +667,7 @@ exports.updateClub = onRequest({ 'region': 'europe-west2' }, async (req, res) =>
             if (!club) {
                 return res.status(404).json({ error: `Club with ID ${clubID} does not exist!` });
             }
-            club.name = newName;
+            club.caloryBurnRate = newCaloryBurnRate;
 
             uploadString(clubs, JSON.stringify(clubsData)).then(() => {
                 return res.status(200).json({
@@ -652,7 +683,34 @@ exports.updateClub = onRequest({ 'region': 'europe-west2' }, async (req, res) =>
     }
 });
 
+exports.deleteClub = onRequest({ 'region': 'europe-west2' }, async (req, res) => {
+    try {
+        if (req.method == 'DELETE') {
+            const { clubID } = req.body;
 
+            if (!clubID) {
+                return res.status(400).json({ error: "clubID is required!" });
+            }
+
+            const clubsData = await loadClubsInfo();
+
+            const club = clubsData[clubID];
+            if (!club) {
+                return res.status(404).json({ error: `Club with ID ${clubID} does not exist!` });
+            }
+
+            delete clubsData[clubID];
+            uploadString(clubs, JSON.stringify(clubsData)).then(() => {
+                return res.status(200).json({
+                    message: `Club ${clubID} successfully deleted!`
+                });
+            });
+        }
+    } catch (error) {
+        console.log("Could not delete the club: ", error);
+        return res.status(500).json({ error: "Internal server error" });
+    }
+});
 
 /* 
 http://127.0.0.1:5001/sports-arena-39a32/europe-west2/showDB

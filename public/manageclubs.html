@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manage Facilities</title>
+    <title>Manage Clubs</title>
     <style>
         body {
             margin: 0;
@@ -84,11 +84,6 @@
             margin-left: 12.5%;
             padding: 20px;
             margin-top: 3%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
         }
 
 
@@ -123,7 +118,7 @@
             text-decoration: none;
         }
 
-        #facilityForm {
+        #clubForm {
             display: none;
             margin-top: 20px;
             padding: 10px;
@@ -133,14 +128,14 @@
             box-sizing: border-box;
         }
 
-        #facilityForm input {
+        #clubForm input {
             margin: 5px 0;
             padding: 8px;
             width: calc(100% - 16px);
             box-sizing: border-box;
         }
 
-        #facilityForm button {
+        #clubForm button {
             padding: 8px;
             cursor: pointer;
         }
@@ -177,20 +172,20 @@
     </header>
 
     <main>
-        <h2>Facilities <a href="#" title="Add Facility" onclick="toggleFacilityForm()">➕</a></h2>
-        <div id="facilityForm" style="display: none;">
-            <h3>Create Facility</h3>
-            <input type="text" id="facilityID" class="inputField" placeholder="Facility Name" required />
-            <input type="text" id="location" class="inputField" placeholder="Location" required />
-            <button class="heroButton" onclick="createFacility()">Add</button>
-            <button class="heroButton" onclick="toggleFacilityForm()">Cancel</button>
+        <h2>Clubs <a href="#" title="Add Club" onclick="toggleClubForm()">➕</a></h2>
+        <div id="clubForm" style="display: none;">
+            <h3>Create Club</h3>
+            <input type="text" id="clubID" class="inputField" placeholder="Club Name" required />
+            <input type="number" id="caloryBurnRate" class="inputField" placeholder="Calory Burn Rate/hr" min="1" max="1000" required />
+            <button class="heroButton" onclick="createClub()">Add</button>
+            <button class="heroButton" onclick="toggleClubForm()">Cancel</button>
         </div>
         
-        <table id="facilitiesTable">
+        <table id="clubsTable">
             <thead>
                 <tr>
-                    <th>Facility</th>
-                    <th>Location</th>
+                    <th>Club</th>
+                    <th>Calory Burn Rate/hr</th>
                     <th>Edit</th>
                     <th>Delete</th>
                 </tr>

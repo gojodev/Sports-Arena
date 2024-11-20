@@ -1,6 +1,6 @@
 {
-    "club1": {
-        "name": "Basketball Club",
+    "Basketball Club": {
+        "caloryBurnRate": 300,
         "bookings": [
             {
                 "description":"Test booking for facility",
@@ -10,20 +10,20 @@
             }
         ]
     },
-    "club2": {
-        "name": "Hurling Club",
+    "Hurling Club": {
+        "caloryBurnRate": 550,
         "bookings": []
     },
-    "club3": {
-        "name": "Tennis Club",
+    "Tennis Club": {
+        "caloryBurnRate": 500,
         "bookings": []
     },
-    "club4": {
-        "name": "Powerlifting Club",
+    "Powerlifting Club": {
+        "caloryBurnRate": 650,
         "bookings": []
     },
-    "club5": {
-        "name": "Gaelic Football Club",
+    "Gaelic Football Club": {
+        "caloryBurnRate": 550,
         "bookings": []
     }
 }

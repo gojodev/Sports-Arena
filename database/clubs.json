@@ -1,0 +1,22 @@
+{
+    "club1": {
+        "name": "Basketball Club",
+        "bookings": []
+    },
+    "club2": {
+        "name": "Hurling Club",
+        "bookings": []
+    },
+    "club3": {
+        "name": "Tennis Club",
+        "bookings": []
+    },
+    "club4": {
+        "name": "Powerlifting Club",
+        "bookings": []
+    },
+    "club5": {
+        "name": "Gaelic Football Club",
+        "bookings": []
+    }
+}

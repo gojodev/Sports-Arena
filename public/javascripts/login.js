@@ -94,5 +94,4 @@ function autofill() {
 
 autofill()
 
-
 // gsutil cors set cors.json gs://sports-arena-39a32.appspot.com

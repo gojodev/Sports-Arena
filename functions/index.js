@@ -36,9 +36,19 @@ async function getRef_json(refItem) {
 // ! global
 const storage = getStorage();
 const userCreds = ref(storage, 'userCreds.json');
+const facilities = ref(storage, 'facilities.json');
+const clubs = ref(storage, 'clubs.json');
 
 async function loadInfo() {
     return await Promise.resolve(getRef_json(userCreds));
+}
+
+async function loadFacilitiesInfo() {
+    return await Promise.resolve(getRef_json(facilities));
+}
+
+async function loadClubsInfo() {
+    return await Promise.resolve(getRef_json(clubs));
 }
 
 function missingInfoWarning(arr) {
@@ -424,6 +434,224 @@ exports.booking = onRequest({ 'region': 'europe-west2' }, async (req, res) => {
     }
 })
 
+// WIP for booking facilities
+exports.bookFacility = onRequest({ 'region': 'europe-west2' }, async (req, res) => {
+    try {
+        if (req.method == 'POST') {
+            const { description, clubID, facilityID, datetime, duration } = req.body;
+
+            if (!description || !clubID || !facilityID || !datetime || !duration) {
+                return res.status(400).json({ error: "Description, clubID, facilityID, datetime and duration are all required!" });
+            }
+
+            const bookingDateTime = new Date(datetime);
+            const clubsData = await loadClubsInfo();
+
+            const club = clubsData[clubID];
+            if (!club) {
+                return res.status(404).json({ error: `Club with ID ${clubID} does not exist!` });
+            }
+
+            const facilityBooked = club.bookings.find(booking => {
+                return booking.facilityID === facilityID;
+            });
+
+            const isOverlapping = club.bookings.some(booking => {
+                const bookingStart = new Date(booking.datetime);
+                const bookingEnd = new Date(bookingStart.getTime() + booking.duration * 60000);
+                const newBookingEnd = new Date(bookingDateTime.getTime() + duration * 60000);
+
+                return (bookingDateTime < bookingEnd && newBookingEnd > bookingStart);
+            });
+
+            if (isOverlapping) {
+                return res.status(400).json({ error: "The facility is already booked for this time slot!" });
+            }
+
+            const newBooking = {
+                description,
+                facilityID,
+                datetime: bookingDateTime.toISOString(),
+                duration
+            };
+            club.bookings.push(newBooking);
+            uploadString(clubs, JSON.stringify(clubsData)).then(() => {
+                return res.status(200).json({
+                    verdict: `Facility ${facilityID} at Club ${clubID} successfully booked!`,
+                    newBooking
+                });
+            });
+        }
+    } 
+    catch (error) {
+        console.log("Could not book the facility: ", error);
+        return res.status(500).json({ error: "Internal server error" });
+    }
+});
+
+exports.createFacility = onRequest({ 'region': 'europe-west2' }, async (req, res) => {
+    try {
+        if (req.method == 'POST') {
+            const { facilityID, name } = req.body;
+
+            if (!facilityID || !name) {
+                return res.status(400).json({ error: "facilityID and name are required!" });
+            }
+
+            const facilitiesData = await loadFacilitiesInfo();
+
+            if (facilitiesData[facilityID]) {
+                return res.status(400).json({ error: `Facility with ID ${facilityID} already exists!` });
+            }
+
+            facilitiesData[facilityID] = { name };
+
+            uploadString('facilities.json', JSON.stringify(facilitiesData)).then(() => {
+                return res.status(200).json({
+                    message: `Facility ${facilityID} successfully created!`,
+                    newFacility: facilitiesData[facilityID]
+                });
+            });
+        }
+    } 
+    catch (error) {
+        console.log("Could not create the facility: ", error);
+        return res.status(500).json({ error: "Internal server error" });
+    }
+});
+
+exports.updateFacility = onRequest({ 'region': 'europe-west2' }, async (req, res) => {
+    try {
+        if (req.method == 'PUT') {
+            const { facilityID, newName } = req.body;
+
+            if (!facilityID || !newName) {
+                return res.status(400).json({ error: "facilityID and newName are required!" });
+            }
+
+            const facilitiesData = await loadFacilitiesInfo();
+
+            const facility = facilitiesData[facilityID];
+            if (!facility) {
+                return res.status(404).json({ error: `Facility with ID ${facilityID} does not exist!` });
+            }
+
+            facility.name = newName;
+
+            uploadString('facilities.json', JSON.stringify(facilitiesData)).then(() => {
+                return res.status(200).json({
+                    message: `Facility ${facilityID} successfully updated!`,
+                    updatedFacility: facility
+                });
+            });
+        }
+    } 
+    catch (error) {
+        console.log("Could not update the facility: ", error);
+        return res.status(500).json({ error: "Internal server error" });
+    }
+});
+
+exports.deleteFacility = onRequest({ 'region': 'europe-west2' }, async (req, res) => {
+    try {
+        if (req.method == 'DELETE') {
+            const { facilityID } = req.body;
+
+            if (!facilityID) {
+                return res.status(400).json({ error: "facilityID is required!" });
+            }
+
+            const facilitiesData = await loadFacilitiesInfo();
+
+            const facility = facilitiesData[facilityID];
+            if (!facility) {
+                return res.status(404).json({ error: `Facility with ID ${facilityID} does not exist!` });
+            }
+
+            delete facilitiesData[facilityID];
+            uploadString('facilities.json', JSON.stringify(facilitiesData)).then(() => {
+                return res.status(200).json({
+                    message: `Facility ${facilityID} successfully deleted!`
+                });
+            });
+        }
+    } catch (error) {
+        console.log("Could not delete the facility: ", error);
+        return res.status(500).json({ error: "Internal server error" });
+    }
+});
+
+exports.showAllFacilities = onRequest({ 'region': 'europe-west2' }, async (req, res) => {
+    try {
+        if (req.method == 'GET') {
+            const facilitiesData = await loadFacilitiesInfo();
+
+            if (Object.keys(facilitiesData).length === 0) {
+                return res.status(404).json({ message: "No facilities available!" });
+            }
+
+            return res.status(200).json({
+                facilities: facilitiesData
+            });
+        }
+    } 
+    catch (error) {
+        console.log("Could not retrieve facilities: ", error);
+        return res.status(500).json({ error: "Internal server error" });
+    }
+});
+
+exports.showAllClubs = onRequest({ 'region': 'europe-west2' }, async (req, res) => {
+    try {
+        if (req.method == 'GET') {
+            const clubsData = await loadClubsInfo();
+
+            if (Object.keys(clubsData).length === 0) {
+                return res.status(404).json({ message: "No clubs available!" });
+            }
+
+            return res.status(200).json({
+                message: "List of all clubs",
+                clubs: clubsData
+            });
+        }
+    } 
+    catch (error) {
+        console.log("Could not retrieve clubs: ", error);
+        return res.status(500).json({ error: "Internal server error" });
+    }
+});
+
+exports.updateClub = onRequest({ 'region': 'europe-west2' }, async (req, res) => {
+    try {
+        if (req.method == 'PUT') {
+            const { clubID, newName } = req.body;
+
+            if (!clubID || !newName) {
+                return res.status(400).json({ error: "clubID and newName are required!" });
+            }
+
+            const clubsData = await loadClubsInfo();
+
+            const club = clubsData[clubID];
+            if (!club) {
+                return res.status(404).json({ error: `Club with ID ${clubID} does not exist!` });
+            }
+            club.name = newName;
+
+            uploadString('clubs.json', JSON.stringify(clubsData)).then(() => {
+                return res.status(200).json({
+                    message: `Club ${clubID} successfully updated!`,
+                    updatedClub: club
+                });
+            });
+        }
+    } 
+    catch (error) {
+        console.log("Could not update the club: ", error);
+        return res.status(500).json({ error: "Internal server error" });
+    }
+});
 
 
 

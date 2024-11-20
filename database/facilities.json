@@ -1,0 +1,17 @@
+{
+    "facility1": {
+        "name": "Basketball Court 1"
+    },
+    "facility2": {
+        "name": "Basketball Court 2"
+    },
+    "facility3": {
+        "name": "GAA Pitch 1"
+    },
+    "facility4": {
+        "name": "GAA Pitch 2"
+    },
+    "facility5": {
+        "name": "Elite Gym"
+    }
+}

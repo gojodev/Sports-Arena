@@ -1,7 +1,14 @@
 {
     "club1": {
         "name": "Basketball Club",
-        "bookings": []
+        "bookings": [
+            {
+                "description":"Test booking for facility",
+                "facilityID":"facility1",
+                "datetime":"2024-11-21T10:00:00.000Z",
+                "duration":60
+            }
+        ]
     },
     "club2": {
         "name": "Hurling Club",

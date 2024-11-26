@@ -46,9 +46,6 @@ const db = {
     }
 }
 
-function () {
-    
-}
 
 for (var key in db) {
     db_username = bcrypt.compareSync(client_username, key)

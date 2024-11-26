@@ -62,6 +62,30 @@ function missingInfoWarning(arr) {
     return missingItems
 }
 
+function findUserProfile(db, client_username) {
+    let res = undefined;
+    for (const key in db) {
+        const valid_username = bcrypt.compareSync(client_username, key)
+        if (valid_username) {
+            res = db[key];
+            break
+        }
+    }
+    return res;
+}
+
+function find_db_username(db, client_username) {
+    let res = undefined;
+    for (const key in db) {
+        let valid_username = bcrypt.compareSync(client_username, key)
+        if (valid_username) {
+            res = key
+            break
+        }
+    }
+    return res
+}
+
 exports.showDB = onRequest({ 'region': 'europe-west2' }, async (req, res) => {
     try {
         let db = await loadInfo();
@@ -396,34 +420,44 @@ exports.dailyCalories = onRequest({ 'region': 'europe-west2' }, async (req, res)
 })
 
 
-exports.booking = onRequest({ 'region': 'europe-west2' }, async (req, res) => {
+exports.bookingClub = onRequest({ 'region': 'europe-west2' }, async (req, res) => {
     try {
+        const username = req.body.username;
+
         if (req.method == 'POST') {
+            const name = req.body.name;
+            const sport = req.body.sport;
+            const description = req.body.description;
+            const date = req.body.date;
+            const time = req.body.time;
 
-            const username = req.body.username;
-            const club_name = req.body.club_name;
-            const booking_date = req.body.booking_date;
-
-
-            // ? remeber they just have to use at least one
-            // todo POST add a new booking
-            if (!club_name && !booking_date) {
-                const clientData = [club_name, booking_date, username]
-                const missingItems = missingInfoWarning(clientData);
-
-                if (missingItems == []) {
-                    return res.status(200).json({ error: `${missingItems} is required in the JSON body` })
+            const bookingData = {
+                [username]: {
+                    name,
+                    sport,
+                    description,
+                    date,
+                    time
                 }
             }
+
+            uploadString(clubs, JSON.stringify(bookingData)).then(() => {
+                return res.status(200).json({
+                    verdict: `${username} has booked ${sport} successfully booked!`,
+                    bookingData
+                });
+            });
 
         }
 
 
         // todo GET show bookings
         if (req.method == 'GET') {
-            const db = loadInfo();
+            const db = loadClubsInfo();
 
-            return res.status(200).json({ db })
+            const userInfo = findUserProfile(db, username)
+
+            return res.status(200).json({ userInfo })
         }
 
     }
@@ -482,7 +516,7 @@ exports.bookFacility = onRequest({ 'region': 'europe-west2' }, async (req, res) 
                 });
             });
         }
-    } 
+    }
     catch (error) {
         console.log("Could not book the facility: ", error);
         return res.status(500).json({ error: "Internal server error" });
@@ -513,7 +547,7 @@ exports.createFacility = onRequest({ 'region': 'europe-west2' }, async (req, res
                 });
             });
         }
-    } 
+    }
     catch (error) {
         console.log("Could not create the facility: ", error);
         return res.status(500).json({ error: "Internal server error" });
@@ -545,7 +579,7 @@ exports.updateFacility = onRequest({ 'region': 'europe-west2' }, async (req, res
                 });
             });
         }
-    } 
+    }
     catch (error) {
         console.log("Could not update the facility: ", error);
         return res.status(500).json({ error: "Internal server error" });
@@ -594,7 +628,7 @@ exports.showAllFacilities = onRequest({ 'region': 'europe-west2' }, async (req, 
                 facilities: facilitiesData
             });
         }
-    } 
+    }
     catch (error) {
         console.log("Could not retrieve facilities: ", error);
         return res.status(500).json({ error: "Internal server error" });
@@ -614,7 +648,7 @@ exports.showAllClubs = onRequest({ 'region': 'europe-west2' }, async (req, res) 
                 clubs: clubsData
             });
         }
-    } 
+    }
     catch (error) {
         console.log("Could not retrieve clubs: ", error);
         return res.status(500).json({ error: "Internal server error" });
@@ -645,7 +679,7 @@ exports.createClub = onRequest({ 'region': 'europe-west2' }, async (req, res) =>
                 });
             });
         }
-    } 
+    }
     catch (error) {
         console.log("Could not create the club: ", error);
         return res.status(500).json({ error: "Internal server error" });
@@ -676,7 +710,7 @@ exports.updateClub = onRequest({ 'region': 'europe-west2' }, async (req, res) =>
                 });
             });
         }
-    } 
+    }
     catch (error) {
         console.log("Could not update the club: ", error);
         return res.status(500).json({ error: "Internal server error" });

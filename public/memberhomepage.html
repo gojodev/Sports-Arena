@@ -103,7 +103,7 @@
 
     <header>
         <div class="header-top">
-            <div class="name"><a href="homepage.html">Name</a></div>
+            <div class="name"><a href="memberhomepage.html">Name</a></div>
             <div class="header-bottom">
                 <nav>
                     <a href="loggedinhomepage.html">Home</a>
@@ -111,7 +111,7 @@
                     <a href="">Fitness Log</a>
                     <a href="">Profile</a>
                     <a href="">My Appointments</a>
-                    <a href="homepage.html" class="signup">Sign Out</a>
+                    <a onclick="signOut()" class="signup">Sign Out</a>
                 </nav>
             </div>
         </div>
@@ -129,6 +129,22 @@
             </div>
         </div>
     </main>
+    <script>
+        function signOut(){
+            localStorage.removeItem('username');
+            localStorage.removeItem('role');
+
+            document.location.href = "login.html";
+        }
+
+        const username = localStorage.getItem('username');
+        if (username) {
+            document.querySelector('.name a').textContent = username;
+        } 
+        else {
+            document.querySelector('.name a').textContent = "Guest";
+        }
+    </script>
 
 </body>
 

@@ -72,11 +72,19 @@ loginButton.addEventListener('click', async (event) => {
         console.log('role : ', response.role)
         console.log(response);
         if (response.verdict) {
+            console.log(response);
+            
+            localStorage.setItem('username', response.name);
+            localStorage.setItem('role', response.role);
+
             if (response.role === "member") {
                 document.location.href = "memberhomepage.html";
             }
             if (response.role === "trainer") {
                 document.location.href = "trainerhomepage.html";
+            }
+            if (response.role === "admin") {
+                document.location.href = "adminhomepage.html";
             }
         }
         else {

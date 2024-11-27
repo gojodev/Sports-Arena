@@ -80,6 +80,8 @@ signUpButton.addEventListener('click', async (event) => {
         let response = await addUser(username, name, email, password, role);
         console.log(response);
         //errorHandler("User added successfully check console for more details");
+        localStorage.setItem('username', response.name);
+        localStorage.setItem('role', response.role);
   
         if (response.role == "member"){
           document.location.href = "memberhomepage.html";

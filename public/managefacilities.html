@@ -154,6 +154,14 @@
             flex: 1;
             text-align: center; 
         }
+        .header-top .name {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .name a {
+            text-decoration: none;
+            color: white;
+        }
     </style>
 </head>
 
@@ -162,15 +170,13 @@
 
     <header>
         <div class="header-top">
-            <div class="name">Name</div>
+            <div class="name"><a href="adminhomepage.html">Name</a></div>
             <div class="header-bottom">
                 <nav>
-                    <a href="memberhomepage.html">Home</a>
-                    <a href="viewclubs.html">Clubs</a>
-                    <a href="fitnesslog.html">Fitness Log</a>
-                    <a href="profilepage.html">Profile</a>
-                    <a href="memberappointments.html">My Appointments</a>
-                    <a href="index.html" class="signup">Sign Out</a>
+                    <a href="adminhomepage.html">Home</a>
+                    <a href="managefacilities.html">Manage Facilities</a>
+                    <a href="manageclubs.html">Manage Clubs</a>
+                    <a onclick="signOut()" class="signup">Sign Out</a>
                 </nav>
             </div>
         </div>
@@ -201,6 +207,22 @@
         </table>
     </main>
     <script src="./javascripts/operationsBundle.js"></script>
+    <script>
+        function signOut(){
+            localStorage.removeItem('username');
+            localStorage.removeItem('role');
+
+            document.location.href = "login.html";
+        }
+
+        const username = localStorage.getItem('username');
+        if (username) {
+            document.querySelector('.name a').textContent = username;
+        } 
+        else {
+            document.querySelector('.name a').textContent = "Guest";
+        }
+    </script>
 </body>
 
 </html>

@@ -136,11 +136,12 @@ exports.verifyUser = onRequest({ 'region': 'europe-west2' }, async (req, res) =>
             if (userInfo != undefined) {
                 const db_email = userInfo.email;
                 const db_password = userInfo.password;
+                const db_name = userInfo.name;
 
                 if (!client_email || !client_password || !client_username) {
                     return res.status(400).json({ error: "Username, Email and Passowrd is required in the JSON body" });
                 }
-
+                
                 let correctEmail = bcrypt.compareSync(client_email, db_email);
                 let correctPassword = bcrypt.compareSync(client_password, db_password);
                 let verdict = correctEmail && correctPassword;
@@ -148,6 +149,7 @@ exports.verifyUser = onRequest({ 'region': 'europe-west2' }, async (req, res) =>
                 return res.status(200).json({
                     'verdict': verdict,
                     'username': client_username,
+                    'name': db_name,
                     'creds': db[key],
                     'role': db[key].role
                 });
@@ -232,13 +234,13 @@ exports.addUser = onRequest({ 'region': 'europe-west2' }, async (req, res) => {
             const username_hash = bcrypt.hashSync(client_username, saltRounds)
             const email_hash = bcrypt.hashSync(client_email, saltRounds)
             const password_hash = bcrypt.hashSync(client_password, saltRounds)
-            const name_hash = bcrypt.hashSync(client_name, saltRounds)
+            // const name_hash = bcrypt.hashSync(client_name, saltRounds)
 
             let newUser = {
                 [username_hash]:
                 {
                     email: email_hash,
-                    name: name_hash,
+                    name: client_name,
                     password: password_hash,
                     role: client_role,
                     expiry_password: monthsAway() // no need to hash this

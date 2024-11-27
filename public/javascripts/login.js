@@ -8,7 +8,7 @@ DarkReader.auto({
 
 async function verifyUser(username, email, password) {
     try {
-        const response = await fetch('http://127.0.0.1:5001/sports-arena-39a32/europe-west2/verifyUser', {
+        const response = await fetch('https://verifyuser-77hki32qna-nw.a.run.app', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -95,9 +95,9 @@ loginButton.addEventListener('click', async (event) => {
 })
 
 function autofill() {
-    document.getElementById("username").value = "user3"
-    document.getElementById("email").value = "user3@gmail.com"
-    document.getElementById("password").value = "user3_password!"
+    document.getElementById("username").value = "user1"
+    document.getElementById("email").value = "user1@gmail.com"
+    document.getElementById("password").value = "user1_password!"
 }
 
 autofill()

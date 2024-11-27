@@ -1,3 +1,5 @@
+const Fuse = require('fuse.js')
+
 const clubs = [
     {
         name: "MTU United",

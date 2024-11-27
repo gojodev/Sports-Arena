@@ -87,15 +87,17 @@ function find_db_username(db, client_username) {
 }
 
 exports.showDB = onRequest({ 'region': 'europe-west2' }, async (req, res) => {
-    try {
-        let db = await loadInfo();
-        res.json(db);
+    corsHandler(req, res, async () => {
+        try {
+            let db = await loadInfo();
+            res.json(db);
 
-    }
-    catch (error) {
-        console.log('Couldnt access the database: ', error)
-        return res.status(500).json({ error: "Interal server error" })
-    }
+        }
+        catch (error) {
+            console.log('Couldnt access the database: ', error)
+            return res.status(500).json({ error: "Interal server error" })
+        }
+    })
 });
 
 
@@ -141,7 +143,7 @@ exports.verifyUser = onRequest({ 'region': 'europe-west2' }, async (req, res) =>
                 if (!client_email || !client_password || !client_username) {
                     return res.status(400).json({ error: "Username, Email and Passowrd is required in the JSON body" });
                 }
-                
+
                 let correctEmail = bcrypt.compareSync(client_email, db_email);
                 let correctPassword = bcrypt.compareSync(client_password, db_password);
                 let verdict = correctEmail && correctPassword;
@@ -168,31 +170,6 @@ exports.verifyUser = onRequest({ 'region': 'europe-west2' }, async (req, res) =>
         }
     })
 });
-async function verifyUser_client(username, email, password) {
-    try {
-        const response = await fetch('http://127.0.0.1:5001/sports-arena-39a32/europe-west2/verifyUser', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                username: username,
-                email: email,
-                password: password,
-            }),
-        });
-
-        if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-
-        const userData = await response.json();
-        return userData.verdict;
-    } catch (error) {
-        console.error('Error fetching user data:', error);
-    }
-}
-
 function monthsAway() {
     const today = new Date();
     today.setMonth(today.getMonth() + 3);
@@ -205,558 +182,576 @@ function monthsAway() {
 }
 
 exports.addUser = onRequest({ 'region': 'europe-west2' }, async (req, res) => {
-    try {
-        if (req.method != 'POST') {
-            return res.status(405).json({ error: "Method not allowed" })
-        }
+    corsHandler(req, res, async () => {
 
-        const client_username = req.body.username;
-        const client_name = req.body.name;
-        const client_email = req.body.email;
-        const client_password = req.body.password;
-        const client_role = req.body.role;
+        try {
+            if (req.method != 'POST') {
+                return res.status(405).json({ error: "Method not allowed" })
+            }
 
-        const clientData = [client_username, client_name, client_email, client_password, client_role]
-        const missingItems = missingInfoWarning(clientData);
+            const client_username = req.body.username;
+            const client_name = req.body.name;
+            const client_email = req.body.email;
+            const client_password = req.body.password;
+            const client_role = req.body.role;
 
-        if (missingItems == []) {
-            return res.status(200).json({ error: `${missingItems} is required in the JSON body` })
-        }
+            const clientData = [client_username, client_name, client_email, client_password, client_role]
+            const missingItems = missingInfoWarning(clientData);
 
-        let isExistingUser = await verifyUser_client(client_username, client_email, client_password)
-
-        if (isExistingUser) {
-            return res.status(200).json({ error: `Account with email ${client_email} already exists` });
-        }
-
-        else {
-            const saltRounds = 10;
-            const username_hash = bcrypt.hashSync(client_username, saltRounds)
-            const email_hash = bcrypt.hashSync(client_email, saltRounds)
-            const password_hash = bcrypt.hashSync(client_password, saltRounds)
-            // const name_hash = bcrypt.hashSync(client_name, saltRounds)
-
-            let newUser = {
-                [username_hash]:
-                {
-                    email: email_hash,
-                    name: client_name,
-                    password: password_hash,
-                    role: client_role,
-                    expiry_password: monthsAway() // no need to hash this
-                }
+            if (missingItems == []) {
+                return res.status(200).json({ error: `${missingItems} is required in the JSON body` })
             }
 
             const db = await loadInfo();
+            let isExistingUser = findUserProfile(db, client_username)
 
-            Object.assign(db, newUser)
+            if (isExistingUser != undefined) {
+                return res.status(200).json({ error: `Account with email ${client_email} already exists` });
+            }
 
-            uploadString(userCreds, JSON.stringify(db)).then(() => {
-                return res.status(200).json({
-                    'verdict': `New user ${client_username} has been created`,
-                    'newUser': newUser,
+            else {
+                const saltRounds = 10;
+                const username_hash = bcrypt.hashSync(client_username, saltRounds)
+                const email_hash = bcrypt.hashSync(client_email, saltRounds)
+                const password_hash = bcrypt.hashSync(client_password, saltRounds)
+                // const name_hash = bcrypt.hashSync(client_name, saltRounds)
+
+                let newUser = {
+                    [username_hash]:
+                    {
+                        email: email_hash,
+                        name: client_name,
+                        password: password_hash,
+                        role: client_role,
+                        expiry_password: monthsAway() // no need to hash this
+                    }
+                }
+
+                Object.assign(db, newUser)
+
+                uploadString(userCreds, JSON.stringify(db)).then(() => {
+                    return res.status(200).json({
+                        'verdict': `New user ${client_username} has been created`,
+                        'newUser': newUser,
+                    });
                 });
-            });
+            }
         }
-    }
 
-    catch (error) {
-        console.log("Couldnt add new user: ", error)
-        return res.status(500).json({ error: "Interal server error" })
-    }
+        catch (error) {
+            console.log("Couldnt add new user: ", error)
+            return res.status(500).json({ error: "Interal server error" })
+        }
+    })
 });
 
 exports.updateDetails = onRequest({ 'region': 'europe-west2' }, async (req, res) => {
-    try {
-        if (req.method != 'POST') {
-            return res.status(405).json({ error: "Method not allowed" })
-        }
-
-        const client_username = req.body.username;
-
-        const new_email = req.body.new_email;
-        const new_name = req.body.new_name;
-        const new_password = req.body.new_password;
-
-        const clientData = [new_email, new_name, new_password]
-        const missingItems = missingInfoWarning(clientData);
-
-        if (missingItems == []) {
-            return res.status(200).json({ error: `${missingItems} is required in the JSON body` })
-        }
-
-        var db_username = '';
-
-        let db = await loadInfo();
-
-        for (var key in db) {
-            db_username = bcrypt.compareSync(client_username, key)
-            if (db_username) {
-                db_username = key
-                break
-            }
-        }
-
-        if (db_username == false) {
-            return res.status(200).json({
-                verdict: `No data for: ${client_username} was found on file`
-            });
-        }
-
-        else {
-            const dbInfo = db[db_username];
-
-            console.log("db dbInfo: ", dbInfo)
-
-            const db_email = dbInfo.email;
-            const db_name = dbInfo.name;
-            const db_password = dbInfo.password;
-
-            var userInfo = {
-
+    corsHandler(req, res, async () => {
+        try {
+            if (req.method != 'POST') {
+                return res.status(405).json({ error: "Method not allowed" })
             }
 
-            userInfo.email = bcrypt.hashSync(new_email, 5);
+            const client_username = req.body.username;
 
-            if (!bcrypt.compareSync(new_email, db_email)) {
-                userInfo.email = bcrypt.hashSync(new_email, 5);
+            const new_email = req.body.new_email;
+            const new_name = req.body.new_name;
+            const new_password = req.body.new_password;
+
+            const clientData = [new_email, new_name, new_password]
+            const missingItems = missingInfoWarning(clientData);
+
+            if (missingItems == []) {
+                return res.status(200).json({ error: `${missingItems} is required in the JSON body` })
             }
 
-            if (!bcrypt.compareSync(new_name, db_name)) {
-                userInfo.name = bcrypt.hashSync(new_name, 5);
+            var db_username = '';
+
+            let db = await loadInfo();
+
+            for (var key in db) {
+                db_username = bcrypt.compareSync(client_username, key)
+                if (db_username) {
+                    db_username = key
+                    break
+                }
             }
 
-            if (!bcrypt.compareSync(new_password, db_password)) {
-                userInfo.password = bcrypt.hashSync(new_password, 5);
-            }
-
-            db[db_username] = userInfo;
-
-            uploadString(userCreds, JSON.stringify(db)).then(() => {
+            if (db_username == false) {
                 return res.status(200).json({
-                    'verdict': `Updated ${client_username}'s details successfully`,
-                    'newDetails': userInfo
+                    verdict: `No data for: ${client_username} was found on file`
                 });
-            });
-        }
-    }
+            }
 
-    catch (error) {
-        console.log("Couldnt add new user: ", error)
-        return res.status(500).json({ error: "Interal server error" })
-    }
+            else {
+                const dbInfo = db[db_username];
+
+                console.log("db dbInfo: ", dbInfo)
+
+                const db_email = dbInfo.email;
+                const db_name = dbInfo.name;
+                const db_password = dbInfo.password;
+
+                var userInfo = {
+
+                }
+
+                userInfo.email = bcrypt.hashSync(new_email, 5);
+
+                if (!bcrypt.compareSync(new_email, db_email)) {
+                    userInfo.email = bcrypt.hashSync(new_email, 5);
+                }
+
+                if (!bcrypt.compareSync(new_name, db_name)) {
+                    userInfo.name = bcrypt.hashSync(new_name, 5);
+                }
+
+                if (!bcrypt.compareSync(new_password, db_password)) {
+                    userInfo.password = bcrypt.hashSync(new_password, 5);
+                }
+
+                db[db_username] = userInfo;
+
+                uploadString(userCreds, JSON.stringify(db)).then(() => {
+                    return res.status(200).json({
+                        'verdict': `Updated ${client_username}'s details successfully`,
+                        'newDetails': userInfo
+                    });
+                });
+            }
+        }
+
+        catch (error) {
+            console.log("Couldnt add new user: ", error)
+            return res.status(500).json({ error: "Interal server error" })
+        }
+    })
 });
 
 exports.BMR = onRequest({ 'region': 'europe-west2' }, async (req, res) => {
-    try {
-        if (req.method != 'POST') {
-            return res.status(405).json({ error: "Method not allowed" })
+    corsHandler(req, res, async () => {
+        try {
+            if (req.method != 'POST') {
+                return res.status(405).json({ error: "Method not allowed" })
+            }
+
+            const gender = req.body.gender;
+
+            if (!gender) {
+                return res.status(200).json({ error: 'Gender is required in the JSON body' })
+            }
+
+            const weight = Number(req.body.weight) * 2.205
+            const height = Number(req.body.height) / 2.54
+            const age = Number(req.body.age)
+
+            if (!gender || !weight || !height || !age) {
+                return res.status(400).json({ error: "Gender, weight, height and age is required in the JSON body" });
+            }
+
+            const male_result = Math.round((66 + (6.3 * weight) + (12.9 * height) - (6.8 * age)) * 100) / 100
+            const female_result = Math.round((655 + (4.3 * weight) + (4.7 * height) - (6.8 * age)) * 100) / 100
+
+            const final_result = gender == 'male' ? male_result : female_result;
+
+            return res.status(200).json({
+                BMR: final_result,
+                gender: gender
+            })
+
         }
 
-        const gender = req.body.gender;
-
-        if (!gender) {
-            return res.status(200).json({ error: 'Gender is required in the JSON body' })
+        catch (error) {
+            console.log("Couldnt calculate BMR: ", error)
+            return res.status(500).json({ error: "Interal server error" })
         }
-
-        const weight = Number(req.body.weight) * 2.205
-        const height = Number(req.body.height) / 2.54
-        const age = Number(req.body.age)
-
-        if (!gender || !weight || !height || !age) {
-            return res.status(400).json({ error: "Gender, weight, height and age is required in the JSON body" });
-        }
-
-        const male_result = Math.round((66 + (6.3 * weight) + (12.9 * height) - (6.8 * age)) * 100) / 100
-        const female_result = Math.round((655 + (4.3 * weight) + (4.7 * height) - (6.8 * age)) * 100) / 100
-
-        const final_result = gender == 'male' ? male_result : female_result;
-
-        return res.status(200).json({
-            BMR: final_result,
-            gender: gender
-        })
-
-    }
-
-    catch (error) {
-        console.log("Couldnt calculate BMR: ", error)
-        return res.status(500).json({ error: "Interal server error" })
-    }
+    })
 })
 
 exports.dailyCalories = onRequest({ 'region': 'europe-west2' }, async (req, res) => {
-    try {
-        if (req.method != 'POST') {
-            return res.status(405).json({ error: "Method not allowed" })
-        }
+    corsHandler(req, res, async () => {
+        try {
+            if (req.method != 'POST') {
+                return res.status(405).json({ error: "Method not allowed" })
+            }
 
-        let BMR = req.body.BMR;
-        const description = req.body.description;
+            let BMR = req.body.BMR;
+            const description = req.body.description;
 
-        if (!BMR) {
-            return res.status(400).json({ error: "BMR is required in the JSON body" });
-        }
+            if (!BMR) {
+                return res.status(400).json({ error: "BMR is required in the JSON body" });
+            }
 
-        const factors = {
-            'sedentary': 1.2,
-            'lightly active ': 1.375,
-            'moderately active': 1.55,
-            'very active': 1.725,
-            'extra active': 1.9,
-        }
+            const factors = {
+                'sedentary': 1.2,
+                'lightly active ': 1.375,
+                'moderately active': 1.55,
+                'very active': 1.725,
+                'extra active': 1.9,
+            }
 
-        const result = factors[description]
-        if (result != undefined) {
-            BMR = BMR * result;
-            return res.status(200).json({ verdict: BMR })
+            const result = factors[description]
+            if (result != undefined) {
+                BMR = BMR * result;
+                return res.status(200).json({ verdict: BMR })
+            }
+            else {
+                return res.status(200).json({ verdict: 'Description not recognised' })
+            }
         }
-        else {
-            return res.status(200).json({ verdict: 'Description not recognised' })
+        catch (error) {
+            console.log("Couldnt calculate BMR: ", error)
+            return res.status(500).json({ error: "Interal server error" })
         }
-    }
-    catch (error) {
-        console.log("Couldnt calculate BMR: ", error)
-        return res.status(500).json({ error: "Interal server error" })
-    }
+    })
 })
 
 
 exports.bookingClub = onRequest({ 'region': 'europe-west2' }, async (req, res) => {
-    try {
-        const username = req.body.username;
+    corsHandler(req, res, async () => {
+        try {
+            const username = req.body.username;
 
-        if (req.method == 'POST') {
-            const name = req.body.name;
-            const sport = req.body.sport;
-            const description = req.body.description;
-            const date = req.body.date;
-            const time = req.body.time;
+            if (req.method == 'POST') {
+                const name = req.body.name;
+                const sport = req.body.sport;
+                const description = req.body.description;
+                const date = req.body.date;
+                const time = req.body.time;
 
-            const bookingData = {
-                [username]: {
-                    name,
-                    sport,
-                    description,
-                    date,
-                    time
+                const bookingData = {
+                    [username]: {
+                        name,
+                        sport,
+                        description,
+                        date,
+                        time
+                    }
                 }
+
+                uploadString(clubs, JSON.stringify(bookingData)).then(() => {
+                    return res.status(200).json({
+                        verdict: `${username} has booked ${sport} successfully booked!`,
+                        bookingData
+                    });
+                });
+
             }
 
-            uploadString(clubs, JSON.stringify(bookingData)).then(() => {
-                return res.status(200).json({
-                    verdict: `${username} has booked ${sport} successfully booked!`,
-                    bookingData
-                });
-            });
+
+            // todo GET show bookings
+            if (req.method == 'GET') {
+                const db = loadClubsInfo();
+
+                const userInfo = findUserProfile(db, username)
+
+                return res.status(200).json({ userInfo })
+            }
 
         }
 
-
-        // todo GET show bookings
-        if (req.method == 'GET') {
-            const db = loadClubsInfo();
-
-            const userInfo = findUserProfile(db, username)
-
-            return res.status(200).json({ userInfo })
+        catch (error) {
+            console.log("Couldnt make booking: ", error)
+            return res.status(500).json({ error: "Interal server error" })
         }
-
-    }
-
-    catch (error) {
-        console.log("Couldnt make booking: ", error)
-        return res.status(500).json({ error: "Interal server error" })
-    }
+    })
 })
 
 // WIP for booking facilities
 exports.bookFacility = onRequest({ 'region': 'europe-west2' }, async (req, res) => {
-    try {
-        if (req.method == 'POST') {
-            const { description, clubID, facilityID, datetime, duration } = req.body;
+    corsHandler(req, res, async () => {
+        try {
+            if (req.method == 'POST') {
+                const { description, clubID, facilityID, datetime, duration } = req.body;
 
-            if (!description || !clubID || !facilityID || !datetime || !duration) {
-                return res.status(400).json({ error: "Description, clubID, facilityID, datetime and duration are all required!" });
-            }
+                if (!description || !clubID || !facilityID || !datetime || !duration) {
+                    return res.status(400).json({ error: "Description, clubID, facilityID, datetime and duration are all required!" });
+                }
 
-            const bookingDateTime = new Date(datetime);
-            const clubsData = await loadClubsInfo();
+                const bookingDateTime = new Date(datetime);
+                const clubsData = await loadClubsInfo();
 
-            const club = clubsData[clubID];
-            if (!club) {
-                return res.status(404).json({ error: `Club with ID ${clubID} does not exist!` });
-            }
+                const club = clubsData[clubID];
+                if (!club) {
+                    return res.status(404).json({ error: `Club with ID ${clubID} does not exist!` });
+                }
 
-            const facilityBooked = club.bookings.find(booking => {
-                return booking.facilityID === facilityID;
-            });
-
-            const isOverlapping = club.bookings.some(booking => {
-                const bookingStart = new Date(booking.datetime);
-                const bookingEnd = new Date(bookingStart.getTime() + booking.duration * 60000);
-                const newBookingEnd = new Date(bookingDateTime.getTime() + duration * 60000);
-
-                return (bookingDateTime < bookingEnd && newBookingEnd > bookingStart);
-            });
-
-            if (isOverlapping) {
-                return res.status(400).json({ error: "The facility is already booked for this time slot!" });
-            }
-
-            const newBooking = {
-                description,
-                facilityID,
-                datetime: bookingDateTime.toISOString(),
-                duration
-            };
-            club.bookings.push(newBooking);
-            uploadString(clubs, JSON.stringify(clubsData)).then(() => {
-                return res.status(200).json({
-                    verdict: `Facility ${facilityID} at Club ${clubID} successfully booked!`,
-                    newBooking
+                const facilityBooked = club.bookings.find(booking => {
+                    return booking.facilityID === facilityID;
                 });
-            });
+
+                const isOverlapping = club.bookings.some(booking => {
+                    const bookingStart = new Date(booking.datetime);
+                    const bookingEnd = new Date(bookingStart.getTime() + booking.duration * 60000);
+                    const newBookingEnd = new Date(bookingDateTime.getTime() + duration * 60000);
+
+                    return (bookingDateTime < bookingEnd && newBookingEnd > bookingStart);
+                });
+
+                if (isOverlapping) {
+                    return res.status(400).json({ error: "The facility is already booked for this time slot!" });
+                }
+
+                const newBooking = {
+                    description,
+                    facilityID,
+                    datetime: bookingDateTime.toISOString(),
+                    duration
+                };
+                club.bookings.push(newBooking);
+                uploadString(clubs, JSON.stringify(clubsData)).then(() => {
+                    return res.status(200).json({
+                        verdict: `Facility ${facilityID} at Club ${clubID} successfully booked!`,
+                        newBooking
+                    });
+                });
+            }
         }
-    }
-    catch (error) {
-        console.log("Could not book the facility: ", error);
-        return res.status(500).json({ error: "Internal server error" });
-    }
+        catch (error) {
+            console.log("Could not book the facility: ", error);
+            return res.status(500).json({ error: "Internal server error" });
+        }
+    })
 });
 
 exports.createFacility = onRequest({ 'region': 'europe-west2' }, async (req, res) => {
-    try {
-        if (req.method == 'POST') {
-            const { facilityID, location } = req.body;
+    corsHandler(req, res, async () => {
+        try {
+            if (req.method == 'POST') {
+                const { facilityID, location } = req.body;
 
-            if (!facilityID || !location) {
-                return res.status(400).json({ error: "facilityID and location are required!" });
-            }
+                if (!facilityID || !location) {
+                    return res.status(400).json({ error: "facilityID and location are required!" });
+                }
 
-            const facilitiesData = await loadFacilitiesInfo();
+                const facilitiesData = await loadFacilitiesInfo();
 
-            if (facilitiesData[facilityID]) {
-                return res.status(400).json({ error: `Facility with ID ${facilityID} already exists!` });
-            }
+                if (facilitiesData[facilityID]) {
+                    return res.status(400).json({ error: `Facility with ID ${facilityID} already exists!` });
+                }
 
-            facilitiesData[facilityID] = { location };
+                facilitiesData[facilityID] = { location };
 
-            uploadString(facilities, JSON.stringify(facilitiesData)).then(() => {
-                return res.status(200).json({
-                    message: `Facility ${facilityID} successfully created!`,
-                    newFacility: facilitiesData[facilityID]
+                uploadString(facilities, JSON.stringify(facilitiesData)).then(() => {
+                    return res.status(200).json({
+                        message: `Facility ${facilityID} successfully created!`,
+                        newFacility: facilitiesData[facilityID]
+                    });
                 });
-            });
+            }
         }
-    }
-    catch (error) {
-        console.log("Could not create the facility: ", error);
-        return res.status(500).json({ error: "Internal server error" });
-    }
+        catch (error) {
+            console.log("Could not create the facility: ", error);
+            return res.status(500).json({ error: "Internal server error" });
+        }
+    })
 });
 
 exports.updateFacility = onRequest({ 'region': 'europe-west2' }, async (req, res) => {
-    try {
-        if (req.method == 'PUT') {
-            const { facilityID, newLocation } = req.body;
+    corsHandler(req, res, async () => {
+        try {
+            if (req.method == 'PUT') {
+                const { facilityID, newLocation } = req.body;
 
-            if (!facilityID || !newLocation) {
-                return res.status(400).json({ error: "facilityID and newLocation are required!" });
-            }
+                if (!facilityID || !newLocation) {
+                    return res.status(400).json({ error: "facilityID and newLocation are required!" });
+                }
 
-            const facilitiesData = await loadFacilitiesInfo();
+                const facilitiesData = await loadFacilitiesInfo();
 
-            const facility = facilitiesData[facilityID];
-            if (!facility) {
-                return res.status(404).json({ error: `Facility with ID ${facilityID} does not exist!` });
-            }
+                const facility = facilitiesData[facilityID];
+                if (!facility) {
+                    return res.status(404).json({ error: `Facility with ID ${facilityID} does not exist!` });
+                }
 
-            facility.location = newLocation;
+                facility.location = newLocation;
 
-            uploadString(facilities, JSON.stringify(facilitiesData)).then(() => {
-                return res.status(200).json({
-                    message: `Facility ${facilityID} successfully updated!`,
-                    updatedFacility: facility
+                uploadString(facilities, JSON.stringify(facilitiesData)).then(() => {
+                    return res.status(200).json({
+                        message: `Facility ${facilityID} successfully updated!`,
+                        updatedFacility: facility
+                    });
                 });
-            });
+            }
         }
-    }
-    catch (error) {
-        console.log("Could not update the facility: ", error);
-        return res.status(500).json({ error: "Internal server error" });
-    }
+        catch (error) {
+            console.log("Could not update the facility: ", error);
+            return res.status(500).json({ error: "Internal server error" });
+        }
+    })
 });
 
 exports.deleteFacility = onRequest({ 'region': 'europe-west2' }, async (req, res) => {
-    try {
-        if (req.method == 'DELETE') {
-            const { facilityID } = req.body;
+    corsHandler(req, res, async () => {
+        try {
+            if (req.method == 'DELETE') {
+                const { facilityID } = req.body;
 
-            if (!facilityID) {
-                return res.status(400).json({ error: "facilityID is required!" });
-            }
+                if (!facilityID) {
+                    return res.status(400).json({ error: "facilityID is required!" });
+                }
 
-            const facilitiesData = await loadFacilitiesInfo();
+                const facilitiesData = await loadFacilitiesInfo();
 
-            const facility = facilitiesData[facilityID];
-            if (!facility) {
-                return res.status(404).json({ error: `Facility with ID ${facilityID} does not exist!` });
-            }
+                const facility = facilitiesData[facilityID];
+                if (!facility) {
+                    return res.status(404).json({ error: `Facility with ID ${facilityID} does not exist!` });
+                }
 
-            delete facilitiesData[facilityID];
-            uploadString(facilities, JSON.stringify(facilitiesData)).then(() => {
-                return res.status(200).json({
-                    message: `Facility ${facilityID} successfully deleted!`
+                delete facilitiesData[facilityID];
+                uploadString(facilities, JSON.stringify(facilitiesData)).then(() => {
+                    return res.status(200).json({
+                        message: `Facility ${facilityID} successfully deleted!`
+                    });
                 });
-            });
+            }
+        } catch (error) {
+            console.log("Could not delete the facility: ", error);
+            return res.status(500).json({ error: "Internal server error" });
         }
-    } catch (error) {
-        console.log("Could not delete the facility: ", error);
-        return res.status(500).json({ error: "Internal server error" });
-    }
+    })
 });
 
 exports.showAllFacilities = onRequest({ 'region': 'europe-west2' }, async (req, res) => {
-    try {
-        if (req.method == 'GET') {
-            const facilitiesData = await loadFacilitiesInfo();
+    corsHandler(req, res, async () => {
+        try {
+            if (req.method == 'GET') {
+                const facilitiesData = await loadFacilitiesInfo();
 
-            if (Object.keys(facilitiesData).length === 0) {
-                return res.status(404).json({ message: "No facilities available!" });
+                if (Object.keys(facilitiesData).length === 0) {
+                    return res.status(404).json({ message: "No facilities available!" });
+                }
+
+                return res.status(200).json({
+                    facilities: facilitiesData
+                });
             }
-
-            return res.status(200).json({
-                facilities: facilitiesData
-            });
         }
-    }
-    catch (error) {
-        console.log("Could not retrieve facilities: ", error);
-        return res.status(500).json({ error: "Internal server error" });
-    }
+        catch (error) {
+            console.log("Could not retrieve facilities: ", error);
+            return res.status(500).json({ error: "Internal server error" });
+        }
+    })
 });
 
 exports.showAllClubs = onRequest({ 'region': 'europe-west2' }, async (req, res) => {
-    try {
-        if (req.method == 'GET') {
-            const clubsData = await loadClubsInfo();
+    corsHandler(req, res, async () => {
+        try {
+            if (req.method == 'GET') {
+                const clubsData = await loadClubsInfo();
 
-            if (Object.keys(clubsData).length === 0) {
-                return res.status(404).json({ message: "No clubs available!" });
+                if (Object.keys(clubsData).length === 0) {
+                    return res.status(404).json({ message: "No clubs available!" });
+                }
+
+                return res.status(200).json({
+                    clubs: clubsData
+                });
             }
-
-            return res.status(200).json({
-                clubs: clubsData
-            });
         }
-    }
-    catch (error) {
-        console.log("Could not retrieve clubs: ", error);
-        return res.status(500).json({ error: "Internal server error" });
-    }
+        catch (error) {
+            console.log("Could not retrieve clubs: ", error);
+            return res.status(500).json({ error: "Internal server error" });
+        }
+    })
 });
 
 exports.createClub = onRequest({ 'region': 'europe-west2' }, async (req, res) => {
-    try {
-        if (req.method == 'POST') {
-            const { clubID, caloryBurnRate } = req.body;
+    corsHandler(req, res, async () => {
+        try {
+            if (req.method == 'POST') {
+                const { clubID, caloryBurnRate } = req.body;
 
-            if (!clubID || !caloryBurnRate) {
-                return res.status(400).json({ error: "clubID and caloryBurnRate are required!" });
-            }
+                if (!clubID || !caloryBurnRate) {
+                    return res.status(400).json({ error: "clubID and caloryBurnRate are required!" });
+                }
 
-            const clubsData = await loadClubsInfo();
+                const clubsData = await loadClubsInfo();
 
-            if (clubsData[clubID]) {
-                return res.status(400).json({ error: `Club with ID ${clubID} already exists!` });
-            }
+                if (clubsData[clubID]) {
+                    return res.status(400).json({ error: `Club with ID ${clubID} already exists!` });
+                }
 
-            clubsData[clubID] = { caloryBurnRate };
+                clubsData[clubID] = { caloryBurnRate };
 
-            uploadString(clubs, JSON.stringify(clubsData)).then(() => {
-                return res.status(200).json({
-                    message: `Club ${clubID} successfully created!`,
-                    newClub: clubsData[clubID]
+                uploadString(clubs, JSON.stringify(clubsData)).then(() => {
+                    return res.status(200).json({
+                        message: `Club ${clubID} successfully created!`,
+                        newClub: clubsData[clubID]
+                    });
                 });
-            });
+            }
         }
-    }
-    catch (error) {
-        console.log("Could not create the club: ", error);
-        return res.status(500).json({ error: "Internal server error" });
-    }
+        catch (error) {
+            console.log("Could not create the club: ", error);
+            return res.status(500).json({ error: "Internal server error" });
+        }
+    })
 });
 
 exports.updateClub = onRequest({ 'region': 'europe-west2' }, async (req, res) => {
-    try {
-        if (req.method == 'PUT') {
-            const { clubID, newCaloryBurnRate } = req.body;
+    corsHandler(req, res, async () => {
+        try {
+            if (req.method == 'PUT') {
+                const { clubID, newCaloryBurnRate } = req.body;
 
-            if (!clubID || !newCaloryBurnRate) {
-                return res.status(400).json({ error: "clubID and newCaloryBurnRate are required!" });
-            }
+                if (!clubID || !newCaloryBurnRate) {
+                    return res.status(400).json({ error: "clubID and newCaloryBurnRate are required!" });
+                }
 
-            const clubsData = await loadClubsInfo();
+                const clubsData = await loadClubsInfo();
 
-            const club = clubsData[clubID];
-            if (!club) {
-                return res.status(404).json({ error: `Club with ID ${clubID} does not exist!` });
-            }
-            club.caloryBurnRate = newCaloryBurnRate;
+                const club = clubsData[clubID];
+                if (!club) {
+                    return res.status(404).json({ error: `Club with ID ${clubID} does not exist!` });
+                }
+                club.caloryBurnRate = newCaloryBurnRate;
 
-            uploadString(clubs, JSON.stringify(clubsData)).then(() => {
-                return res.status(200).json({
-                    message: `Club ${clubID} successfully updated!`,
-                    updatedClub: club
+                uploadString(clubs, JSON.stringify(clubsData)).then(() => {
+                    return res.status(200).json({
+                        message: `Club ${clubID} successfully updated!`,
+                        updatedClub: club
+                    });
                 });
-            });
+            }
         }
-    }
-    catch (error) {
-        console.log("Could not update the club: ", error);
-        return res.status(500).json({ error: "Internal server error" });
-    }
+        catch (error) {
+            console.log("Could not update the club: ", error);
+            return res.status(500).json({ error: "Internal server error" });
+        }
+    })
 });
 
 exports.deleteClub = onRequest({ 'region': 'europe-west2' }, async (req, res) => {
-    try {
-        if (req.method == 'DELETE') {
-            const { clubID } = req.body;
+    corsHandler(req, res, async () => {
+        try {
+            if (req.method == 'DELETE') {
+                const { clubID } = req.body;
 
-            if (!clubID) {
-                return res.status(400).json({ error: "clubID is required!" });
-            }
+                if (!clubID) {
+                    return res.status(400).json({ error: "clubID is required!" });
+                }
 
-            const clubsData = await loadClubsInfo();
-            const club = clubsData[clubID];
-            if (!club) {
-                return res.status(404).json({ error: `Club with ID ${clubID} does not exist!` });
-            }
+                const clubsData = await loadClubsInfo();
+                const club = clubsData[clubID];
+                if (!club) {
+                    return res.status(404).json({ error: `Club with ID ${clubID} does not exist!` });
+                }
 
-            delete clubsData[clubID];
-            uploadString(clubs, JSON.stringify(clubsData)).then(() => {
-                return res.status(200).json({
-                    message: `Club ${clubID} successfully deleted!`
+                delete clubsData[clubID];
+                uploadString(clubs, JSON.stringify(clubsData)).then(() => {
+                    return res.status(200).json({
+                        message: `Club ${clubID} successfully deleted!`
+                    });
                 });
-            });
+            }
+        } catch (error) {
+            console.log("Could not delete the club: ", error);
+            return res.status(500).json({ error: "Internal server error" });
         }
-    } catch (error) {
-        console.log("Could not delete the club: ", error);
-        return res.status(500).json({ error: "Internal server error" });
-    }
+    })
 });
 
-/* 
-http://127.0.0.1:5001/sports-arena-39a32/europe-west2/showDB
-http://127.0.0.1:5001/sports-arena-39a32/europe-west2/verifyUser
-http://127.0.0.1:5001/sports-arena-39a32/europe-west2/addUser
-http://127.0.0.1:5001/sports-arena-39a32/europe-west2/updateDetails
-http://127.0.0.1:5001/sports-arena-39a32/europe-west2/BMR
-http://127.0.0.1:5001/sports-arena-39a32/europe-west2/dailyCalories
-
-
-*/
 
 /*
 ? to start the backend server run firebase eumlators:start" in "functions" folder

@@ -6,7 +6,7 @@ async function bookFacility() {
         const datetime = '2024-11-21T10:00:00Z';
         const duration = 60;
 
-        const response = await fetch('http://127.0.0.1:5001/sports-arena-39a32/europe-west2/bookFacility', {
+        const response = await fetch('https://bookfacility-77hki32qna-nw.a.run.app', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -36,7 +36,7 @@ async function bookFacility() {
 }
 
 async function loadFacilities() {
-    const response = await fetch('http://127.0.0.1:5001/sports-arena-39a32/europe-west2/showAllFacilities', {
+    const response = await fetch('https://showallfacilities-77hki32qna-nw.a.run.app', {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
@@ -83,7 +83,7 @@ async function createFacility() {
     }
 
     try {
-        const response = await fetch('http://127.0.0.1:5001/sports-arena-39a32/europe-west2/createFacility', {
+        const response = await fetch('https://createfacility-77hki32qna-nw.a.run.app', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -116,7 +116,7 @@ async function editFacility(facilityID){
     }
 
     try {
-        const response = await fetch('http://127.0.0.1:5001/sports-arena-39a32/europe-west2/updateFacility', {
+        const response = await fetch('https://updatefacility-77hki32qna-nw.a.run.app', {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -143,7 +143,7 @@ async function deleteFacility(facilityID){
     const confirmed = window.confirm(`Are you sure you want to delete this facility?`);
     if (confirmed){
         try {
-            const response = await fetch('http://127.0.0.1:5001/sports-arena-39a32/europe-west2/deleteFacility', {
+            const response = await fetch('https://deletefacility-77hki32qna-nw.a.run.app', {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
@@ -183,7 +183,7 @@ function toggleClubForm() {
 }
 
 async function loadClubs() {
-    const response = await fetch('http://127.0.0.1:5001/sports-arena-39a32/europe-west2/showAllClubs', {
+    const response = await fetch('https://showallclubs-77hki32qna-nw.a.run.app', {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
@@ -236,7 +236,7 @@ async function createClub() {
     }
 
     try {
-        const response = await fetch('http://127.0.0.1:5001/sports-arena-39a32/europe-west2/createClub', {
+        const response = await fetch('https://createclub-77hki32qna-nw.a.run.app', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -270,7 +270,7 @@ async function editClub(clubID){
     }
 
     try {
-        const response = await fetch('http://127.0.0.1:5001/sports-arena-39a32/europe-west2/updateClub', {
+        const response = await fetch('https://updateclub-77hki32qna-nw.a.run.app', {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -297,7 +297,7 @@ async function deleteClub(clubID){
     const confirmed = window.confirm(`Are you sure you want to delete this club?`);
     if (confirmed){
         try {
-            const response = await fetch('http://127.0.0.1:5001/sports-arena-39a32/europe-west2/deleteClub', {
+            const response = await fetch('https://deleteclub-77hki32qna-nw.a.run.app', {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',

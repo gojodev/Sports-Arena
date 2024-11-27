@@ -38,6 +38,7 @@ const storage = getStorage();
 const userCreds = ref(storage, 'userCreds.json');
 const facilities = ref(storage, 'facilities.json');
 const clubs = ref(storage, 'clubs.json');
+const currentUser = ref(storage, 'currentUser.json')
 
 async function loadInfo() {
     return await Promise.resolve(getRef_json(userCreds));
@@ -49,6 +50,11 @@ async function loadFacilitiesInfo() {
 
 async function loadClubsInfo() {
     return await Promise.resolve(getRef_json(clubs));
+}
+
+// you win daniel 💀
+async function loadCurrentUserInfo() {
+    return await Promise.resolve(getRef_json(currentUser));
 }
 
 function missingInfoWarning(arr) {
@@ -109,51 +115,38 @@ exports.verifyUser = onRequest({ 'region': 'europe-west2' }, async (req, res) =>
                 return res.status(405).json({ error: "Method not allowed" })
             }
 
-            const client_username = req.body.username;
-            const client_email = req.body.email;
-            const client_password = req.body.password;
+            const username = req.body.username;
+            const email = req.body.email;
+            const password = req.body.password;
 
-            const clientData = [client_username, client_email, client_password]
+            const clientData = [username, email, password]
             const missingItems = missingInfoWarning(clientData);
 
             if (missingItems == []) {
                 return res.status(200).json({ error: `${missingItems} is required in the JSON body` })
             }
 
-            let db_username = '';
-
             const db = await loadInfo();
 
-
-            for (var key in db) {
-                db_username = bcrypt.compareSync(client_username, key)
-                if (db_username) {
-                    db_username = key
-                    break
-                }
-            }
-
-            const userInfo = db[db_username];
+            const userInfo = findUserProfile(db, username)
 
             if (userInfo != undefined) {
                 const db_email = userInfo.email;
                 const db_password = userInfo.password;
-                const db_name = userInfo.name;
 
-                if (!client_email || !client_password || !client_username) {
+                if (email == undefined || password == undefined || username == undefined) {
                     return res.status(400).json({ error: "Username, Email and Passowrd is required in the JSON body" });
                 }
 
-                let correctEmail = bcrypt.compareSync(client_email, db_email);
-                let correctPassword = bcrypt.compareSync(client_password, db_password);
+                let correctEmail = bcrypt.compareSync(email, db_email);
+                let correctPassword = bcrypt.compareSync(password, db_password);
                 let verdict = correctEmail && correctPassword;
 
                 return res.status(200).json({
-                    'verdict': verdict,
-                    'username': client_username,
-                    'name': db_name,
-                    'creds': db[key],
-                    'role': db[key].role
+                    verdict,
+                    correctEmail,
+                    correctPassword,
+                    role: userInfo.role
                 });
             }
 
@@ -752,6 +745,30 @@ exports.deleteClub = onRequest({ 'region': 'europe-west2' }, async (req, res) =>
     })
 });
 
+exports.currentUser = onRequest({ 'region': 'europe-west2' }, async (req, res) => {
+    corsHandler(req, res, async () => {
+        try {
+            const data = req.body.data
+
+            if (req.method == 'POST') {
+                uploadString(currentUser, JSON.stringify(data)).then(() => {
+                    return res.status(200).json({
+                        message: "Uploaded data successfully",
+                        data
+                    })
+                })
+            }
+            else {
+                const db = await loadCurrentUserInfo()
+                return res.status(200).json({ db })
+            }
+        }
+        catch (error) {
+            console.log("Could not get current user info: ", error);
+            return res.status(500).json({ error: "Internal server error" });
+        }
+    })
+})
 
 /*
 ? to start the backend server run firebase eumlators:start" in "functions" folder

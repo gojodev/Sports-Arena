@@ -106,11 +106,11 @@
             <div class="name"><a href="memberhomepage.html">JHED Sports Complex</a></div>
             <div class="header-bottom">
                 <nav>
-                    <a href="loggedinhomepage.html">Home</a>
-                    <a href="">Clubs</a>
-                    <a href="">Fitness Log</a>
-                    <a href="">Profile</a>
-                    <a href="">My Appointments</a>
+                    <a href="memberhomepage.html">Home</a>
+                    <a href="club.html">Clubs</a>
+                    <a href="fitnessLog.html">Fitness Log</a>
+                    <a href="profile.html">Profile</a>
+                    <a href="appointments.html">My Appointments</a>
                     <a onclick="signOut()" class="signup">Sign Out</a>
                 </nav>
             </div>
@@ -130,7 +130,7 @@
         </div>
     </main>
     <script>
-        function signOut(){
+        function signOut() {
             localStorage.removeItem('username');
             localStorage.removeItem('role');
 
@@ -140,7 +140,7 @@
         const username = localStorage.getItem('username');
         if (username) {
             document.getElementById('usernameSpan').textContent = username;
-        } 
+        }
         else {
             document.getElementById('usernameSpan').textContent = "Guest";
         }

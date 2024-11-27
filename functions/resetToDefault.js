@@ -1,4 +1,19 @@
-{
+const { getStorage, ref, uploadString } = require("firebase/storage");
+const { initializeApp } = require("firebase/app");
+
+const firebaseConfig = {
+    apiKey: "AIzaSyBOPQ3euAts_r7tObkfMU_tUllIdTtGR48",
+    authDomain: "sports-arena-39a32.firebaseapp.com",
+    projectId: "sports-arena-39a32",
+    storageBucket: "sports-arena-39a32.appspot.com",
+    messagingSenderId: "824217457615",
+    appId: "1:824217457615:web:ffe4b462519b86accc38ba",
+    measurementId: "G-GTFC067X5G"
+};
+
+initializeApp(firebaseConfig);
+
+const data = {
     "$2b$10$jP.JE.3Mr1TIzWzwdXzsSuD9gbBk7aQ/ojq3cxyPhy/7L31J.lQkW": {
         "email": "$2b$10$4Ve8ynoiv7V7tfwdcwPtF.EiOxGwumRbXOYdYrtfjjDkl78VvZJYm",
         "name": "$2b$05$10GAcozpi9K5e8PRAPoq7eL/wEuWpcZ0n8Ba9jLZXu0GUKQXL5TZ6",
@@ -52,3 +67,11 @@
         "role": "$2b$10$hgKrxkwaiY1RIKwE4njZHOo6OzOsgNlRKpkVL5EWjQ/3aSlceUQqu"
     }
 }
+
+const storage = getStorage();
+const userCreds = ref(storage, 'userCreds.json');
+
+uploadString(userCreds, JSON.stringify(data)).then(() => {
+    console.log("'userCreds' database has been reset")
+});
+

@@ -1,5 +1,6 @@
 const Fuse = require('fuse.js')
 
+// todo will make this information be read from the database but will let it be hardcoded for now 
 const clubs = [
     {
         name: "MTU United",

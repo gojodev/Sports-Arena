@@ -14,9 +14,9 @@ async function verifyUser(username, email, password) {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                username: username,
-                email: email,
-                password: password,
+                username,
+                email,
+                password,
             }),
         });
 
@@ -80,24 +80,23 @@ loginButton.addEventListener('click', async (event) => {
             if (response.role === "member") {
                 document.location.href = "memberhomepage.html";
             }
-            if (response.role === "trainer") {
+            else if (response.role === "trainer") {
                 document.location.href = "trainerhomepage.html";
             }
-            if (response.role === "admin") {
+            else if (response.role === "admin") {
                 document.location.href = "adminhomepage.html";
             }
         }
         else {
             errorHandler("Authentication error!");
-            console.log(response.role, 'trainer', response.role === 'trainer' )
         }
     }
 })
 
 function autofill() {
-    document.getElementById("username").value = "user1"
-    document.getElementById("email").value = "user1@gmail.com"
-    document.getElementById("password").value = "user1_password!"
+    document.getElementById("username").value = "user2"
+    document.getElementById("email").value = "user2@gmail.com"
+    document.getElementById("password").value = "user2_password!"
 }
 
 autofill()

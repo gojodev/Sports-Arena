@@ -1,4 +1,4 @@
-async function client_test() {
+async function loadCurrentInfo() {
     try {
         const response = await fetch('http://127.0.0.1:5001/sports-arena-39a32/europe-west2/currentUser', {
             method: 'GET',
@@ -19,9 +19,12 @@ async function client_test() {
 }
 
 
-async function verifyUser_test() {
-    let res = await client_test()
-    console.log(res)
+async function updateHTML() {
+    const data = await loadCurrentInfo()
+
+    const username = Object.keys(data)[0]
+
+    document.getElementById('usernameSpan') = username
 }
 
-verifyUser_test()
+updateHTML()

@@ -103,7 +103,7 @@
 
     <header>
         <div class="header-top">
-            <div class="name"><a href="memberhomepage.html">Name</a></div>
+            <div class="name"><a href="memberhomepage.html">JHED Sports Complex</a></div>
             <div class="header-bottom">
                 <nav>
                     <a href="loggedinhomepage.html">Home</a>
@@ -121,7 +121,7 @@
     <main>
         <div class="main">
             <div class="topmain">
-                <h1>Welcome Members</h1>
+                <h1>Welcome <span id="usernameSpan"></span>!</h1>
             </div>
             <div class="bottommain">
                 <h1>Above in the header you have multiple options</h1>
@@ -139,10 +139,10 @@
 
         const username = localStorage.getItem('username');
         if (username) {
-            document.querySelector('.name a').textContent = username;
+            document.getElementById('usernameSpan').textContent = username;
         } 
         else {
-            document.querySelector('.name a').textContent = "Guest";
+            document.getElementById('usernameSpan').textContent = "Guest";
         }
     </script>
 

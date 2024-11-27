@@ -166,7 +166,7 @@
 
     <header>
         <div class="header-top">
-            <div class="name"><a href="adminhomepage.html">Name</a></div>
+            <div class="name"><a href="adminhomepage.html">JHED Sports Complex</a></div>
             <div class="header-bottom">
                 <nav>
                     <a href="adminhomepage.html">Home</a>
@@ -210,14 +210,6 @@
             localStorage.removeItem('role');
 
             document.location.href = "login.html";
-        }
-
-        const username = localStorage.getItem('username');
-        if (username) {
-            document.querySelector('.name a').textContent = username;
-        } 
-        else {
-            document.querySelector('.name a').textContent = "Guest";
         }
     </script>
 </body>

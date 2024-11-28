@@ -20,8 +20,10 @@ async function loadCurrentInfo() {
 
 
 async function updateHTML() {
-    const data = await loadCurrentInfo();
-    document.getElementById('username').innerHTML = Object.keys(data)[0]
+    const fetched = await loadCurrentInfo();
+    const username = Object.keys(fetched)[0];
+    const data = fetched[username].bookings
+    console.log(data)
 }
 
 updateHTML()

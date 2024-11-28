@@ -96,6 +96,7 @@
             font-size: 24px;
             font-weight: bold;
         }
+
         .name a {
             text-decoration: none;
             color: white;
@@ -110,7 +111,7 @@
             <div class="name"><a href="trainerhomepage.html">JHED Sports Complex</a></div>
             <div class="header-bottom">
                 <nav>
-                    <a href="loggedinhomepage.html">Home</a>
+                    <a href="index.html">Home</a>
                     <a onclick="signOut()" class="signup">Sign Out</a>
                     <a href="pricealerts.html"><i class="fa-solid fa-bell fa-2x" style="color: white;"></i></a>
                 </nav>
@@ -129,23 +130,7 @@
         </div>
     </main>
 
-    <script>
-        function signOut(){
-            localStorage.removeItem('username');
-            localStorage.removeItem('role');
-
-            document.location.href = "login.html";
-        }
-
-        const username = localStorage.getItem('username');
-        if (username) {
-            ddocument.getElementById('usernameSpan').textContent = username;
-        } 
-        else {
-            document.getElementById('usernameSpan').textContent = "Guest";
-        }
-    </script>
-
+    <script src="./javascripts/signout.js"></script>
 </body>
 
 </html>

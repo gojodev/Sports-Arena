@@ -4,7 +4,7 @@
         "name": "First1 Last1",
         "password": "user1_password!",
         "role": "member",
-        "BMR": "1000",
+        "bmr": "1000",
         "gender": "male",
         "age": "21",
         "weight": "71",

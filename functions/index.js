@@ -37,7 +37,7 @@ async function getRef_json(refItem) {
 const storage = getStorage();
 const userCreds = ref(storage, 'userCreds.json');
 const facilities = ref(storage, 'facilities.json');
-const clubs = ref(storage, 'clubs.json');
+const clubBookings = ref(storage, 'clubBookings.json');
 const currentUser = ref(storage, 'currentUser.json')
 
 async function loadInfo() {
@@ -49,7 +49,7 @@ async function loadFacilitiesInfo() {
 }
 
 async function loadClubsInfo() {
-    return await Promise.resolve(getRef_json(clubs));
+    return await Promise.resolve(getRef_json(clubBookings));
 }
 
 // you win daniel 💀
@@ -207,13 +207,13 @@ exports.addUser = onRequest({ 'region': 'europe-west2' }, async (req, res) => {
                 const username_hash = bcrypt.hashSync(client_username, saltRounds)
                 const email_hash = bcrypt.hashSync(client_email, saltRounds)
                 const password_hash = bcrypt.hashSync(client_password, saltRounds)
-                // const name_hash = bcrypt.hashSync(client_name, saltRounds)
+                const name_hash = bcrypt.hashSync(client_name, saltRounds)
 
                 let newUser = {
                     [username_hash]:
                     {
                         email: email_hash,
-                        name: client_name,
+                        name: name_hash,
                         password: password_hash,
                         role: client_role,
                         expiry_password: monthsAway() // no need to hash this
@@ -221,13 +221,14 @@ exports.addUser = onRequest({ 'region': 'europe-west2' }, async (req, res) => {
                 }
 
                 Object.assign(db, newUser)
-
                 uploadString(userCreds, JSON.stringify(db)).then(() => {
                     return res.status(200).json({
                         'verdict': `New user ${client_username} has been created`,
-                        'newUser': newUser,
+                        role: client_role
                     });
                 });
+
+
             }
         }
 
@@ -321,7 +322,7 @@ exports.updateDetails = onRequest({ 'region': 'europe-west2' }, async (req, res)
     })
 });
 
-exports.BMR = onRequest({ 'region': 'europe-west2' }, async (req, res) => {
+exports.bmr = onRequest({ 'region': 'europe-west2' }, async (req, res) => {
     corsHandler(req, res, async () => {
         try {
             if (req.method != 'POST') {
@@ -348,14 +349,14 @@ exports.BMR = onRequest({ 'region': 'europe-west2' }, async (req, res) => {
             const final_result = gender == 'male' ? male_result : female_result;
 
             return res.status(200).json({
-                BMR: final_result,
+                bmr: final_result,
                 gender: gender
             })
 
         }
 
         catch (error) {
-            console.log("Couldnt calculate BMR: ", error)
+            console.log("Couldnt calculate bmr: ", error)
             return res.status(500).json({ error: "Interal server error" })
         }
     })
@@ -368,11 +369,11 @@ exports.dailyCalories = onRequest({ 'region': 'europe-west2' }, async (req, res)
                 return res.status(405).json({ error: "Method not allowed" })
             }
 
-            let BMR = req.body.BMR;
+            let bmr = req.body.bmr;
             const description = req.body.description;
 
-            if (!BMR) {
-                return res.status(400).json({ error: "BMR is required in the JSON body" });
+            if (!bmr) {
+                return res.status(400).json({ error: "bmr is required in the JSON body" });
             }
 
             const factors = {
@@ -385,15 +386,15 @@ exports.dailyCalories = onRequest({ 'region': 'europe-west2' }, async (req, res)
 
             const result = factors[description]
             if (result != undefined) {
-                BMR = BMR * result;
-                return res.status(200).json({ verdict: BMR })
+                bmr = bmr * result;
+                return res.status(200).json({ verdict: bmr })
             }
             else {
                 return res.status(200).json({ verdict: 'Description not recognised' })
             }
         }
         catch (error) {
-            console.log("Couldnt calculate BMR: ", error)
+            console.log("Couldnt calculate bmr: ", error)
             return res.status(500).json({ error: "Interal server error" })
         }
     })
@@ -422,7 +423,7 @@ exports.bookingClub = onRequest({ 'region': 'europe-west2' }, async (req, res) =
                     }
                 }
 
-                uploadString(clubs, JSON.stringify(bookingData)).then(() => {
+                uploadString(clubBookings, JSON.stringify(bookingData)).then(() => {
                     return res.status(200).json({
                         verdict: `${username} has booked ${sport} successfully booked!`,
                         bookingData
@@ -431,8 +432,6 @@ exports.bookingClub = onRequest({ 'region': 'europe-west2' }, async (req, res) =
 
             }
 
-
-            // todo GET show bookings
             if (req.method == 'GET') {
                 const db = loadClubsInfo();
 
@@ -492,7 +491,7 @@ exports.bookFacility = onRequest({ 'region': 'europe-west2' }, async (req, res) 
                     duration
                 };
                 club.bookings.push(newBooking);
-                uploadString(clubs, JSON.stringify(clubsData)).then(() => {
+                uploadString(clubBookings, JSON.stringify(clubsData)).then(() => {
                     return res.status(200).json({
                         verdict: `Facility ${facilityID} at Club ${clubID} successfully booked!`,
                         newBooking
@@ -667,7 +666,7 @@ exports.createClub = onRequest({ 'region': 'europe-west2' }, async (req, res) =>
 
                 clubsData[clubID] = { caloryBurnRate };
 
-                uploadString(clubs, JSON.stringify(clubsData)).then(() => {
+                uploadString(clubBookings, JSON.stringify(clubsData)).then(() => {
                     return res.status(200).json({
                         message: `Club ${clubID} successfully created!`,
                         newClub: clubsData[clubID]
@@ -700,7 +699,7 @@ exports.updateClub = onRequest({ 'region': 'europe-west2' }, async (req, res) =>
                 }
                 club.caloryBurnRate = newCaloryBurnRate;
 
-                uploadString(clubs, JSON.stringify(clubsData)).then(() => {
+                uploadString(clubBookings, JSON.stringify(clubsData)).then(() => {
                     return res.status(200).json({
                         message: `Club ${clubID} successfully updated!`,
                         updatedClub: club
@@ -732,7 +731,7 @@ exports.deleteClub = onRequest({ 'region': 'europe-west2' }, async (req, res) =>
                 }
 
                 delete clubsData[clubID];
-                uploadString(clubs, JSON.stringify(clubsData)).then(() => {
+                uploadString(clubBookings, JSON.stringify(clubsData)).then(() => {
                     return res.status(200).json({
                         message: `Club ${clubID} successfully deleted!`
                     });
@@ -745,22 +744,42 @@ exports.deleteClub = onRequest({ 'region': 'europe-west2' }, async (req, res) =>
     })
 });
 
+// todo will allow one member, trainer, admin at the same time
 exports.currentUser = onRequest({ 'region': 'europe-west2' }, async (req, res) => {
     corsHandler(req, res, async () => {
         try {
             const data = req.body.data
+            const type = req.body.type
+
+            const username = req.body.username
+            const email = req.body.email
+            const name = req.body.name
+            const password = req.body.password
+
+            const output = {
+                admin: "",
+                trainer: "",
+                member: ""
+            }
+
+            output[type] = data
+            output[username] = data
+            console.log(username)
+            output.email = email
+            output.name = name
+            output.password = password
 
             if (req.method == 'POST') {
-                uploadString(currentUser, JSON.stringify(data)).then(() => {
+                uploadString(currentUser, JSON.stringify(output)).then(() => {
                     return res.status(200).json({
                         message: "Uploaded data successfully",
-                        data
+                        data: output
                     })
                 })
             }
             else {
-                const db = await loadCurrentUserInfo()
-                return res.status(200).json({ db })
+                const data = await loadCurrentUserInfo()
+                return res.status(200).json({ data })
             }
         }
         catch (error) {

@@ -31,6 +31,31 @@ async function verifyUser(username, email, password) {
     }
 }
 
+async function currentUser(username, email, password) {
+    try {
+        const response = await fetch('https://verifyuser-77hki32qna-nw.a.run.app', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                username,
+                email,
+                password,
+            }),
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        const userData = await response.json();
+        return userData;
+    } catch (error) {
+        console.error('Error fetching user data:', error);
+    }
+}
+
 function errorHandler(error_message) {
     document.getElementById("errorContainer").style.display = "block"
     document.getElementById("error-message").innerHTML = error_message

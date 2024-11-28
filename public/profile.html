@@ -1,11 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="./shared_style/style.css" rel="stylesheet" type="text/css">
     <title>profile</title>
 </head>
+
 <body>
-    <h1> profile </h1>
+
+    <header>
+        <div class="header-top">
+            <div class="name"><a href="index.html">JHED Sports Complex</a></div>
+            <div class="header-bottom">
+                <nav>
+                    <a href="memberhomepage.html">Home</a>
+                    <a href="club.html">Clubs</a>
+                    <a href="fitnessLog.html">Fitness Log</a>
+                    <a href="profile.html">Profile</a>
+                    <a href="appointments.html">My Appointments</a>
+                    <a onclick="signOut()" class="signup">Sign Out</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <div style="margin: auto;text-align: center;">
+        <h2> name : <strong id="name"> username </strong> </h2>
+        <h3> role : <strong id="role"> role </strong> </h3>
+        <h3> bmr : <strong id="bmr"> bmr </strong> </h3>
+        <h3> gender : <strong id="gender"> gender </strong> </h3>
+        <h3> age : <strong id="age"> age </strong> </h3>
+        <h3> weight : <strong id="weight"> weight </strong> </h3>
+        <h3> height : <strong id="height"> height </strong> </h3>
+        <h3> address : <strong id="address"> address </strong> </h3>
+        <h3> phone : <strong id="phone"> phone </strong> </h3>
+        <h3>No. of bookings : <strong id="bookingsNo"> No. of bookings </strong> </h3>
+    </div>
+    
+    <script src="./javascripts/signout.js"></script>
+    <script async src="./javascripts/profileBundle.js"> </script>
 </body>
+
 </html>

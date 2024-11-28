@@ -1,7 +1,7 @@
 const bcrypt = require('bcrypt');
 
 const data = {
-    "BMR": "1000",
+    "bmr": "1000",
     "gender": "other",
     "age": "23",
     "weight": "73",

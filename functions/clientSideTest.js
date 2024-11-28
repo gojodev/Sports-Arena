@@ -1,6 +1,6 @@
 async function client_test() {
     try {
-        const response = await fetch('http://127.0.0.1:5001/sports-arena-39a32/europe-west2/currentUser', {
+        const response = await fetch('https://currentuser-77hki32qna-nw.a.run.app', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',

@@ -6,6 +6,8 @@ const scripts = [
     { entry: "./public/javascripts/operations.js", outfile: "./public/javascripts/operationsBundle.js" },
     { entry: "./public/javascripts/search.js", outfile: "./public/javascripts/searchBundle.js" },
     { entry: "./public/javascripts/club.js", outfile: "./public/javascripts/clubBundle.js" },
+    { entry: "./public/javascripts/member.js", outfile: "./public/javascripts/memberBundle.js" },
+    { entry: "./public/javascripts/profile.js", outfile: "./public/javascripts/profileBundle.js" },
 ];
 
 scripts.forEach(script => {

@@ -14,10 +14,10 @@ async function addUser(username, name, email, password, role) {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                username: username,
-                name: name,
-                email: email,
-                password: password,
+                username,
+                name,
+                email,
+                password,
                 role
             }),
         });
@@ -84,10 +84,10 @@ signUpButton.addEventListener('click', async (event) => {
         localStorage.setItem('role', response.role);
   
         if (response.role == "member"){
-          document.location.href = "memberhomepage.html";
+          window.location.href = "memberhomepage.html";
         }
         else if (response.role == "trainer"){
-          document.location.href = "trainerhomepage.html";
+          window.location.href = "trainerhomepage.html";
         }
     }
 })

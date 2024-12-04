@@ -108,7 +108,6 @@ exports.showDB = onRequest({ 'region': 'europe-west2' }, async (req, res) => {
 
 
 exports.verifyUser = onRequest({ 'region': 'europe-west2' }, async (req, res) => {
-
     corsHandler(req, res, async () => {
         try {
             if (req.method != 'POST') {
@@ -138,7 +137,18 @@ exports.verifyUser = onRequest({ 'region': 'europe-west2' }, async (req, res) =>
                     return res.status(400).json({ error: "Username, Email and Passowrd is required in the JSON body" });
                 }
 
-                let correctEmail = bcrypt.compareSync(email, db_email);
+                const db_current = await loadInfo(currentUser)
+
+                const role = userInfo.role
+                db_current[role] = {
+                    [username]: {
+                        userInfo
+                    }
+                }
+
+                uploadString(currentUser, JSON.stringify(db_current), 'raw', { contentType: 'application/json' })
+
+                let correctEmail = email == db_email
                 let correctPassword = bcrypt.compareSync(password, db_password);
                 let verdict = correctEmail && correctPassword;
 
@@ -221,7 +231,7 @@ exports.addUser = onRequest({ 'region': 'europe-west2' }, async (req, res) => {
                 }
 
                 Object.assign(db, newUser)
-                uploadString(userCreds, JSON.stringify(db)).then(() => {
+                uploadString(userCreds, JSON.stringify(db), 'raw', { contentType: 'application/json' }).then(() => {
                     return res.status(200).json({
                         'verdict': `New user ${client_username} has been created`,
                         role: client_role
@@ -248,68 +258,40 @@ exports.updateDetails = onRequest({ 'region': 'europe-west2' }, async (req, res)
 
             const client_username = req.body.username;
 
-            const new_email = req.body.new_email;
-            const new_name = req.body.new_name;
-            const new_password = req.body.new_password;
+            const email = req.body.email;
+            const name = req.body.name;
+            const password = req.body.password;
 
-            const clientData = [new_email, new_name, new_password]
+            const clientData = [email, name, password]
             const missingItems = missingInfoWarning(clientData);
 
             if (missingItems == []) {
                 return res.status(200).json({ error: `${missingItems} is required in the JSON body` })
             }
 
-            var db_username = '';
 
-            let db = await loadInfo();
+            const db = await loadInfo();
 
-            for (var key in db) {
-                db_username = bcrypt.compareSync(client_username, key)
-                if (db_username) {
-                    db_username = key
-                    break
-                }
-            }
+            const db_username = find_db_username(db, client_username)
 
-            if (db_username == false) {
+            if (db_username == undefined) {
                 return res.status(200).json({
                     verdict: `No data for: ${client_username} was found on file`
                 });
             }
 
             else {
-                const dbInfo = db[db_username];
-
-                console.log("db dbInfo: ", dbInfo)
-
-                const db_email = dbInfo.email;
-                const db_name = dbInfo.name;
-                const db_password = dbInfo.password;
-
-                var userInfo = {
-
-                }
-
-                userInfo.email = bcrypt.hashSync(new_email, 5);
-
-                if (!bcrypt.compareSync(new_email, db_email)) {
-                    userInfo.email = bcrypt.hashSync(new_email, 5);
-                }
-
-                if (!bcrypt.compareSync(new_name, db_name)) {
-                    userInfo.name = bcrypt.hashSync(new_name, 5);
-                }
-
-                if (!bcrypt.compareSync(new_password, db_password)) {
-                    userInfo.password = bcrypt.hashSync(new_password, 5);
+                const userInfo = {
+                    name,
+                    email,
+                    password: bcrypt.hashSync(password, 5)
                 }
 
                 db[db_username] = userInfo;
 
-                uploadString(userCreds, JSON.stringify(db)).then(() => {
+                uploadString(userCreds, JSON.stringify(db), 'raw', { contentType: 'application/json' }).then(() => {
                     return res.status(200).json({
-                        'verdict': `Updated ${client_username}'s details successfully`,
-                        'newDetails': userInfo
+                        'verdict': `Updated ${client_username}'s details successfully`
                     });
                 });
             }
@@ -401,31 +383,33 @@ exports.dailyCalories = onRequest({ 'region': 'europe-west2' }, async (req, res)
 })
 
 
-exports.bookingClub = onRequest({ 'region': 'europe-west2' }, async (req, res) => {
+// can create and update
+exports.setClubBooking = onRequest({ 'region': 'europe-west2' }, async (req, res) => {
     corsHandler(req, res, async () => {
         try {
-            const username = req.body.username;
-
             if (req.method == 'POST') {
-                const name = req.body.name;
-                const sport = req.body.sport;
-                const description = req.body.description;
-                const date = req.body.date;
-                const time = req.body.time;
+                const { username, name, clubName, date, time, duration } = req.body
 
                 const bookingData = {
-                    [username]: {
-                        name,
-                        sport,
-                        description,
-                        date,
-                        time
-                    }
+                    name,
+                    clubName,
+                    date,
+                    time,
+                    duration
                 }
 
-                uploadString(clubBookings, JSON.stringify(bookingData)).then(() => {
+                const db_club = await loadClubsInfo()
+                const profile = db_club[clubName].bookings[username]
+                if (profile == undefined) db_club[clubName].bookings[username] = {}
+
+                const bookings = db_club[clubName].bookings[username]
+                const id = Object.keys(bookings).length + 1
+
+                db_club[clubName].bookings[username][id] = bookingData
+
+                uploadString(clubBookings, JSON.stringify(db_club), 'raw', { contentType: 'application/json' }).then(() => {
                     return res.status(200).json({
-                        verdict: `${username} has booked ${sport} successfully booked!`,
+                        verdict: `${username} has booked ${clubName} successfully booked!`,
                         bookingData
                     });
                 });
@@ -433,17 +417,34 @@ exports.bookingClub = onRequest({ 'region': 'europe-west2' }, async (req, res) =
             }
 
             if (req.method == 'GET') {
-                const db = loadClubsInfo();
-
-                const userInfo = findUserProfile(db, username)
-
-                return res.status(200).json({ userInfo })
+                const db = await loadClubsInfo();
+                return res.status(200).json({ db })
             }
-
         }
 
         catch (error) {
             console.log("Couldnt make booking: ", error)
+            return res.status(500).json({ error: "Interal server error" })
+        }
+    })
+})
+
+exports.removeClubBooking = onRequest({ 'region': 'europe-west2' }, async (req, res) => {
+    corsHandler(req, res, async () => {
+        try {
+            const { username, id, clubName } = req.body;
+            const db = await loadClubsInfo()
+
+            delete db[clubName].bookings[username][id]
+
+            uploadString(clubBookings, JSON.stringify(db), 'raw', { contentType: 'application/json' }).then(() => {
+                return res.status(200).json({
+                    verdict: `${username} has removed booking with id: ${id}!`
+                });
+            });
+        }
+        catch (error) {
+            console.log("Couldnt remove booking: ", error)
             return res.status(500).json({ error: "Interal server error" })
         }
     })
@@ -491,7 +492,7 @@ exports.bookFacility = onRequest({ 'region': 'europe-west2' }, async (req, res) 
                     duration
                 };
                 club.bookings.push(newBooking);
-                uploadString(clubBookings, JSON.stringify(clubsData)).then(() => {
+                uploadString(clubBookings, JSON.stringify(clubsData), 'raw', { contentType: 'application/json' }).then(() => {
                     return res.status(200).json({
                         verdict: `Facility ${facilityID} at Club ${clubID} successfully booked!`,
                         newBooking
@@ -524,7 +525,7 @@ exports.createFacility = onRequest({ 'region': 'europe-west2' }, async (req, res
 
                 facilitiesData[facilityID] = { location };
 
-                uploadString(facilities, JSON.stringify(facilitiesData)).then(() => {
+                uploadString(facilities, JSON.stringify(facilitiesData), 'raw', { contentType: 'application/json' }).then(() => {
                     return res.status(200).json({
                         message: `Facility ${facilityID} successfully created!`,
                         newFacility: facilitiesData[facilityID]
@@ -558,7 +559,7 @@ exports.updateFacility = onRequest({ 'region': 'europe-west2' }, async (req, res
 
                 facility.location = newLocation;
 
-                uploadString(facilities, JSON.stringify(facilitiesData)).then(() => {
+                uploadString(facilities, JSON.stringify(facilitiesData), 'raw', { contentType: 'application/json' }).then(() => {
                     return res.status(200).json({
                         message: `Facility ${facilityID} successfully updated!`,
                         updatedFacility: facility
@@ -591,7 +592,7 @@ exports.deleteFacility = onRequest({ 'region': 'europe-west2' }, async (req, res
                 }
 
                 delete facilitiesData[facilityID];
-                uploadString(facilities, JSON.stringify(facilitiesData)).then(() => {
+                uploadString(facilities, JSON.stringify(facilitiesData), 'raw', { contentType: 'application/json' }).then(() => {
                     return res.status(200).json({
                         message: `Facility ${facilityID} successfully deleted!`
                     });
@@ -666,7 +667,7 @@ exports.createClub = onRequest({ 'region': 'europe-west2' }, async (req, res) =>
 
                 clubsData[clubID] = { caloryBurnRate };
 
-                uploadString(clubBookings, JSON.stringify(clubsData)).then(() => {
+                uploadString(clubBookings, JSON.stringify(clubsData), 'raw', { contentType: 'application/json' }).then(() => {
                     return res.status(200).json({
                         message: `Club ${clubID} successfully created!`,
                         newClub: clubsData[clubID]
@@ -699,7 +700,7 @@ exports.updateClub = onRequest({ 'region': 'europe-west2' }, async (req, res) =>
                 }
                 club.caloryBurnRate = newCaloryBurnRate;
 
-                uploadString(clubBookings, JSON.stringify(clubsData)).then(() => {
+                uploadString(clubBookings, JSON.stringify(clubsData), 'raw', { contentType: 'application/json' }).then(() => {
                     return res.status(200).json({
                         message: `Club ${clubID} successfully updated!`,
                         updatedClub: club
@@ -731,7 +732,7 @@ exports.deleteClub = onRequest({ 'region': 'europe-west2' }, async (req, res) =>
                 }
 
                 delete clubsData[clubID];
-                uploadString(clubBookings, JSON.stringify(clubsData)).then(() => {
+                uploadString(clubBookings, JSON.stringify(clubsData), 'raw', { contentType: 'application/json' }).then(() => {
                     return res.status(200).json({
                         message: `Club ${clubID} successfully deleted!`
                     });
@@ -744,50 +745,6 @@ exports.deleteClub = onRequest({ 'region': 'europe-west2' }, async (req, res) =>
     })
 });
 
-// todo will allow one member, trainer, admin at the same time
-exports.currentUser = onRequest({ 'region': 'europe-west2' }, async (req, res) => {
-    corsHandler(req, res, async () => {
-        try {
-            const data = req.body.data
-            const type = req.body.type
-
-            const username = req.body.username
-            const email = req.body.email
-            const name = req.body.name
-            const password = req.body.password
-
-            const output = {
-                admin: "",
-                trainer: "",
-                member: ""
-            }
-
-            output[type] = data
-            output[username] = data
-            console.log(username)
-            output.email = email
-            output.name = name
-            output.password = password
-
-            if (req.method == 'POST') {
-                uploadString(currentUser, JSON.stringify(output)).then(() => {
-                    return res.status(200).json({
-                        message: "Uploaded data successfully",
-                        data: output
-                    })
-                })
-            }
-            else {
-                const data = await loadCurrentUserInfo()
-                return res.status(200).json({ data })
-            }
-        }
-        catch (error) {
-            console.log("Could not get current user info: ", error);
-            return res.status(500).json({ error: "Internal server error" });
-        }
-    })
-})
 
 /*
 ? to start the backend server run firebase eumlators:start" in "functions" folder

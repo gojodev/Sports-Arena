@@ -6,6 +6,8 @@ Sports-Arena
 ├─ .firebaserc
 ├─ cors.json
 ├─ database
+│  ├─ clubBookings.json
+│  ├─ facilities.json
 │  ├─ userCreds(plain).json
 │  └─ userCreds.json
 ├─ docs
@@ -15,28 +17,50 @@ Sports-Arena
 ├─ firebase-debug.log
 ├─ firebase.json
 ├─ functions
-│  ├─ clientSideTest.js
-│  ├─ firebase-debug.log
-│  ├─ hasher.js
 │  ├─ index.js
 │  ├─ package-lock.json
 │  ├─ package.json
+│  ├─ resetToDefault.js
 │  ├─ test.js
+│  ├─ test.json
+│  ├─ testing
+│  │  ├─ bookClub.js
+│  │  └─ test.js
 │  └─ ui-debug.log
 ├─ package-lock.json
 ├─ package.json
 ├─ public
 │  ├─ 404.html
+│  ├─ adminhomepage.html
+│  ├─ appointments.html
+│  ├─ club.html
+│  ├─ fitnessLog.html
 │  ├─ images
 │  │  └─ .DS_Store
 │  ├─ index.html
 │  ├─ javascripts
+│  │  ├─ appointment.js
+│  │  ├─ club.js
+│  │  ├─ clubBundle.js
 │  │  ├─ login.js
 │  │  ├─ loginBundle.js
+│  │  ├─ member.js
+│  │  ├─ memberBundle.js
+│  │  ├─ operations.js
+│  │  ├─ operationsBundle.js
+│  │  ├─ profile.js
+│  │  ├─ profileBundle.js
+│  │  ├─ search.js
+│  │  ├─ searchBundle.js
+│  │  ├─ signout.js
 │  │  ├─ signup.js
-│  │  └─ signupBundle.js
+│  │  ├─ signupBundle.js
+│  │  └─ test.js
 │  ├─ login.html
+│  ├─ manageclubs.html
+│  ├─ managefacilities.html
 │  ├─ memberhomepage.html
+│  ├─ profile.html
 │  ├─ shared_style
 │  │  └─ style.css
 │  ├─ signup.html

@@ -1,29 +1,37 @@
 {
     "Basketball Club": {
         "caloryBurnRate": 300,
-        "bookings": [
-            {
-                "description": "Test booking for facility",
-                "facilityID": "Basketball Court 1",
-                "datetime": "2024-11-21T10:00:00.000Z",
-                "duration": 60
+        "training": {
+            "training1": {
+                "timestamp": "",
+                "duration": "",
+                "facility": "",
+                "description": ""
+            },
+            "training2": {
+                "timestamp": "",
+                "duration": "",
+                "facility": "",
+                "description": ""
             }
-        ]
+        },
+        "bookings": {}
     },
     "Hurling Club": {
+        "sport": "Hurling",
         "caloryBurnRate": 550,
-        "bookings": []
+        "bookings": {}
     },
     "Tennis Club": {
         "caloryBurnRate": 500,
-        "bookings": []
+        "bookings": {}
     },
     "Powerlifting Club": {
         "caloryBurnRate": 650,
-        "bookings": []
+        "bookings": {}
     },
     "Gaelic Football Club": {
         "caloryBurnRate": 550,
-        "bookings": []
+        "bookings": {}
     }
 }

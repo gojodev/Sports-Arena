@@ -13,10 +13,10 @@ const firebaseConfig = {
 
 initializeApp(firebaseConfig);
 
-const data = {
+const userCreds_data = {
     "$2b$10$jP.JE.3Mr1TIzWzwdXzsSuD9gbBk7aQ/ojq3cxyPhy/7L31J.lQkW": {
-        "email": "$2b$10$4Ve8ynoiv7V7tfwdcwPtF.EiOxGwumRbXOYdYrtfjjDkl78VvZJYm",
-        "name": "$2b$05$10GAcozpi9K5e8PRAPoq7eL/wEuWpcZ0n8Ba9jLZXu0GUKQXL5TZ6",
+        "email": "user1@gmail.com",
+        "name": "First1 Last1",
         "password": "$2b$10$pXeT04LdC34Yh4rBg58HPeRbfML3Xyj96I41pIHP385SLamOgZlZ6",
         "role": "member",
         "bmr": "1000",
@@ -26,12 +26,11 @@ const data = {
         "height": "201",
         "address": "address1",
         "phone": "111 111 1111",
-        "expiry_password": "31-1-2025",
-        "bookings": []
+        "expiry_password": "31-1-2025"
     },
     "$2b$10$xrAAbCTxr1EDkk8Et4W1ueBCZ5tFNuFXwDZEQ603iPfPbZXlde1yO": {
-        "email": "$2b$10$CFkRPr3vidyezi5ySLR.0OkM30pjdj.cyB4wTnB4kUVIMIpeN0fOC",
-        "name": "$2b$05$pOayBiURli75wDqkuCJck.bgnT0PlD4pyby.wdE9RiND1zWyGJcTi",
+        "email": "user2@gmail.com",
+        "name": "First2 Last2",
         "password": "$2b$10$4RgP4MkVxJa3aiTUXnqb1ueB6oHSsFWJstPqY209E/6o5lSMjO1AC",
         "role": "member",
         "bmr": "1000",
@@ -41,12 +40,11 @@ const data = {
         "height": "202",
         "address": "address2",
         "phone": "222 222 2222",
-        "expiry_password": "31-1-2025",
-        "bookings": []
+        "expiry_password": "31-1-2025"
     },
     "$2b$10$M3Q1B4ijUJmUffm0.aksU.wMp7SEzXyQsX56NvFwSuYDq9..ZpjC.": {
-        "email": "$2b$10$8D7RDO4BEkVECUYbcrAwVOvihadliOw6ub4mb6y61XRdN6YAbZtVq",
-        "name": "$2b$05$921DqMKRvdzZlzCNwk11ee2EEshLHCy81MWv22A4TqIuRw1h74J6q",
+        "email": "user3@gmail.com",
+        "name": "First3 Last3",
         "password": "$2b$10$FaM0ZntOgPjp8kbfHSGgkev1tl1GrvLuDaAKZc9GjyJQcWC.FuvF.",
         "role": "trainer",
         "bmr": "1000",
@@ -56,8 +54,7 @@ const data = {
         "height": "203",
         "address": "address3",
         "phone": "333 333 3333",
-        "expiry_password": "31-1-2025",
-        "bookings": []
+        "expiry_password": "31-1-2025"
     },
     "admin": {
         "name": "$2b$10$4oLaWLq0ajJatRhqtbsw3epUVCyN6Y50lFiijxI8sjbHgkqYfHlUO",
@@ -68,10 +65,129 @@ const data = {
     }
 }
 
+const clubBookings_data = {
+    "Basketball Club": {
+        "sport": "Basketball",
+        "caloryBurnRate": 300,
+        "training": {
+            "training1": {
+                "timestamp": "",
+                "duration": "",
+                "facility": "",
+                "description": ""
+            },
+            "training2": {
+                "timestamp": "",
+                "duration": "",
+                "facility": "",
+                "description": ""
+            }
+        },
+        "bookings": {
+            "user1": {
+                "description": "Test booking for facility",
+                "facilityID": "Basketball Court 1",
+                "datetime": "2024-11-21T10:00:00.000Z",
+                "duration": 60,
+                "sessions": {}
+            },
+            "user2": {
+                "description": "Test booking for facility",
+                "facilityID": "Basketball Court 1",
+                "datetime": "2024-11-21T10:00:00.000Z",
+                "duration": 60,
+                "sessions": {}
+            }
+        }
+    },
+    "Hurling Club": {
+        "sport": "Hurling",
+        "caloryBurnRate": 550,
+        "training": {
+            "training1": {
+                "timestamp": "",
+                "duration": "",
+                "facility": "",
+                "description": ""
+            },
+            "training2": {
+                "timestamp": "",
+                "duration": "",
+                "facility": "",
+                "description": ""
+            }
+        },
+        "bookings": {}
+    },
+    "Tennis Club": {
+        "sport": "Tennis",
+        "caloryBurnRate": 500,
+        "training": {
+            "training1": {
+                "timestamp": "",
+                "duration": "",
+                "facility": "",
+                "description": ""
+            },
+            "training2": {
+                "timestamp": "",
+                "duration": "",
+                "facility": "",
+                "description": ""
+            }
+        },
+        "bookings": {}
+    },
+    "Powerlifting Club": {
+        "sport": "Powerlifting",
+        "caloryBurnRate": 650,
+        "training": {
+            "training1": {
+                "timestamp": "",
+                "duration": "",
+                "facility": "",
+                "description": ""
+            },
+            "training2": {
+                "timestamp": "",
+                "duration": "",
+                "facility": "",
+                "description": ""
+            }
+        },
+        "bookings": {}
+    },
+    "Gaelic Football Club": {
+        "sport": "Gaelic Football",
+        "caloryBurnRate": 550,
+        "training": {
+            "training1": {
+                "timestamp": "",
+                "duration": "",
+                "facility": "",
+                "description": ""
+            },
+            "training2": {
+                "timestamp": "",
+                "duration": "",
+                "facility": "",
+                "description": ""
+            }
+        },
+        "bookings": {}
+    }
+}
+
 const storage = getStorage();
 const userCreds = ref(storage, 'userCreds.json');
+const clubBookings = ref(storage, 'clubBookings.json');
 
-uploadString(userCreds, JSON.stringify(data)).then(() => {
-    console.log("'userCreds' database has been reset")
+
+uploadString(userCreds, JSON.stringify(userCreds_data)).then(() => {
+    console.log("'userCreds.json' has been reset")
+});
+
+uploadString(clubBookings, JSON.stringify(clubBookings_data)).then(() => {
+    console.log("'clubBookings.json' has been reset")
 });
 

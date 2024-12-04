@@ -1,0 +1,37 @@
+{
+    "Basketball Club": {
+        "caloryBurnRate": 300,
+        "training": {
+            "training1": {
+                "timestamp": "",
+                "duration": "",
+                "facility": "",
+                "description": ""
+            },
+            "training2": {
+                "timestamp": "",
+                "duration": "",
+                "facility": "",
+                "description": ""
+            }
+        },
+        "bookings": {}
+    },
+    "Hurling Club": {
+        "sport": "Hurling",
+        "caloryBurnRate": 550,
+        "bookings": {}
+    },
+    "Tennis Club": {
+        "caloryBurnRate": 500,
+        "bookings": {}
+    },
+    "Powerlifting Club": {
+        "caloryBurnRate": 650,
+        "bookings": {}
+    },
+    "Gaelic Football Club": {
+        "caloryBurnRate": 550,
+        "bookings": {}
+    }
+}

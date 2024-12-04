@@ -4,8 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Homepage</title>
-    <script src="https://kit.fontawesome.com/cdbe41a012.js" crossorigin="anonymous"></script>
+    <title>Manage Clubs</title>
     <style>
         body {
             margin: 0;
@@ -92,11 +91,69 @@
             padding-top: 30px;
         }
 
+        .name a {
+            text-decoration: none;
+            color: white;
+        }
+
+        table {
+            width: 60%;
+            border-collapse: collapse;
+            margin: 2rem auto;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        table a {
+            text-decoration: none;
+        }
+        main a {
+            text-decoration: none;
+        }
+
+        #clubForm {
+            display: none;
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            box-sizing: border-box;
+        }
+
+        #clubForm input {
+            margin: 5px 0;
+            padding: 8px;
+            width: calc(100% - 16px);
+            box-sizing: border-box;
+        }
+
+        #clubForm button {
+            padding: 8px;
+            cursor: pointer;
+        }
+
+        main {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            flex: 1;
+            text-align: center; 
+        }
+
         .header-top .name {
             font-size: 24px;
             font-weight: bold;
         }
-
         .name a {
             text-decoration: none;
             color: white;
@@ -106,31 +163,47 @@
 
 <body>
 
+
     <header>
         <div class="header-top">
-            <div class="name"><a href="trainerhomepage.html">JHED Sports Complex</a></div>
+            <div class="name"><a href="adminhomepage.html">JHED Sports Complex</a></div>
             <div class="header-bottom">
                 <nav>
-                    <a href="index.html">Home</a>
+                    <a href="adminhomepage.html">Home</a>
+                    <a href="managefacilities.html">Manage Facilities</a>
+                    <a href="manageclubs.html">Manage Clubs</a>
                     <a onclick="signOut()" class="signup">Sign Out</a>
-                    <a href="pricealerts.html"><i class="fa-solid fa-bell fa-2x" style="color: white;"></i></a>
                 </nav>
             </div>
         </div>
     </header>
 
     <main>
-        <div class="main">
-            <div class="topmain">
-                <h1>Welcome <span id="usernameSpan"></span>!</h1>
-            </div>
-            <div class="bottommain">
-
-            </div>
+        <h2>Clubs <a href="#" title="Add Club" onclick="toggleClubForm()">➕</a></h2>
+        <div id="clubForm" style="display: none;">
+            <h3>Create Club</h3>
+            <input type="text" id="clubID" class="inputField" placeholder="Club Name" required />
+            <input type="number" id="caloryBurnRate" class="inputField" placeholder="Calory Burn Rate/hr" min="1" max="1000" required />
+            <button class="heroButton" onclick="createClub()">Add</button>
+            <button class="heroButton" onclick="toggleClubForm()">Cancel</button>
         </div>
-    </main>
+        
+        <table id="clubsTable">
+            <thead>
+                <tr>
+                    <th>Club</th>
+                    <th>Calory Burn Rate/hr</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
 
+            </tbody>
+        </table>
+    </main>
     <script src="./javascripts/signout.js"></script>
+    <script src="./javascripts/operationsBundle.js"></script>
 </body>
 
 </html>

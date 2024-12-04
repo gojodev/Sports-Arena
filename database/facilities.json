@@ -1,0 +1,17 @@
+{
+    "Basketball Court 1": {
+        "location": "Downstairs to the left."
+    },
+    "Basketball Court 2": {
+        "location": "Downstairs to the left."
+    },
+    "GAA Pitch 1": {
+        "location": "Outside the Arena building."
+    },
+    "GAA Pitch 2": {
+        "location": "Outside the Arena building."
+    },
+    "Elite Gym": {
+        "location": "Inside the athletics building."
+    }
+}

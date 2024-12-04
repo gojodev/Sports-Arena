@@ -8,15 +8,40 @@ DarkReader.auto({
 
 async function verifyUser(username, email, password) {
     try {
-        const response = await fetch('http://127.0.0.1:5001/sports-arena-39a32/europe-west2/verifyUser', {
+        const response = await fetch('https://verifyuser-77hki32qna-nw.a.run.app', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                username: username,
-                email: email,
-                password: password,
+                username,
+                email,
+                password,
+            }),
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        const userData = await response.json();
+        return userData;
+    } catch (error) {
+        console.error('Error fetching user data:', error);
+    }
+}
+
+async function currentUser(username, email, password) {
+    try {
+        const response = await fetch('https://verifyuser-77hki32qna-nw.a.run.app', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                username,
+                email,
+                password,
             }),
         });
 
@@ -68,28 +93,37 @@ loginButton.addEventListener('click', async (event) => {
     }
     else {
         let response = await verifyUser(username, email, password);
+
+        console.log('role : ', response.role)
         console.log(response);
         if (response.verdict) {
-            if (response.role == "member"){
-            document.location.href = "memberhomepage.html";
+            console.log(response);
+            
+            localStorage.setItem('username', response.name);
+            localStorage.setItem('role', response.role);
+
+            if (response.role === "member") {
+                document.location.href = "memberhomepage.html";
             }
-            else if (response.role == "trainer"){
-            document.location.href = "trainerhomepage.html";
+            else if (response.role === "trainer") {
+                document.location.href = "trainerhomepage.html";
+            }
+            else if (response.role === "admin") {
+                document.location.href = "adminhomepage.html";
             }
         }
-        else{
+        else {
             errorHandler("Authentication error!");
         }
     }
 })
 
 function autofill() {
-    document.getElementById("username").value = "user1"
-    document.getElementById("email").value = "user1@gmail.com"
-    document.getElementById("password").value = "user1_password!"
+    document.getElementById("username").value = "user2"
+    document.getElementById("email").value = "user2@gmail.com"
+    document.getElementById("password").value = "user2_password!"
 }
 
 autofill()
-
 
 // gsutil cors set cors.json gs://sports-arena-39a32.appspot.com

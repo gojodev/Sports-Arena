@@ -1,17 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="./shared_style/style.css" rel="stylesheet" type="text/css">
-    <title>Homepage</title>
+    <title>FitnessLog</title>
     <style>
         body {
             margin: 0;
             font-family: Arial, sans-serif;
         }
-    
+
         .header-top {
             display: flex;
             justify-content: space-between;
@@ -20,37 +18,37 @@
             background-color: black;
             color: white;
         }
-    
+
         .header-top .name {
             font-size: 24px;
             font-weight: bold;
         }
-    
+
         .header-top .contact {
             text-align: right;
         }
-    
+
         .header-top .contact p {
             margin: 0;
             line-height: 1.5;
         }
-    
+
         .divider {
             height: 1px;
             background-color: white;
         }
-    
+
         .header-bottom {
             background-color: black;
         }
-    
+
         .header-bottom nav {
             display: flex;
             justify-content: center;
             align-items: center;
             padding: 10px 0;
         }
-    
+
         .header-bottom nav a {
             color: white;
             text-decoration: none;
@@ -58,11 +56,11 @@
             font-size: 16px;
             transition: background-color 0.3s;
         }
-    
+
         .header-bottom nav a:hover {
             background-color: #555;
         }
-    
+
         .header-bottom .signup {
             border: 2px solid red;
             padding: 8px 18px;
@@ -71,12 +69,12 @@
             margin-left: 1vw;
             margin-right: 1vw;
         }
-    
+
         .header-bottom .signup:hover {
             background-color: red;
             color: white;
         }
-    
+
         .main {
             background-color: rgba(0, 0, 0, 0.5);
             text-align: center;
@@ -86,23 +84,22 @@
             padding: 20px;
             margin-top: 3%;
         }
-    
-    
+
+
         .bottommain {
             padding-top: 30px;
         }
-    
+
         .name a {
             text-decoration: none;
             color: white;
         }
-        </style>
+    </style>
 </head>
-
 <body>
     <header>
         <div class="header-top">
-            <div class="name"><a href="index.html">JHED Sports Complex</a></div>
+            <div class="name"><a href="memberhomepage.html">JHED Sports Complex</a></div>
             <div class="header-bottom">
                 <nav>
                     <a href="memberhomepage.html">Home</a>
@@ -119,16 +116,31 @@
     <main>
         <div class="main">
             <div class="topmain">
-                <h1>Welcome <span id="username"></span>!</h1>
+                <h1> FitnessLog page </h1>
             </div>
             <div class="bottommain">
-                <h1>Above in the header you have multiple options</h1>
+                <h1>Here is your fitness data</h1>
 
             </div>
         </div>
     </main>
-    <script src="./javascripts/signout.js"></script>
-    <script async src="./javascripts/memberBundle.js"></script>
-</body>
 
+    <script>
+        function signOut() {
+            localStorage.removeItem('username');
+            localStorage.removeItem('role');
+
+            document.location.href = "login.html";
+        }
+
+        const username = localStorage.getItem('username');
+        if (username) {
+            document.getElementById('usernameSpan').textContent = username;
+        }
+        else {
+            document.getElementById('usernameSpan').textContent = "Guest";
+        }
+    </script>
+    
+</body>
 </html>

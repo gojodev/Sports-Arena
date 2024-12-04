@@ -8,16 +8,16 @@ DarkReader.auto({
 
 async function addUser(username, name, email, password, role) {
     try {
-        const response = await fetch('http://127.0.0.1:5001/sports-arena-39a32/europe-west2/addUser', {
+        const response = await fetch('https://adduser-77hki32qna-nw.a.run.app', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                username: username,
-                name: name,
-                email: email,
-                password: password,
+                username,
+                name,
+                email,
+                password,
                 role
             }),
         });
@@ -80,12 +80,14 @@ signUpButton.addEventListener('click', async (event) => {
         let response = await addUser(username, name, email, password, role);
         console.log(response);
         //errorHandler("User added successfully check console for more details");
+        localStorage.setItem('username', response.name);
+        localStorage.setItem('role', response.role);
   
         if (response.role == "member"){
-          document.location.href = "memberhomepage.html";
+          window.location.href = "memberhomepage.html";
         }
         else if (response.role == "trainer"){
-          document.location.href = "trainerhomepage.html";
+          window.location.href = "trainerhomepage.html";
         }
     }
 })

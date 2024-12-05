@@ -118,7 +118,7 @@
             text-decoration: none;
         }
 
-        #clubForm {
+        #trainingSessionForm {
             display: none;
             margin-top: 20px;
             padding: 10px;
@@ -128,14 +128,14 @@
             box-sizing: border-box;
         }
 
-        #clubForm input, select {
+        #trainingSessionForm input, select {
             margin: 5px 0;
             padding: 8px;
             width: calc(100% - 16px);
             box-sizing: border-box;
         }
 
-        #clubForm button {
+        #trainingSessionForm button {
             padding: 8px;
             cursor: pointer;
         }
@@ -169,9 +169,8 @@
             <div class="name"><a href="adminhomepage.html">JHED Sports Complex</a></div>
             <div class="header-bottom">
                 <nav>
-                    <a href="adminhomepage.html">Home</a>
-                    <a href="managefacilities.html">Manage Facilities</a>
-                    <a href="manageclubs.html">Manage Clubs</a>
+                    <a href="trainerhomepage.html">Home</a>
+                    <a href="trainerclubs.html">My Clubs</a>
                     <a onclick="signOut()" class="signup">Sign Out</a>
                 </nav>
             </div>
@@ -179,27 +178,30 @@
     </header>
 
     <main>
-        <h2>Clubs <a href="#" title="Add Club" onclick="toggleClubForm()">➕</a></h2>
-        <div id="clubForm" style="display: none;">
-            <h3>Create Club</h3>
-            <input type="text" id="clubID" class="inputField" placeholder="Club Name" required />
-            <input type="text" id="clubSport" class="inputField" placeholder="Club Sport" required />
-            <input type="number" id="caloryBurnRate" class="inputField" placeholder="Calory Burn Rate/hr" min="1" max="1000" required />
-            <select id="trainerDropdown" class="inputField" required>
-                <option>Select Trainer</option>
+        <h2>Training Sessions <a href="#" title="Add Club" onclick="toggleTrainingSessionForm()">➕</a></h2>
+        <div id="trainingSessionForm" style="display: none;">
+            <h3>Create Training Session</h3>
+            <input type="text" id="description" class="inputField" placeholder="Description" required />
+            <input type="datetime-local" id="sessionStart" name="sessionStart" required />
+            <input type="number" id="duration" class="inputField" placeholder="Duration (mins)" min="1" max="1000" required />
+            <select id="clubDropdown" class="inputField" required>
+                <option>Select Club</option>
             </select>
-            <button class="heroButton" onclick="createClub()">Add</button>
-            <button class="heroButton" onclick="toggleClubForm()">Cancel</button>
+            <select id="facilityDropdown" class="inputField" required>
+                <option>Select Facility</option>
+            </select>
+            <button class="heroButton" onclick="createTrainingSession()">Add</button>
+            <button class="heroButton" onclick="toggleTrainingSessionForm()">Cancel</button>
         </div>
         
-        <table id="clubsTable">
+        <table id="trainingSessionsTable">
             <thead>
                 <tr>
                     <th>Club</th>
-                    <th>Sport</th>
-                    <th>Calory Burn Rate/hr</th>
-                    <th>Trainer</th>
-                    <th>Edit</th>
+                    <th>Description</th>
+                    <th>Session Starts</th>
+                    <th>Duration</th>
+                    <th>Facility</th>
                     <th>Delete</th>
                 </tr>
             </thead>
@@ -209,7 +211,7 @@
         </table>
     </main>
     <script src="./javascripts/signout.js"></script>
-    <script src="./javascripts/operationsBundle.js"></script>
+    <script src="./javascripts/trainerBundle.js"></script>
 </body>
 
 </html>

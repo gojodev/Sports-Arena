@@ -92,6 +92,29 @@ function find_db_username(db, client_username) {
     return res
 }
 
+function findTrainers(db) {
+    let trainers = [];
+
+    for (const key in db) {
+        const user = db[key];
+        if (user.role === 'trainer') {
+            trainers.push(user.name);
+        }
+    }
+    return trainers; 
+}
+
+async function findTrainerClubs(db, trainer_name) {
+    let clubsWithTrainer = {};
+    for (const clubID in db) {
+        const club = db[clubID];
+        if (club.trainer === trainer_name) {
+            clubsWithTrainer[clubID] = club;
+        }
+    }
+    return clubsWithTrainer;
+}
+
 exports.showDB = onRequest({ 'region': 'europe-west2' }, async (req, res) => {
     corsHandler(req, res, async () => {
         try {
@@ -404,11 +427,13 @@ exports.bookFacility = onRequest({ 'region': 'europe-west2' }, async (req, res) 
                     return res.status(404).json({ error: `Club with ID ${clubID} does not exist!` });
                 }
 
-                const facilityBooked = club.bookings.find(booking => {
+                const bookingsArray = Object.values(club.bookings);
+
+                const facilityBooked = bookingsArray.find(booking => {
                     return booking.facilityID === facilityID;
                 });
 
-                const isOverlapping = club.bookings.some(booking => {
+                const isOverlapping = bookingsArray.some(booking => {
                     const bookingStart = new Date(booking.datetime);
                     const bookingEnd = new Date(bookingStart.getTime() + booking.duration * 60000);
                     const newBookingEnd = new Date(bookingDateTime.getTime() + duration * 60000);
@@ -420,13 +445,23 @@ exports.bookFacility = onRequest({ 'region': 'europe-west2' }, async (req, res) 
                     return res.status(400).json({ error: "The facility is already booked for this time slot!" });
                 }
 
+                const existingBookings = Object.keys(club.bookings);
+                let nextKey = 'training1';
+
+                if (existingBookings.length > 0) {
+                    const lastKey = existingBookings[existingBookings.length - 1];
+                    const lastIndex = parseInt(lastKey.replace('training', ''), 10);
+                    nextKey = `training${lastIndex + 1}`;
+                }
+
                 const newBooking = {
                     description,
                     facilityID,
                     datetime: bookingDateTime.toISOString(),
                     duration
                 };
-                club.bookings.push(newBooking);
+                club.bookings[nextKey] = newBooking;
+                
                 uploadString(clubBookings, JSON.stringify(clubsData), 'raw', { contentType: 'application/json' }).then(() => {
                     return res.status(200).json({
                         verdict: `Facility ${facilityID} at Club ${clubID} successfully booked!`,
@@ -588,9 +623,9 @@ exports.createClub = onRequest({ 'region': 'europe-west2' }, async (req, res) =>
     corsHandler(req, res, async () => {
         try {
             if (req.method == 'POST') {
-                const { clubID, sport, caloryBurnRate } = req.body;
+                const { clubID, sport, caloryBurnRate, trainer } = req.body;
 
-                if (!clubID || !sport || !caloryBurnRate) {
+                if (!clubID || !sport || !caloryBurnRate || !trainer) {
                     return res.status(400).json({ error: "clubID, sport and caloryBurnRate are required!" });
                 }
 
@@ -600,7 +635,7 @@ exports.createClub = onRequest({ 'region': 'europe-west2' }, async (req, res) =>
                     return res.status(400).json({ error: `Club with ID ${clubID} already exists!` });
                 }
 
-                clubsData[clubID] = { sport, caloryBurnRate };
+                clubsData[clubID] = { sport, caloryBurnRate, trainer };
 
                 uploadString(clubBookings, JSON.stringify(clubsData), 'raw', { contentType: 'application/json' }).then(() => {
                     return res.status(200).json({
@@ -676,6 +711,44 @@ exports.deleteClub = onRequest({ 'region': 'europe-west2' }, async (req, res) =>
             }
         } catch (error) {
             console.log("Could not delete the club: ", error);
+            return res.status(500).json({ error: "Internal server error" });
+        }
+    })
+});
+
+exports.fetchTrainerNames = onRequest({ 'region': 'europe-west2' }, async (req, res) => {
+    corsHandler(req, res, async () => {
+        try {
+            if (req.method == 'GET') {
+                const db = await loadInfo();
+                const trainers = findTrainers(db);  //This function will have to be modified to use username
+                res.json(trainers);
+            }
+        }
+        catch (error) {
+            console.log("Could not retrieve trainer names: ", error);
+            return res.status(500).json({ error: "Internal server error" });
+        }
+    })
+});
+
+exports.fetchTrainerClubs = onRequest({ 'region': 'europe-west2' }, async (req, res) => {
+    corsHandler(req, res, async () => {
+        try {
+            if (req.method == 'GET') {
+                const { trainerUsername } = req.query;
+
+                if (!trainerUsername) {
+                    return res.status(400).json({ error: "Trainer username is required!" });
+                }
+
+                const db = await loadClubsInfo();
+                const trainerClubs = findTrainerClubs(db, trainerUsername);  // Due to above the function uses name instead of username (to be fixed)
+                res.json(trainerClubs);
+            }
+        }
+        catch (error) {
+            console.log("Could not retrieve trainer clubs: ", error);
             return res.status(500).json({ error: "Internal server error" });
         }
     })

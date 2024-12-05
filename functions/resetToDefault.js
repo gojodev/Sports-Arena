@@ -67,7 +67,9 @@ const userCreds_data = {
 
 const clubBookings_data = {
     "Basketball Club": {
+        "sport": "Basketball",
         "caloryBurnRate": 300,
+        "trainer": "First3 Last3",
         "bookings": {
             "training1": {
                 "timestamp": "",
@@ -87,23 +89,30 @@ const clubBookings_data = {
         }
     },
     "Hurling Club": {
-        "sport": "Hurling",
+        "sport": "GAA",
         "caloryBurnRate": 550,
+        "trainer": "First3 Last3",
         "bookings": {},
         "membersBooking": {}
     },
     "Tennis Club": {
+        "sport": "Tennis",
         "caloryBurnRate": 500,
+        "trainer": "First3 Last3",
         "bookings": {},
         "membersBooking": {}
     },
     "Powerlifting Club": {
+        "sport": "Powerlifting",
         "caloryBurnRate": 650,
+        "trainer": "First3 Last3",
         "bookings": {},
         "membersBooking": {}
     },
     "Gaelic Football Club": {
+        "sport": "GAA",
         "caloryBurnRate": 550,
+        "trainer": "First3 Last3",
         "bookings": {},
         "membersBooking": {}
     }

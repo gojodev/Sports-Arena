@@ -304,116 +304,41 @@ exports.updateDetails = onRequest({ 'region': 'europe-west2' }, async (req, res)
     })
 });
 
-exports.bmr = onRequest({ 'region': 'europe-west2' }, async (req, res) => {
-    corsHandler(req, res, async () => {
-        try {
-            if (req.method != 'POST') {
-                return res.status(405).json({ error: "Method not allowed" })
-            }
-
-            const gender = req.body.gender;
-
-            if (!gender) {
-                return res.status(200).json({ error: 'Gender is required in the JSON body' })
-            }
-
-            const weight = Number(req.body.weight) * 2.205
-            const height = Number(req.body.height) / 2.54
-            const age = Number(req.body.age)
-
-            if (!gender || !weight || !height || !age) {
-                return res.status(400).json({ error: "Gender, weight, height and age is required in the JSON body" });
-            }
-
-            const male_result = Math.round((66 + (6.3 * weight) + (12.9 * height) - (6.8 * age)) * 100) / 100
-            const female_result = Math.round((655 + (4.3 * weight) + (4.7 * height) - (6.8 * age)) * 100) / 100
-
-            const final_result = gender == 'male' ? male_result : female_result;
-
-            return res.status(200).json({
-                bmr: final_result,
-                gender: gender
-            })
-
-        }
-
-        catch (error) {
-            console.log("Couldnt calculate bmr: ", error)
-            return res.status(500).json({ error: "Interal server error" })
-        }
-    })
-})
-
-exports.dailyCalories = onRequest({ 'region': 'europe-west2' }, async (req, res) => {
-    corsHandler(req, res, async () => {
-        try {
-            if (req.method != 'POST') {
-                return res.status(405).json({ error: "Method not allowed" })
-            }
-
-            let bmr = req.body.bmr;
-            const description = req.body.description;
-
-            if (!bmr) {
-                return res.status(400).json({ error: "bmr is required in the JSON body" });
-            }
-
-            const factors = {
-                'sedentary': 1.2,
-                'lightly active ': 1.375,
-                'moderately active': 1.55,
-                'very active': 1.725,
-                'extra active': 1.9,
-            }
-
-            const result = factors[description]
-            if (result != undefined) {
-                bmr = bmr * result;
-                return res.status(200).json({ verdict: bmr })
-            }
-            else {
-                return res.status(200).json({ verdict: 'Description not recognised' })
-            }
-        }
-        catch (error) {
-            console.log("Couldnt calculate bmr: ", error)
-            return res.status(500).json({ error: "Interal server error" })
-        }
-    })
-})
-
-
-// can create and update
 exports.setClubBooking = onRequest({ 'region': 'europe-west2' }, async (req, res) => {
     corsHandler(req, res, async () => {
         try {
             if (req.method == 'POST') {
-                const { username, name, clubName, date, time, duration } = req.body
+                const { username, name, clubName, date, time, duration, trainingSlot } = req.body
 
                 const bookingData = {
                     name,
                     clubName,
                     date,
                     time,
-                    duration
+                    duration,
+                    trainingSlot
                 }
 
                 const db_club = await loadClubsInfo()
-                const profile = db_club[clubName].membersBooking[username]
-                if (profile == undefined) db_club[clubName].membersBooking[username] = {}
-
+                if (db_club[clubName].membersBooking[username] == undefined) db_club[clubName].membersBooking[username] = {}
                 const bookings = db_club[clubName].membersBooking[username]
                 const id = Object.keys(bookings).length + 1
 
-                db_club[clubName].membersBooking[username][id] = bookingData
+                const isValidSlot = db_club[clubName].bookings[trainingSlot]
 
-                uploadString(clubBookings, JSON.stringify(db_club), 'raw', { contentType: 'application/json' }).then(() => {
-                    return res.status(200).json({
-                        verdict: `${username} has booked ${clubName} successfully booked!`,
-                        bookingData
+                if (isValidSlot == undefined) {
+                    res.status(200).json({ warning: `the trainnigSlot : ${trainingSlot} does not exist available slots : ${Object.keys(db_club[clubName].bookings)}` })
+                }
+                else {
+                    db_club[clubName].membersBooking[username][id] = bookingData
+
+                    uploadString(clubBookings, JSON.stringify(db_club), 'raw', { contentType: 'application/json' }).then(() => {
+                        return res.status(200).json({
+                            verdict: `${username} has booked ${clubName} successfully booked!`,
+                            bookingData
+                        });
                     });
-                });
-
+                }
             }
 
             if (req.method == 'GET') {

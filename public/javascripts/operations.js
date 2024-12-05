@@ -1,12 +1,12 @@
 async function bookFacility() {
     try {
-        const description = 'Test booking for facility';
+        const description = 'Team Training Session"';
         const clubID = 'Basketball Club';
         const facilityID = 'Basketball Court 1';
-        const datetime = '2024-11-21T10:00:00Z';
+        const datetime = '2024-12-10T14:00:00Z';
         const duration = 60;
 
-        const response = await fetch('https://bookfacility-77hki32qna-nw.a.run.app', {
+        const response = await fetch('http://127.0.0.1:5001/sports-arena-39a32/europe-west2/bookFacility', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -22,7 +22,7 @@ async function bookFacility() {
 
         if (!response.ok) {
             const errorData = await response.json();
-            alert(errorData.error);
+            console.log(errorData);
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
 
@@ -181,6 +181,7 @@ function toggleClubForm() {
     document.getElementById('clubID').value = '';
     document.getElementById('clubSport').value = '';
     document.getElementById('caloryBurnRate').value = '';
+    document.getElementById('trainerDropdown').selectedIndex = 0;
 }
 
 async function loadClubs() {
@@ -208,6 +209,8 @@ async function loadClubs() {
             sportCell.textContent = club.sport;
             const caloryCell = document.createElement("td");
             caloryCell.textContent = club.caloryBurnRate;
+            const trainerCell = document.createElement("td");
+            trainerCell.textContent = club.trainer;
             const editCell = document.createElement("td");
             editCell.innerHTML = `<a href="#" onclick="editClub('${clubID}')">✏️</a>`;
             const deleteCell = document.createElement("td");
@@ -216,6 +219,7 @@ async function loadClubs() {
             row.appendChild(nameCell);
             row.appendChild(sportCell);
             row.appendChild(caloryCell);
+            row.appendChild(trainerCell);
             row.appendChild(editCell);
             row.appendChild(deleteCell);
 
@@ -228,8 +232,9 @@ async function createClub() {
     const clubID = document.getElementById('clubID').value;
     const clubSport = document.getElementById('clubSport').value;
     let caloryBurnRate = document.getElementById('caloryBurnRate').value;
+    const trainer = document.getElementById('trainerDropdown').value;
 
-    if (!clubID || !clubSport || !caloryBurnRate) {
+    if (!clubID || !clubSport || !caloryBurnRate || !trainer) {
         alert("Please fill in all fields.");
         return;
     }
@@ -240,13 +245,18 @@ async function createClub() {
         return;
     }
 
+    if (trainerDropdown.selectedIndex == 0){
+        alert("Please select a valid trainer.");
+        return;
+    }
+
     try {
         const response = await fetch('https://createclub-77hki32qna-nw.a.run.app', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ clubID: clubID, sport: clubSport, caloryBurnRate: caloryBurnRate }),
+            body: JSON.stringify({ clubID: clubID, sport: clubSport, caloryBurnRate: caloryBurnRate, trainer: trainer }),
         });
 
         const result = await response.json();
@@ -328,10 +338,34 @@ async function deleteClub(clubID){
     }
 }
 
-bookFacility()
+async function loadTrainerDropdown() {
+    const response = await fetch('http://127.0.0.1:5001/sports-arena-39a32/europe-west2/fetchTrainerNames', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    });
+
+    if (response.ok) {
+        const trainers = await response.json();
+        const trainerDropdown = document.getElementById("trainerDropdown");
+        console.log(trainers);
+        trainers.forEach(trainer => {
+            const option = document.createElement("option");
+            option.value = trainer;
+            option.textContent = trainer
+            trainerDropdown.appendChild(option);
+        });
+    } else {
+        console.error("Failed to load trainers.");
+    }
+}
+
+//bookFacility()
 const currentPage = window.location.pathname;
 if (currentPage.includes('manageclubs.html')) {
     loadClubs();
+    loadTrainerDropdown();
 }
 else if (currentPage.includes('managefacilities.html')) {
     loadFacilities(); 

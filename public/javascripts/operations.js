@@ -1,8 +1,8 @@
 async function bookFacility() {
     try {
         const description = 'Test booking for facility';
-        const clubID = 'club1';
-        const facilityID = 'facility1';
+        const clubID = 'Basketball Club';
+        const facilityID = 'Basketball Court 1';
         const datetime = '2024-11-21T10:00:00Z';
         const duration = 60;
 
@@ -179,6 +179,7 @@ function toggleClubForm() {
     const form = document.getElementById('clubForm');
     form.style.display = form.style.display === 'none' ? 'block' : 'none';
     document.getElementById('clubID').value = '';
+    document.getElementById('clubSport').value = '';
     document.getElementById('caloryBurnRate').value = '';
 }
 
@@ -203,6 +204,8 @@ async function loadClubs() {
 
             const nameCell = document.createElement("td");
             nameCell.textContent = clubID;
+            const sportCell = document.createElement("td");
+            sportCell.textContent = club.sport;
             const caloryCell = document.createElement("td");
             caloryCell.textContent = club.caloryBurnRate;
             const editCell = document.createElement("td");
@@ -211,6 +214,7 @@ async function loadClubs() {
             deleteCell.innerHTML = `<a href="#" onclick="deleteClub('${clubID}')">❌</a>`;
 
             row.appendChild(nameCell);
+            row.appendChild(sportCell);
             row.appendChild(caloryCell);
             row.appendChild(editCell);
             row.appendChild(deleteCell);
@@ -222,10 +226,11 @@ async function loadClubs() {
 
 async function createClub() {
     const clubID = document.getElementById('clubID').value;
+    const clubSport = document.getElementById('clubSport').value;
     let caloryBurnRate = document.getElementById('caloryBurnRate').value;
 
-    if (!clubID || !caloryBurnRate) {
-        alert("Please fill in both fields.");
+    if (!clubID || !clubSport || !caloryBurnRate) {
+        alert("Please fill in all fields.");
         return;
     }
     caloryBurnRate = parseInt(caloryBurnRate, 10);
@@ -241,7 +246,7 @@ async function createClub() {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ clubID: clubID, caloryBurnRate: caloryBurnRate }),
+            body: JSON.stringify({ clubID: clubID, sport: clubSport, caloryBurnRate: caloryBurnRate }),
         });
 
         const result = await response.json();
@@ -261,11 +266,12 @@ async function createClub() {
 }
 
 async function editClub(clubID){
+    let newSport = prompt(`Enter new sport for ${clubID}:`);
     let newCaloryBurnRate = prompt(`Enter new calory burn rate for ${clubID} (1-1000):`);
 
     newCaloryBurnRate = parseInt(newCaloryBurnRate, 10);
-    if (isNaN(newCaloryBurnRate) || newCaloryBurnRate < 1 || newCaloryBurnRate > 1000) {
-        alert("Please enter a valid calory burn rate between 1 and 1000.");
+    if (isNaN(newCaloryBurnRate) || newCaloryBurnRate < 1 || newCaloryBurnRate > 1000 || !newSport) {
+        alert("Please enter a valid calory burn rate between 1 and 1000 and a club sport!");
         return;
     }
 
@@ -275,7 +281,7 @@ async function editClub(clubID){
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ clubID: clubID, newCaloryBurnRate: newCaloryBurnRate }),
+            body: JSON.stringify({ clubID: clubID, newSport: newSport, newCaloryBurnRate: newCaloryBurnRate }),
         });
 
         const result = await response.json();
@@ -322,7 +328,7 @@ async function deleteClub(clubID){
     }
 }
 
-// bookFacility()
+bookFacility()
 const currentPage = window.location.pathname;
 if (currentPage.includes('manageclubs.html')) {
     loadClubs();

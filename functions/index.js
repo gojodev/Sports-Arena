@@ -437,7 +437,7 @@ exports.bookFacility = onRequest({ 'region': 'europe-west2' }, async (req, res) 
         }
         catch (error) {
             console.log("Could not book the facility: ", error);
-            return res.status(500).json({ error: "Internal server error" });
+            return res.status(500).json({ error: error });
         }
     })
 });
@@ -588,10 +588,10 @@ exports.createClub = onRequest({ 'region': 'europe-west2' }, async (req, res) =>
     corsHandler(req, res, async () => {
         try {
             if (req.method == 'POST') {
-                const { clubID, caloryBurnRate } = req.body;
+                const { clubID, sport, caloryBurnRate } = req.body;
 
-                if (!clubID || !caloryBurnRate) {
-                    return res.status(400).json({ error: "clubID and caloryBurnRate are required!" });
+                if (!clubID || !sport || !caloryBurnRate) {
+                    return res.status(400).json({ error: "clubID, sport and caloryBurnRate are required!" });
                 }
 
                 const clubsData = await loadClubsInfo();
@@ -600,7 +600,7 @@ exports.createClub = onRequest({ 'region': 'europe-west2' }, async (req, res) =>
                     return res.status(400).json({ error: `Club with ID ${clubID} already exists!` });
                 }
 
-                clubsData[clubID] = { caloryBurnRate };
+                clubsData[clubID] = { sport, caloryBurnRate };
 
                 uploadString(clubBookings, JSON.stringify(clubsData), 'raw', { contentType: 'application/json' }).then(() => {
                     return res.status(200).json({
@@ -621,10 +621,10 @@ exports.updateClub = onRequest({ 'region': 'europe-west2' }, async (req, res) =>
     corsHandler(req, res, async () => {
         try {
             if (req.method == 'PUT') {
-                const { clubID, newCaloryBurnRate } = req.body;
+                const { clubID, newSport, newCaloryBurnRate } = req.body;
 
-                if (!clubID || !newCaloryBurnRate) {
-                    return res.status(400).json({ error: "clubID and newCaloryBurnRate are required!" });
+                if (!clubID || !newCaloryBurnRate || !newSport) {
+                    return res.status(400).json({ error: "clubID, newSport and newCaloryBurnRate are required!" });
                 }
 
                 const clubsData = await loadClubsInfo();
@@ -633,6 +633,7 @@ exports.updateClub = onRequest({ 'region': 'europe-west2' }, async (req, res) =>
                 if (!club) {
                     return res.status(404).json({ error: `Club with ID ${clubID} does not exist!` });
                 }
+                club.sport = newSport;
                 club.caloryBurnRate = newCaloryBurnRate;
 
                 uploadString(clubBookings, JSON.stringify(clubsData), 'raw', { contentType: 'application/json' }).then(() => {

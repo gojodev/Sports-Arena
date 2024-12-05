@@ -183,6 +183,7 @@
         <div id="clubForm" style="display: none;">
             <h3>Create Club</h3>
             <input type="text" id="clubID" class="inputField" placeholder="Club Name" required />
+            <input type="text" id="clubSport" class="inputField" placeholder="Club Sport" required />
             <input type="number" id="caloryBurnRate" class="inputField" placeholder="Calory Burn Rate/hr" min="1" max="1000" required />
             <button class="heroButton" onclick="createClub()">Add</button>
             <button class="heroButton" onclick="toggleClubForm()">Cancel</button>
@@ -192,6 +193,7 @@
             <thead>
                 <tr>
                     <th>Club</th>
+                    <th>Sport</th>
                     <th>Calory Burn Rate/hr</th>
                     <th>Edit</th>
                     <th>Delete</th>

@@ -68,7 +68,7 @@ const userCreds_data = {
 const clubBookings_data = {
     "Basketball Club": {
         "caloryBurnRate": 300,
-        "training": {
+        "bookings": {
             "training1": {
                 "timestamp": "",
                 "duration": "",
@@ -82,8 +82,9 @@ const clubBookings_data = {
                 "description": ""
             }
         },
-        "bookings": {},
-        "membersBooking": {}
+        "membersBooking": {
+            
+        }
     },
     "Hurling Club": {
         "sport": "Hurling",

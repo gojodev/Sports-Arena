@@ -1,4 +1,4 @@
-async function set_clubBooking(username, name, clubName, date, time, duration) {
+async function set_clubBooking(username, name, clubName, date, time, duration, trainingSlot) {
     try {
         const response = await fetch('http://127.0.0.1:5001/sports-arena-39a32/europe-west2/setClubBooking', {
             method: 'POST',
@@ -11,7 +11,8 @@ async function set_clubBooking(username, name, clubName, date, time, duration) {
                 clubName,
                 date,
                 time,
-                duration
+                duration,
+                trainingSlot
             })
         });
 
@@ -53,8 +54,8 @@ async function remove_clubBooking(username, id, clubName) {
 
 
 async function clientSide_test() {
-    // let res = await set_clubBooking('user1', 'First1 Last1', 'Basketball Club', "some  date", "some  time", "30 mins")
-    let res = await remove_clubBooking('user1', '3', 'Basketball Club')
+    let res = await set_clubBooking('user1', 'First1 Last1', 'Basketball Club', "some  date", "some  time", "30 mins", "training2")
+    // let res = await remove_clubBooking('user1', '3', 'Basketball Club')
     console.log(res)
 }
 

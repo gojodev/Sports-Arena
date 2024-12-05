@@ -53,8 +53,8 @@ async function remove_clubBooking(username, id, clubName) {
 
 
 async function clientSide_test() {
-    // let res = await set_clubBooking('user1', 'First1 Last1', 'Basketball Club', "some OTHER date", "some OTHER time", "30 mins")
-    // let res = await remove_clubBooking('user1', '2', 'Basketball Club')
+    // let res = await set_clubBooking('user1', 'First1 Last1', 'Basketball Club', "some  date", "some  time", "30 mins")
+    let res = await remove_clubBooking('user1', '3', 'Basketball Club')
     console.log(res)
 }
 

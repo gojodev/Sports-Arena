@@ -67,7 +67,6 @@ const userCreds_data = {
 
 const clubBookings_data = {
     "Basketball Club": {
-        "sport": "Basketball",
         "caloryBurnRate": 300,
         "training": {
             "training1": {
@@ -83,98 +82,29 @@ const clubBookings_data = {
                 "description": ""
             }
         },
-        "bookings": {
-            "user1": {
-                "description": "Test booking for facility",
-                "facilityID": "Basketball Court 1",
-                "datetime": "2024-11-21T10:00:00.000Z",
-                "duration": 60,
-                "sessions": {}
-            },
-            "user2": {
-                "description": "Test booking for facility",
-                "facilityID": "Basketball Court 1",
-                "datetime": "2024-11-21T10:00:00.000Z",
-                "duration": 60,
-                "sessions": {}
-            }
-        }
+        "bookings": {},
+        "membersBooking": {}
     },
     "Hurling Club": {
         "sport": "Hurling",
         "caloryBurnRate": 550,
-        "training": {
-            "training1": {
-                "timestamp": "",
-                "duration": "",
-                "facility": "",
-                "description": ""
-            },
-            "training2": {
-                "timestamp": "",
-                "duration": "",
-                "facility": "",
-                "description": ""
-            }
-        },
-        "bookings": {}
+        "bookings": {},
+        "membersBooking": {}
     },
     "Tennis Club": {
-        "sport": "Tennis",
         "caloryBurnRate": 500,
-        "training": {
-            "training1": {
-                "timestamp": "",
-                "duration": "",
-                "facility": "",
-                "description": ""
-            },
-            "training2": {
-                "timestamp": "",
-                "duration": "",
-                "facility": "",
-                "description": ""
-            }
-        },
-        "bookings": {}
+        "bookings": {},
+        "membersBooking": {}
     },
     "Powerlifting Club": {
-        "sport": "Powerlifting",
         "caloryBurnRate": 650,
-        "training": {
-            "training1": {
-                "timestamp": "",
-                "duration": "",
-                "facility": "",
-                "description": ""
-            },
-            "training2": {
-                "timestamp": "",
-                "duration": "",
-                "facility": "",
-                "description": ""
-            }
-        },
-        "bookings": {}
+        "bookings": {},
+        "membersBooking": {}
     },
     "Gaelic Football Club": {
-        "sport": "Gaelic Football",
         "caloryBurnRate": 550,
-        "training": {
-            "training1": {
-                "timestamp": "",
-                "duration": "",
-                "facility": "",
-                "description": ""
-            },
-            "training2": {
-                "timestamp": "",
-                "duration": "",
-                "facility": "",
-                "description": ""
-            }
-        },
-        "bookings": {}
+        "bookings": {},
+        "membersBooking": {}
     }
 }
 

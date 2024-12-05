@@ -399,13 +399,13 @@ exports.setClubBooking = onRequest({ 'region': 'europe-west2' }, async (req, res
                 }
 
                 const db_club = await loadClubsInfo()
-                const profile = db_club[clubName].bookings[username]
-                if (profile == undefined) db_club[clubName].bookings[username] = {}
+                const profile = db_club[clubName].membersBooking[username]
+                if (profile == undefined) db_club[clubName].membersBooking[username] = {}
 
-                const bookings = db_club[clubName].bookings[username]
+                const bookings = db_club[clubName].membersBooking[username]
                 const id = Object.keys(bookings).length + 1
 
-                db_club[clubName].bookings[username][id] = bookingData
+                db_club[clubName].membersBooking[username][id] = bookingData
 
                 uploadString(clubBookings, JSON.stringify(db_club), 'raw', { contentType: 'application/json' }).then(() => {
                     return res.status(200).json({
@@ -435,7 +435,17 @@ exports.removeClubBooking = onRequest({ 'region': 'europe-west2' }, async (req, 
             const { username, id, clubName } = req.body;
             const db = await loadClubsInfo()
 
-            delete db[clubName].bookings[username][id]
+            const validIds = Object.keys(db[clubName].membersBooking[username])
+
+
+            if (db[clubName].membersBooking[username][id] != undefined) {
+                delete db[clubName].membersBooking[username][id]
+            }
+            else {
+                return res.status(200).json({
+                    verdict: `${id} does not exist exist, valid ids: "${validIds}"`
+                })
+            }
 
             uploadString(clubBookings, JSON.stringify(db), 'raw', { contentType: 'application/json' }).then(() => {
                 return res.status(200).json({

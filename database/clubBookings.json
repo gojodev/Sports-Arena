@@ -15,23 +15,28 @@
                 "description": ""
             }
         },
-        "bookings": {}
+        "bookings": {},
+        "membersBooking": {}
     },
     "Hurling Club": {
         "sport": "Hurling",
         "caloryBurnRate": 550,
-        "bookings": {}
+        "bookings": {},
+        "membersBooking": {}
     },
     "Tennis Club": {
         "caloryBurnRate": 500,
-        "bookings": {}
+        "bookings": {},
+        "membersBooking": {}
     },
     "Powerlifting Club": {
         "caloryBurnRate": 650,
-        "bookings": {}
+        "bookings": {},
+        "membersBooking": {}
     },
     "Gaelic Football Club": {
         "caloryBurnRate": 550,
-        "bookings": {}
+        "bookings": {},
+        "membersBooking": {}
     }
 }

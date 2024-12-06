@@ -69,54 +69,66 @@ const clubBookings_data = {
     "Basketball Club": {
         "sport": "Basketball",
         "caloryBurnRate": 300,
-        "trainer": "First3 Last3",
+        "trainer": "$2b$10$M3Q1B4ijUJmUffm0.aksU.wMp7SEzXyQsX56NvFwSuYDq9..ZpjC.",
         "bookings": {
             "training1": {
-                "timestamp": "",
-                "duration": "",
-                "facility": "",
-                "description": ""
+                "timestamp": "2024-12-06T20:00:00.000Z",
+                "duration": 60,
+                "facility": "Basketball Court 1",
+                "description": "Friday Beginner Training"
             },
             "training2": {
-                "timestamp": "",
-                "duration": "",
-                "facility": "",
-                "description": ""
+                "timestamp": "2024-12-06T20:00:00.000Z",
+                "duration": 60,
+                "facility": "Basketball Court 2",
+                "description": "Friday Advanced Training"
             }
         },
-        "membersBooking": {
-            
-        }
+        "membersBooking": {}
     },
     "Hurling Club": {
         "sport": "GAA",
         "caloryBurnRate": 550,
-        "trainer": "First3 Last3",
-        "bookings": {},
+        "trainer": "$2b$10$M3Q1B4ijUJmUffm0.aksU.wMp7SEzXyQsX56NvFwSuYDq9..ZpjC.",
+        "bookings": {
+            "training1": {
+                "timestamp": "2024-12-11T21:00:00.000Z",
+                "duration": 90,
+                "facility": "GAA Pitch 1",
+                "description": "Wednesday Night Training"
+            }
+        },
         "membersBooking": {}
     },
     "Tennis Club": {
         "sport": "Tennis",
         "caloryBurnRate": 500,
-        "trainer": "First3 Last3",
-        "bookings": {},
+        "trainer": "$2b$10$M3Q1B4ijUJmUffm0.aksU.wMp7SEzXyQsX56NvFwSuYDq9..ZpjC.",
+        "bookings": {
+            "training1": {
+                "timestamp": "2024-12-26T15:00:00.000Z",
+                "duration": 60,
+                "facility": "Elite Gym",
+                "description": "Tennis Fitness Conditioning"
+            }
+        },
         "membersBooking": {}
     },
     "Powerlifting Club": {
         "sport": "Powerlifting",
         "caloryBurnRate": 650,
-        "trainer": "First3 Last3",
+        "trainer": "$2b$10$M3Q1B4ijUJmUffm0.aksU.wMp7SEzXyQsX56NvFwSuYDq9..ZpjC.",
         "bookings": {},
         "membersBooking": {}
     },
     "Gaelic Football Club": {
         "sport": "GAA",
         "caloryBurnRate": 550,
-        "trainer": "First3 Last3",
+        "trainer": "$2b$10$M3Q1B4ijUJmUffm0.aksU.wMp7SEzXyQsX56NvFwSuYDq9..ZpjC.",
         "bookings": {},
         "membersBooking": {}
     }
-}
+};
 
 const storage = getStorage();
 const userCreds = ref(storage, 'userCreds.json');

@@ -98,17 +98,18 @@ function findTrainers(db) {
     for (const key in db) {
         const user = db[key];
         if (user.role === 'trainer') {
-            trainers.push(user.name);
+            trainers.push({ key: key, name: user.name });
         }
     }
     return trainers; 
 }
 
-async function findTrainerClubs(db, trainer_name) {
+async function findTrainerClubs(db, trainer_username) {
     let clubsWithTrainer = {};
     for (const clubID in db) {
         const club = db[clubID];
-        if (club.trainer === trainer_name) {
+        const isMatch = bcrypt.compareSync(trainer_username, club.trainer);
+        if (isMatch) {
             clubsWithTrainer[clubID] = club;
         }
     }
@@ -428,22 +429,30 @@ exports.bookFacility = onRequest({ 'region': 'europe-west2' }, async (req, res) 
                     return res.status(404).json({ error: `Club with ID ${clubID} does not exist!` });
                 }
 
-                const bookingsArray = Object.values(club.bookings);
+                let isFacilityBooked = false;
 
-                const facilityBooked = bookingsArray.find(booking => {
-                    return booking.facilityID === facilityID;
-                });
+                for (let clubID in clubsData) {
+                    const currentClub = clubsData[clubID];
+                    const bookingsArray = Object.values(currentClub.bookings);
 
-                const isOverlapping = bookingsArray.some(booking => {
-                    const bookingStart = new Date(booking.datetime);
-                    const bookingEnd = new Date(bookingStart.getTime() + booking.duration * 60000);
-                    const newBookingEnd = new Date(bookingDateTime.getTime() + duration * 60000);
+                    for (let booking of bookingsArray) {
+                        if (booking.facilityID === facilityID) {
+                            const bookingStart = new Date(booking.datetime);
+                            const bookingEnd = new Date(bookingStart.getTime() + booking.duration * 60000);
+                            const newBookingEnd = new Date(bookingDateTime.getTime() + duration * 60000);
 
-                    return (bookingDateTime < bookingEnd && newBookingEnd > bookingStart);
-                });
+                            if (bookingDateTime < bookingEnd && newBookingEnd > bookingStart) {
+                                isFacilityBooked = true;
+                                break;
+                            }
+                        }
+                    }
 
-                if (isOverlapping) {
-                    return res.status(400).json({ error: "The facility is already booked for this time slot!" });
+                    if (isFacilityBooked) break;
+                }
+
+                if (isFacilityBooked) {
+                    return res.status(400).json({ error: "The facility is not available for this timeslot!" });
                 }
 
                 const existingBookings = Object.keys(club.bookings);
@@ -476,6 +485,44 @@ exports.bookFacility = onRequest({ 'region': 'europe-west2' }, async (req, res) 
             return res.status(500).json({ error: error });
         }
     })
+});
+
+exports.deleteFacilityBooking = onRequest({ 'region': 'europe-west2' }, async (req, res) => {
+    corsHandler(req, res, async () => {
+        try {
+            if (req.method == 'DELETE') {
+                const { bookingID, clubID } = req.body;
+
+                if (!bookingID || !clubID) {
+                    return res.status(400).json({ error: "bookingID and clubID are required!" });
+                }
+
+                const clubsData = await loadClubsInfo();
+
+                const club = clubsData[clubID];
+                if (!club) {
+                    return res.status(404).json({ error: `Club with ID ${clubID} does not exist!` });
+                }
+
+                const bookingToDelete = club.bookings[bookingID];
+                if (!bookingToDelete) {
+                    return res.status(404).json({ error: `Booking with ID ${bookingID} does not exist for this club!` });
+                }
+
+                delete club.bookings[bookingID];
+
+                uploadString(clubBookings, JSON.stringify(clubsData), 'raw', { contentType: 'application/json' }).then(() => {
+                    return res.status(200).json({
+                        message: `Booking with ID ${bookingID} at Club ${clubID} successfully deleted!`
+                    });
+                });
+            }
+        }
+        catch (error) {
+            console.log("Error during facility booking deletion: ", error);
+            return res.status(500).json({ error: "Internal server error while processing the delete request" });
+        }
+    });
 });
 
 exports.createFacility = onRequest({ 'region': 'europe-west2' }, async (req, res) => {
@@ -722,7 +769,7 @@ exports.fetchTrainerNames = onRequest({ 'region': 'europe-west2' }, async (req, 
         try {
             if (req.method == 'GET') {
                 const db = await loadInfo();
-                const trainers = findTrainers(db);  //This function will have to be modified to use username
+                const trainers = findTrainers(db);
                 res.json(trainers);
             }
         }
@@ -738,14 +785,13 @@ exports.fetchTrainerClubs = onRequest({ 'region': 'europe-west2' }, async (req, 
         try {
             if (req.method == 'GET') {
                 const { trainerUsername } = req.query;
-
                 if (!trainerUsername) {
                     return res.status(400).json({ error: "Trainer username is required!" });
                 }
 
                 const db = await loadClubsInfo();
-                const trainerClubs = findTrainerClubs(db, trainerUsername);  // Due to above the function uses name instead of username (to be fixed)
-                res.json(trainerClubs);
+                const trainerClubs = await findTrainerClubs(db, trainerUsername);
+                res.json({ trainerClubs });
             }
         }
         catch (error) {

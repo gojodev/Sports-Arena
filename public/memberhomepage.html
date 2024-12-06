@@ -119,7 +119,7 @@
     <main>
         <div class="main">
             <div class="topmain">
-                <h1>Welcome <span id="username"></span>!</h1>
+                <h1>Welcome <span id="nameSpan"></span>!</h1>
             </div>
             <div class="bottommain">
                 <h1>Above in the header you have multiple options</h1>
@@ -127,6 +127,15 @@
             </div>
         </div>
     </main>
+    <script>
+        const name = localStorage.getItem('name');
+        if (name) {
+            document.getElementById('nameSpan').textContent = name;
+        }
+        else {
+            document.getElementById('nameSpan').textContent = "Guest";
+        }
+    </script>
     <script src="./javascripts/signout.js"></script>
     <script async src="./javascripts/memberBundle.js"></script>
 </body>

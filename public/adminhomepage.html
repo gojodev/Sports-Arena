@@ -123,13 +123,22 @@
     <main>
         <div class="main">
             <div class="topmain">
-                <h1>Welcome back <span id="usernameSpan"></span>!</h1>
+                <h1>Welcome back <span id="nameSpan"></span>!</h1>
             </div>
             <div class="bottommain">
 
             </div>
         </div>
     </main>
+    <script>
+        const name = localStorage.getItem('name');
+        if (name) {
+            document.getElementById('nameSpan').textContent = name;
+        }
+        else {
+            document.getElementById('nameSpan').textContent = "Guest";
+        }
+    </script>
     <script src="./javascripts/signout.js"></script>
 </body>
 

@@ -125,20 +125,14 @@
         </div>
     </main>
 
+    <script src="./javascripts/signout.js"></script>
     <script>
-        function signOut() {
-            localStorage.removeItem('username');
-            localStorage.removeItem('role');
-
-            document.location.href = "login.html";
-        }
-
-        const username = localStorage.getItem('username');
-        if (username) {
-            document.getElementById('usernameSpan').textContent = username;
+        const name = localStorage.getItem('name');
+        if (name) {
+            document.getElementById('nameSpan').textContent = name;
         }
         else {
-            document.getElementById('usernameSpan').textContent = "Guest";
+            document.getElementById('nameSpan').textContent = "Guest";
         }
     </script>
     

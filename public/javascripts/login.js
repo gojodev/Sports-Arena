@@ -99,7 +99,7 @@ loginButton.addEventListener('click', async (event) => {
         if (response.verdict) {
             console.log(response);
             
-            localStorage.setItem('username', response.name);
+            localStorage.setItem('name', response.name);
             localStorage.setItem('role', response.role);
 
             if (response.role === "member") {

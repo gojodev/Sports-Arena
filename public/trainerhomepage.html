@@ -111,7 +111,7 @@
             <div class="name"><a href="trainerhomepage.html">JHED Sports Complex</a></div>
             <div class="header-bottom">
                 <nav>
-                    <a href="index.html">Home</a>
+                    <a href="trainerhomepage.html">Home</a>
                     <a href="trainerclubs.html">My Clubs</a>
                     <a onclick="signOut()" class="signup">Sign Out</a>
                     <a href="pricealerts.html"><i class="fa-solid fa-bell fa-2x" style="color: white;"></i></a>
@@ -123,14 +123,22 @@
     <main>
         <div class="main">
             <div class="topmain">
-                <h1>Welcome <span id="usernameSpan"></span>!</h1>
+                <h1>Welcome <span id="nameSpan"></span>!</h1>
             </div>
             <div class="bottommain">
 
             </div>
         </div>
     </main>
-
+    <script>
+        const name = localStorage.getItem('name');
+        if (name) {
+            document.getElementById('nameSpan').textContent = name;
+        }
+        else {
+            document.getElementById('nameSpan').textContent = "Guest";
+        }
+    </script>
     <script src="./javascripts/signout.js"></script>
 </body>
 

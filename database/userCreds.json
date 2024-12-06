@@ -41,7 +41,7 @@
         "phone": "333 333 3333",
         "expiry_password": "31-1-2025"
     },
-    "admin": {
+    "$2b$05$Qf3Xf21bjyhoQgXuN6LLUeVp0ZRn3oVknIYWKYcJb9kDUT5oZhPxi": {
         "name": "$2b$10$4oLaWLq0ajJatRhqtbsw3epUVCyN6Y50lFiijxI8sjbHgkqYfHlUO",
         "email": "$2b$10$.on7gm8yH0fXT5KY7lUozO9mTzBbczKeNPfbrsCDyZNxhR5pzKK9q",
         "password": "$2b$10$hgKrxkwaiY1RIKwE4njZHOo6OzOsgNlRKpkVL5EWjQ/3aSlceUQqu",

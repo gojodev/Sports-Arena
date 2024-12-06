@@ -40,7 +40,7 @@ const facilities = ref(storage, 'facilities.json');
 const clubBookings = ref(storage, 'clubBookings.json');
 const currentUser = ref(storage, 'currentUser.json')
 
-async function loadInfo() {
+async function loaduserCreds() {
     return await Promise.resolve(getRef_json(userCreds));
 }
 
@@ -68,10 +68,10 @@ function missingInfoWarning(arr) {
     return missingItems
 }
 
-function findUserProfile(db, client_username) {
+function findUserProfile(db, username) {
     let res = undefined;
     for (const key in db) {
-        const valid_username = bcrypt.compareSync(client_username, key)
+        const valid_username = bcrypt.compareSync(username, key)
         if (valid_username) {
             res = db[key];
             break
@@ -80,10 +80,10 @@ function findUserProfile(db, client_username) {
     return res;
 }
 
-function find_db_username(db, client_username) {
+function find_db_username(db, username) {
     let res = undefined;
     for (const key in db) {
-        let valid_username = bcrypt.compareSync(client_username, key)
+        let valid_username = bcrypt.compareSync(username, key)
         if (valid_username) {
             res = key
             break
@@ -101,7 +101,7 @@ function findTrainers(db) {
             trainers.push({ key: key, name: user.name });
         }
     }
-    return trainers; 
+    return trainers;
 }
 
 async function findTrainerClubs(db, trainer_username) {
@@ -119,7 +119,7 @@ async function findTrainerClubs(db, trainer_username) {
 exports.showDB = onRequest({ 'region': 'europe-west2' }, async (req, res) => {
     corsHandler(req, res, async () => {
         try {
-            let db = await loadInfo();
+            let db = await loaduserCreds();
             res.json(db);
 
         }
@@ -137,10 +137,7 @@ exports.verifyUser = onRequest({ 'region': 'europe-west2' }, async (req, res) =>
             if (req.method != 'POST') {
                 return res.status(405).json({ error: "Method not allowed" })
             }
-
-            const username = req.body.username;
-            const email = req.body.email;
-            const password = req.body.password;
+            const { username, email, password } = req.body
 
             const clientData = [username, email, password]
             const missingItems = missingInfoWarning(clientData);
@@ -149,9 +146,12 @@ exports.verifyUser = onRequest({ 'region': 'europe-west2' }, async (req, res) =>
                 return res.status(200).json({ error: `${missingItems} is required in the JSON body` })
             }
 
-            const db = await loadInfo();
+            const db = await loaduserCreds();
 
             const userInfo = findUserProfile(db, username)
+
+            var correctEmail
+            var correctPassword
 
             if (userInfo != undefined) {
                 const db_email = userInfo.email;
@@ -161,7 +161,7 @@ exports.verifyUser = onRequest({ 'region': 'europe-west2' }, async (req, res) =>
                     return res.status(400).json({ error: "Username, Email and Passowrd is required in the JSON body" });
                 }
 
-                const db_current = await loadInfo(currentUser)
+                const db_current = await loaduserCreds(currentUser)
 
                 const role = userInfo.role
                 db_current[role] = {
@@ -172,14 +172,20 @@ exports.verifyUser = onRequest({ 'region': 'europe-west2' }, async (req, res) =>
 
                 uploadString(currentUser, JSON.stringify(db_current), 'raw', { contentType: 'application/json' })
 
-                let correctEmail = email == db_email
-                let correctPassword = bcrypt.compareSync(password, db_password);
-                let verdict = correctEmail && correctPassword;
+                if (username == 'admin') {
+                    correctEmail = bcrypt.compareSync(email, db_email)
+                }
+                else {
+                    correctEmail = email == db_email
+
+                }
+
+                correctPassword = bcrypt.compareSync(password, db_password);
+                var verdict = correctEmail && correctPassword;
+
 
                 return res.status(200).json({
                     verdict,
-                    correctEmail,
-                    correctPassword,
                     role: userInfo.role,
                     name: userInfo.name
                 });
@@ -187,7 +193,9 @@ exports.verifyUser = onRequest({ 'region': 'europe-west2' }, async (req, res) =>
 
             else {
                 return res.status(200).json({
-                    'verdict': false
+                    'verdict': false,
+                    correctEmail,
+                    correctPassword
                 });
             }
         }
@@ -217,40 +225,35 @@ exports.addUser = onRequest({ 'region': 'europe-west2' }, async (req, res) => {
                 return res.status(405).json({ error: "Method not allowed" })
             }
 
-            const client_username = req.body.username;
-            const client_name = req.body.name;
-            const client_email = req.body.email;
-            const client_password = req.body.password;
-            const client_role = req.body.role;
 
-            const clientData = [client_username, client_name, client_email, client_password, client_role]
+            const { username, name, email, password, role } = req.body
+
+            const clientData = [username, name, email, password, role]
             const missingItems = missingInfoWarning(clientData);
 
             if (missingItems == []) {
                 return res.status(200).json({ error: `${missingItems} is required in the JSON body` })
             }
 
-            const db = await loadInfo();
-            let isExistingUser = findUserProfile(db, client_username)
+            const db = await loaduserCreds();
+            let isExistingUser = findUserProfile(db, username)
 
             if (isExistingUser != undefined) {
-                return res.status(200).json({ error: `Account with email ${client_email} already exists` });
+                return res.status(200).json({ error: `Account with email ${email} already exists` });
             }
 
             else {
                 const saltRounds = 10;
-                const username_hash = bcrypt.hashSync(client_username, saltRounds)
-                const email_hash = bcrypt.hashSync(client_email, saltRounds)
-                const password_hash = bcrypt.hashSync(client_password, saltRounds)
-                const name_hash = bcrypt.hashSync(client_name, saltRounds)
+                const username_hash = bcrypt.hashSync(username, saltRounds)
+                const password_hash = bcrypt.hashSync(password, saltRounds)
 
                 let newUser = {
                     [username_hash]:
                     {
-                        email: email_hash,
-                        name: name_hash,
+                        email,
+                        name,
                         password: password_hash,
-                        role: client_role,
+                        role: role,
                         expiry_password: monthsAway() // no need to hash this
                     }
                 }
@@ -258,8 +261,8 @@ exports.addUser = onRequest({ 'region': 'europe-west2' }, async (req, res) => {
                 Object.assign(db, newUser)
                 uploadString(userCreds, JSON.stringify(db), 'raw', { contentType: 'application/json' }).then(() => {
                     return res.status(200).json({
-                        'verdict': `New user ${client_username} has been created`,
-                        role: client_role
+                        'verdict': `New user ${username} has been created`,
+                        role: role
                     });
                 });
 
@@ -295,7 +298,7 @@ exports.updateDetails = onRequest({ 'region': 'europe-west2' }, async (req, res)
             }
 
 
-            const db = await loadInfo();
+            const db = await loaduserCreds();
 
             const db_username = find_db_username(db, client_username)
 
@@ -329,18 +332,15 @@ exports.updateDetails = onRequest({ 'region': 'europe-west2' }, async (req, res)
     })
 });
 
-exports.setClubBooking = onRequest({ 'region': 'europe-west2' }, async (req, res) => {
+exports.setActivity = onRequest({ 'region': 'europe-west2' }, async (req, res) => {
     corsHandler(req, res, async () => {
         try {
             if (req.method == 'POST') {
-                const { username, name, clubName, date, time, duration, trainingSlot } = req.body
+                const { username, name, clubName, trainingSlot } = req.body
 
                 const bookingData = {
                     name,
                     clubName,
-                    date,
-                    time,
-                    duration,
                     trainingSlot
                 }
 
@@ -379,7 +379,7 @@ exports.setClubBooking = onRequest({ 'region': 'europe-west2' }, async (req, res
     })
 })
 
-exports.removeClubBooking = onRequest({ 'region': 'europe-west2' }, async (req, res) => {
+exports.removeActivity = onRequest({ 'region': 'europe-west2' }, async (req, res) => {
     corsHandler(req, res, async () => {
         try {
             const { username, id, clubName } = req.body;
@@ -471,7 +471,7 @@ exports.bookFacility = onRequest({ 'region': 'europe-west2' }, async (req, res) 
                     duration
                 };
                 club.bookings[nextKey] = newBooking;
-                
+
                 uploadString(clubBookings, JSON.stringify(clubsData), 'raw', { contentType: 'application/json' }).then(() => {
                     return res.status(200).json({
                         verdict: `Facility ${facilityID} at Club ${clubID} successfully booked!`,
@@ -768,7 +768,7 @@ exports.fetchTrainerNames = onRequest({ 'region': 'europe-west2' }, async (req, 
     corsHandler(req, res, async () => {
         try {
             if (req.method == 'GET') {
-                const db = await loadInfo();
+                const db = await loaduserCreds();
                 const trainers = findTrainers(db);
                 res.json(trainers);
             }

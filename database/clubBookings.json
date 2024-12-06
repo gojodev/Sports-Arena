@@ -15,6 +15,18 @@
                 "facilityID": "Basketball Court 2",
                 "datetime": "2024-12-06T20:00:00.000Z",
                 "duration": 60
+            },
+            "advice1": {
+                "description": "Professional advice Concerning Beginner Training",
+                "facilityID": "Basketball Court 2",
+                "datetime": "2024-12-06T18:00:00.000Z",
+                "duration": 60
+            },
+            "advice2": {
+                "description": "Professional advice Concerning Advanced Training",
+                "facilityID": "Basketball Court 2",
+                "datetime": "2024-12-06T17:00:00.000Z",
+                "duration": 60
             }
         },
         "membersBooking": {}

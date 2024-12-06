@@ -56,7 +56,7 @@ const userCreds_data = {
         "phone": "333 333 3333",
         "expiry_password": "31-1-2025"
     },
-    "admin": {
+    "$2b$05$Qf3Xf21bjyhoQgXuN6LLUeVp0ZRn3oVknIYWKYcJb9kDUT5oZhPxi": {
         "name": "$2b$10$4oLaWLq0ajJatRhqtbsw3epUVCyN6Y50lFiijxI8sjbHgkqYfHlUO",
         "email": "$2b$10$.on7gm8yH0fXT5KY7lUozO9mTzBbczKeNPfbrsCDyZNxhR5pzKK9q",
         "password": "$2b$10$hgKrxkwaiY1RIKwE4njZHOo6OzOsgNlRKpkVL5EWjQ/3aSlceUQqu",
@@ -72,16 +72,28 @@ const clubBookings_data = {
         "trainer": "$2b$10$M3Q1B4ijUJmUffm0.aksU.wMp7SEzXyQsX56NvFwSuYDq9..ZpjC.",
         "bookings": {
             "training1": {
-                "timestamp": "2024-12-06T20:00:00.000Z",
-                "duration": 60,
-                "facility": "Basketball Court 1",
-                "description": "Friday Beginner Training"
+                "description": "Friday Beginner Training",
+                "facilityID": "Basketball Court 1",
+                "datetime": "2024-12-06T20:00:00.000Z",
+                "duration": 60
             },
             "training2": {
-                "timestamp": "2024-12-06T20:00:00.000Z",
-                "duration": 60,
-                "facility": "Basketball Court 2",
-                "description": "Friday Advanced Training"
+                "description": "Friday Advanced Training",
+                "facilityID": "Basketball Court 2",
+                "datetime": "2024-12-06T20:00:00.000Z",
+                "duration": 60
+            },
+            "advice1": {
+                "description": "Professional advice Concerning Beginner Training",
+                "facilityID": "Basketball Court 2",
+                "datetime": "2024-12-06T18:00:00.000Z",
+                "duration": 60
+            },
+            "advice2": {
+                "description": "Professional advice Concerning Advanced Training",
+                "facilityID": "Basketball Court 2",
+                "datetime": "2024-12-06T17:00:00.000Z",
+                "duration": 60
             }
         },
         "membersBooking": {}
@@ -92,10 +104,10 @@ const clubBookings_data = {
         "trainer": "$2b$10$M3Q1B4ijUJmUffm0.aksU.wMp7SEzXyQsX56NvFwSuYDq9..ZpjC.",
         "bookings": {
             "training1": {
-                "timestamp": "2024-12-11T21:00:00.000Z",
-                "duration": 90,
-                "facility": "GAA Pitch 1",
-                "description": "Wednesday Night Training"
+                "description": "Wednesday Night Training",
+                "facilityID": "GAA Pitch 1",
+                "datetime": "2024-12-11T21:00:00.000Z",
+                "duration": 90
             }
         },
         "membersBooking": {}
@@ -106,10 +118,10 @@ const clubBookings_data = {
         "trainer": "$2b$10$M3Q1B4ijUJmUffm0.aksU.wMp7SEzXyQsX56NvFwSuYDq9..ZpjC.",
         "bookings": {
             "training1": {
-                "timestamp": "2024-12-26T15:00:00.000Z",
-                "duration": 60,
-                "facility": "Elite Gym",
-                "description": "Tennis Fitness Conditioning"
+                "description": "Tennis Fitness Conditioning",
+                "facilityID": "Elite Gym",
+                "datetime": "2024-12-26T15:00:00.000Z",
+                "duration": 60
             }
         },
         "membersBooking": {}
@@ -128,18 +140,18 @@ const clubBookings_data = {
         "bookings": {},
         "membersBooking": {}
     }
-};
+}
 
 const storage = getStorage();
 const userCreds = ref(storage, 'userCreds.json');
 const clubBookings = ref(storage, 'clubBookings.json');
 
 
-uploadString(userCreds, JSON.stringify(userCreds_data)).then(() => {
+uploadString(userCreds, JSON.stringify(userCreds_data), 'raw', { contentType: 'application/json' }).then(() => {
     console.log("'userCreds.json' has been reset")
 });
 
-uploadString(clubBookings, JSON.stringify(clubBookings_data)).then(() => {
+uploadString(clubBookings, JSON.stringify(clubBookings_data), 'raw', { contentType: 'application/json' }).then(() => {
     console.log("'clubBookings.json' has been reset")
 });
 

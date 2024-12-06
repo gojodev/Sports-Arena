@@ -24,8 +24,10 @@ Sports-Arena
 │  ├─ test.js
 │  ├─ test.json
 │  ├─ testing
-│  │  ├─ bookClub.js
-│  │  └─ test.js
+│  │  ├─ activity.js
+│  │  ├─ addUser.js
+│  │  ├─ test.js
+│  │  └─ verifyUser.js
 │  └─ ui-debug.log
 ├─ package-lock.json
 ├─ package.json
@@ -55,7 +57,9 @@ Sports-Arena
 │  │  ├─ signout.js
 │  │  ├─ signup.js
 │  │  ├─ signupBundle.js
-│  │  └─ test.js
+│  │  ├─ test.js
+│  │  ├─ trainer.js
+│  │  └─ trainerBundle.js
 │  ├─ login.html
 │  ├─ manageclubs.html
 │  ├─ managefacilities.html
@@ -64,6 +68,7 @@ Sports-Arena
 │  ├─ shared_style
 │  │  └─ style.css
 │  ├─ signup.html
+│  ├─ trainerclubs.html
 │  └─ trainerhomepage.html
 ├─ README.md
 ├─ storage.rules

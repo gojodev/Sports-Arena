@@ -32,6 +32,7 @@ async function loadFacilities() {
 
 async function loadTrainerClubs(){
     // const trainerUsername = WE HAVE TO GET THIS
+    console.log();
     const response = await fetch('http://127.0.0.1:5001/sports-arena-39a32/europe-west2/fetchTrainerClubs?trainerUsername=${trainerUsername}', {
         method: 'GET',
         headers: {

@@ -67,6 +67,14 @@ loginButton.addEventListener('click', async (event) => {
     // Prevent the form from refreshing the page
     event.preventDefault();
 
+    //retrieve failed login attempts from localStorage
+    let failedAttempts = parseInt(localStorage.getItem('failedAttempts')) || 0;
+    
+    if (failedAttempts > 3){
+        errorHandler("Maximum login attempts exceeded. Please try again later.");
+        return;
+    }
+
     let username = document.getElementById("username").value
     let email = document.getElementById("email").value
     let password = document.getElementById("password").value
@@ -97,10 +105,10 @@ loginButton.addEventListener('click', async (event) => {
         console.log('role : ', response.role)
         console.log(response);
         if (response.verdict) {
+            localStorage.setItem('failedAttempts',0);
             console.log(response);
             
-            localStorage.setItem('username', username);
-            localStorage.setItem('name', response.name);
+            localStorage.setItem('username', response.name);
             localStorage.setItem('role', response.role);
 
             if (response.role === "member") {
@@ -114,7 +122,13 @@ loginButton.addEventListener('click', async (event) => {
             }
         }
         else {
-            errorHandler("Authentication error!");
+            failedAttempts++;
+            localStorage.setItem('failedAttempts',failedAttempts);
+            if (failedAttempts > 3){
+                errorHandler("Maximum login attempts exceeded. Please try again later.");
+            }else{
+                errorHandler("Authentication error!");
+            }
         }
     }
 })

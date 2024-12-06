@@ -197,6 +197,23 @@ async function loadClubs() {
 
         console.log(data.clubs);
 
+        const trainerResponse = await fetch('http://127.0.0.1:5001/sports-arena-39a32/europe-west2/fetchTrainerNames', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+    
+        let trainers = [];
+        if (trainerResponse.ok) {
+            trainers = await trainerResponse.json();
+        }
+
+        const trainerMap = new Map();
+        trainers.forEach(trainer => {
+            trainerMap.set(trainer.key, trainer.name);
+        });
+
         const tableBody = document.querySelector("#clubsTable tbody");
         tableBody.innerHTML = "";
 
@@ -210,7 +227,7 @@ async function loadClubs() {
             const caloryCell = document.createElement("td");
             caloryCell.textContent = club.caloryBurnRate;
             const trainerCell = document.createElement("td");
-            trainerCell.textContent = club.trainer;
+            trainerCell.textContent = trainerMap.get(club.trainer) || "Unknown Trainer";
             const editCell = document.createElement("td");
             editCell.innerHTML = `<a href="#" onclick="editClub('${clubID}')">✏️</a>`;
             const deleteCell = document.createElement("td");
@@ -352,8 +369,8 @@ async function loadTrainerDropdown() {
         console.log(trainers);
         trainers.forEach(trainer => {
             const option = document.createElement("option");
-            option.value = trainer;
-            option.textContent = trainer
+            option.value = trainer.key;
+            option.textContent = trainer.name;
             trainerDropdown.appendChild(option);
         });
     } else {

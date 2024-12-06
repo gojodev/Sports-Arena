@@ -1,4 +1,5 @@
 function signOut() {
+    localStorage.removeItem('username');
     localStorage.removeItem('name');
     localStorage.removeItem('role');
 

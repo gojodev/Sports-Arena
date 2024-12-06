@@ -1,3 +1,6 @@
 function signOut() {
-    document.location.href = "index.html";
+    localStorage.removeItem('name');
+    localStorage.removeItem('role');
+
+    document.location.href = "login.html";
 }

@@ -179,7 +179,8 @@ exports.verifyUser = onRequest({ 'region': 'europe-west2' }, async (req, res) =>
                     verdict,
                     correctEmail,
                     correctPassword,
-                    role: userInfo.role
+                    role: userInfo.role,
+                    name: userInfo.name
                 });
             }
 

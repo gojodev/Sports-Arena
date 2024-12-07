@@ -84,11 +84,14 @@ signUpButton.addEventListener('click', async (event) => {
         localStorage.setItem('name', response.name);
         localStorage.setItem('role', response.role);
   
-        if (response.role == "member"){
-          window.location.href = "memberhomepage.html";
+        if (response.role === "member") {
+            document.location.href = "memberhomepage.html";
         }
-        else if (response.role == "trainer"){
-          window.location.href = "trainerhomepage.html";
+        else if (response.role === "trainer") {
+            document.location.href = "trainerhomepage.html";
+        }
+        else if (response.role === "admin") {
+            document.location.href = "adminhomepage.html";
         }
     }
 })

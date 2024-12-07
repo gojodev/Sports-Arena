@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="./shared_style/style.css" rel="stylesheet" type="text/css">
-    <title>appointments</title>
+    <title>My Bookings</title>
     <style>
         body {
             margin: 0;
@@ -98,6 +98,51 @@
             text-decoration: none;
             color: white;
         }
+
+        table {
+            width: 60%;
+            border-collapse: collapse;
+            margin: 2rem auto;
+            color: black;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+        th,tr {
+            background-color: #f2f2f2;
+        }
+        table a {
+            text-decoration: none;
+        }
+        main a {
+            text-decoration: none;
+        }
+
+        #appointmentForm {
+            display: none;
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            box-sizing: border-box;
+        }
+
+        #appointmentForm input, select {
+            margin: 5px 0;
+            padding: 8px;
+            width: calc(100% - 16px);
+            box-sizing: border-box;
+        }
+
+        #appointmentForm button {
+            padding: 8px;
+            cursor: pointer;
+        }
         </style>
 </head>
 
@@ -111,19 +156,54 @@
                     <a href="club.html">Clubs</a>
                     <a href="fitnessLog.html">Fitness Log</a>
                     <a href="profile.html">Profile</a>
-                    <a href="appointments.html">My Appointments</a>
+                    <a href="bookings.html">My Bookings</a>
                     <a onclick="signOut()" class="signup">Sign Out</a>
                 </nav>
             </div>
         </div>
     </header>
+    <main>
+        <div class="main">
+            <h1>My Bookings</h1>
+            <p>Browse the list of available training slots for a club of your choice and choose between either a training session or a professional advice session.</p>
 
-    <div class="main">
-        <h1> Appointments </h1>
-        <p>On this page you can book personal training with a trainer <br>
-        or a sport with a club</p>
-    </div>
+            <h2><a href="#" title="Add Club" onclick="toggleAppointmentForm()">➕</a></h2>
+            <div id="appointmentForm" style="display: none;">
+                <h3>New Booking</h3>
+                <select id="sessionType">
+                    <option value="training">Training Session</option>
+                    <option value="advice">Professional Advice Session</option>
+                </select>
+                <select id="clubDropdown">
+                    <option value="">Select Club</option>
+                </select>
+                <select id="trainingDropdown">
+                    <option value="">Select Training</option>
+                </select>
+                <button class="heroButton" onclick="bookAppointment()">Book</button>
+                <button class="heroButton" onclick="toggleAppointmentForm()">Cancel</button>
+            </div>
+            <table id="trainingSessionsTable">
+                <thead>
+                    <tr>
+                        <th>Club</th>
+                        <th>Type</th>
+                        <th>Description</th>
+                        <th>Trainer</th>
+                        <th>Session Starts</th>
+                        <th>Duration</th>
+                        <th>Facility</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
+        </div>
+    </main>
     <script src="./javascripts/signout.js"></script>
+    <script src="./javascripts/memberBundle.js"></script>
 </body>
 
 </html>

@@ -187,7 +187,14 @@ exports.verifyUser = onRequest({ 'region': 'europe-west2' }, async (req, res) =>
                 return res.status(200).json({
                     verdict,
                     role: userInfo.role,
-                    name: userInfo.name
+                    name: userInfo.name,
+                    bmr: userInfo.bmr,
+                    gender: userInfo.gender,
+                    age: userInfo.age,
+                    weight: userInfo.weight,
+                    height: userInfo.height,
+                    address: userInfo.address,
+                    phone: userInfo.phone
                 });
             }
 
@@ -347,6 +354,14 @@ exports.setActivity = onRequest({ 'region': 'europe-west2' }, async (req, res) =
                 const db_club = await loadClubsInfo()
                 if (db_club[clubName].membersBooking[username] == undefined) db_club[clubName].membersBooking[username] = {}
                 const bookings = db_club[clubName].membersBooking[username]
+
+                const isAlreadyBooked = Object.values(bookings).some(booking => booking.trainingSlot === trainingSlot);
+                if (isAlreadyBooked) {
+                    return res.status(400).json({
+                        error: `${username} is already booked for the ${trainingSlot} session in ${clubName}.`
+                    });
+                }
+
                 const id = Object.keys(bookings).length + 1
 
                 const isValidSlot = db_club[clubName].bookings[trainingSlot]
@@ -382,24 +397,25 @@ exports.setActivity = onRequest({ 'region': 'europe-west2' }, async (req, res) =
 exports.removeActivity = onRequest({ 'region': 'europe-west2' }, async (req, res) => {
     corsHandler(req, res, async () => {
         try {
-            const { username, id, clubName } = req.body;
-            const db = await loadClubsInfo()
+            const { username, trainingSlot, clubName } = req.body;
+            const db = await loadClubsInfo();
 
-            const validIds = Object.keys(db[clubName].membersBooking[username])
+            const validIds = Object.keys(db[clubName].membersBooking[username]);
+            const userBookings = db[clubName].membersBooking[username];
 
+            const bookingsToRemove = Object.keys(userBookings).filter(id => userBookings[id].trainingSlot === trainingSlot);
 
-            if (db[clubName].membersBooking[username][id] != undefined) {
-                delete db[clubName].membersBooking[username][id]
-            }
-            else {
+            if (bookingsToRemove.length === 0) {
                 return res.status(200).json({
-                    verdict: `${id} does not exist exist, valid ids: "${validIds}"`
-                })
+                    verdict: `No bookings found for the training slot "${trainingSlot}" for user "${username}". Valid IDs: ${validIds}`
+                });
             }
-
+            bookingsToRemove.forEach(id => {
+                delete userBookings[id];
+            });
             uploadString(clubBookings, JSON.stringify(db), 'raw', { contentType: 'application/json' }).then(() => {
                 return res.status(200).json({
-                    verdict: `${username} has removed booking with id: ${id}!`
+                    verdict: `${username} has removed all bookings for the "${trainingSlot}" session in ${clubName}!`
                 });
             });
         }
@@ -415,10 +431,10 @@ exports.bookFacility = onRequest({ 'region': 'europe-west2' }, async (req, res) 
     corsHandler(req, res, async () => {
         try {
             if (req.method == 'POST') {
-                const { description, clubID, facilityID, datetime, duration } = req.body;
+                const { description, clubID, facilityID, datetime, duration, bookingType } = req.body;
 
-                if (!description || !clubID || !facilityID || !datetime || !duration) {
-                    return res.status(400).json({ error: "Description, clubID, facilityID, datetime and duration are all required!" });
+                if (!description || !clubID || !facilityID || !datetime || !duration || !bookingType) {
+                    return res.status(400).json({ error: "Description, clubID, facilityID, datetime, duration and booking type are all required!" });
                 }
 
                 const bookingDateTime = new Date(datetime);
@@ -456,12 +472,15 @@ exports.bookFacility = onRequest({ 'region': 'europe-west2' }, async (req, res) 
                 }
 
                 const existingBookings = Object.keys(club.bookings);
-                let nextKey = 'training1';
+                let nextKey = `${bookingType}1`; 
 
                 if (existingBookings.length > 0) {
                     const lastKey = existingBookings[existingBookings.length - 1];
-                    const lastIndex = parseInt(lastKey.replace('training', ''), 10);
-                    nextKey = `training${lastIndex + 1}`;
+                    const match = lastKey.match(/(\d+)$/);
+                    if (match) {
+                        const lastIndex = parseInt(match[1], 10);
+                        nextKey = `${bookingType}${lastIndex + 1}`;
+                    }
                 }
 
                 const newBooking = {

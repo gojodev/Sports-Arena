@@ -6,7 +6,7 @@ async function bookFacility() {
         const datetime = '2024-12-10T14:00:00Z';
         const duration = 60;
 
-        const response = await fetch('http://127.0.0.1:5001/sports-arena-39a32/europe-west2/bookFacility', {
+        const response = await fetch('https://bookfacility-77hki32qna-nw.a.run.app', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -197,7 +197,7 @@ async function loadClubs() {
 
         console.log(data.clubs);
 
-        const trainerResponse = await fetch('http://127.0.0.1:5001/sports-arena-39a32/europe-west2/fetchTrainerNames', {
+        const trainerResponse = await fetch('https://fetchtrainernames-77hki32qna-nw.a.run.app', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -356,7 +356,7 @@ async function deleteClub(clubID){
 }
 
 async function loadTrainerDropdown() {
-    const response = await fetch('http://127.0.0.1:5001/sports-arena-39a32/europe-west2/fetchTrainerNames', {
+    const response = await fetch('https://fetchtrainernames-77hki32qna-nw.a.run.app', {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',

@@ -108,8 +108,16 @@ loginButton.addEventListener('click', async (event) => {
             localStorage.setItem('failedAttempts',0);
             console.log(response);
             
-            localStorage.setItem('username', response.name);
+            localStorage.setItem('username', username);
+            localStorage.setItem('name', response.name);
             localStorage.setItem('role', response.role);
+            localStorage.setItem('bmr', response.bmr);
+            localStorage.setItem('gender', response.gender);
+            localStorage.setItem('age', response.age);
+            localStorage.setItem('weight', response.weight);
+            localStorage.setItem('height', response.height);
+            localStorage.setItem('address', response.address);
+            localStorage.setItem('phone', response.phone);
 
             if (response.role === "member") {
                 document.location.href = "memberhomepage.html";

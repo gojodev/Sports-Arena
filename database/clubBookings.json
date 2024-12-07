@@ -16,15 +16,15 @@
                 "datetime": "2024-12-06T20:00:00.000Z",
                 "duration": 60
             },
-            "advice1": {
-                "description": "Professional advice Concerning Beginner Training",
-                "facilityID": "Basketball Court 2",
+            "advice3": {
+                "description": "Professional advice for beginner players",
+                "facilityID": "Trainer's Office",
                 "datetime": "2024-12-06T18:00:00.000Z",
                 "duration": 60
             },
-            "advice2": {
-                "description": "Professional advice Concerning Advanced Training",
-                "facilityID": "Basketball Court 2",
+            "advice4": {
+                "description": "Professional advice for advanced players",
+                "facilityID": "Trainer's Office",
                 "datetime": "2024-12-06T17:00:00.000Z",
                 "duration": 60
             }

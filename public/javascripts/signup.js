@@ -6,9 +6,9 @@ DarkReader.auto({
     darkSchemeTextColor: 'white',
 });
 
-async function addUser(username, name, email, password, role) {
+async function addUser(username, name, email, password, BMR, gender, age, weight, height, address, phone, role) {
     try {
-        const response = await fetch('https://adduser-77hki32qna-nw.a.run.app', {
+        const response = await fetch('http://127.0.0.1:5001/sports-arena-39a32/europe-west2/addUser', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -18,6 +18,13 @@ async function addUser(username, name, email, password, role) {
                 name,
                 email,
                 password,
+                BMR,
+                gender,
+                age,
+                weight,
+                height,
+                address,
+                phone,
                 role
             }),
         });
@@ -48,6 +55,14 @@ signUpButton.addEventListener('click', async (event) => {
     let email = document.getElementById("email").value
     let name = document.getElementById("name").value
     let password = document.getElementById("password").value
+
+    let BMR = document.getElementById("BMR").value
+    let gender = document.getElementById("gender").value
+    let age = document.getElementById("age").value
+    let weight = document.getElementById("weight").value
+    let height = document.getElementById("height").value
+    let address = document.getElementById("address").value
+    let phone = document.getElementById("phone").value
     let role = document.querySelector('input[name="role"]:checked').value;
 
     var error_message = "";
@@ -77,13 +92,13 @@ signUpButton.addEventListener('click', async (event) => {
         errorHandler(error_message)
     }
     else {
-        let response = await addUser(username, name, email, password, role);
+        let response = await addUser(username, name, email, password, BMR, gender, age, weight, height, address, phone, role);
         console.log(response);
         //errorHandler("User added successfully check console for more details");
         localStorage.setItem('username', username);
         localStorage.setItem('name', response.name);
         localStorage.setItem('role', response.role);
-  
+
         if (response.role === "member") {
             document.location.href = "memberhomepage.html";
         }
@@ -101,6 +116,14 @@ function autofill() {
     document.getElementById("name").value = "first4 last4"
     document.getElementById("email").value = "user4@gmail.com"
     document.getElementById("password").value = "user4_password!"
+    document.getElementById("BMR").value = "1100"
+    document.getElementById("gender").value = "male"
+    document.getElementById("age").value = "24"
+    document.getElementById("weight").value = "74"
+    document.getElementById("height").value = "250"
+    document.getElementById("address").value = "address4"
+    document.getElementById("phone").value = "444 444 4444"
+    document.querySelector("role").value = "member"
 }
 
 autofill()

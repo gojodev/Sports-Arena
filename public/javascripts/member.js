@@ -117,7 +117,7 @@ function toggleAppointmentForm() {
 
 async function loadTrainingSessions() {
     const username = localStorage.getItem('username');
-    
+
     if (!username) {
         console.log("No username found in localStorage");
         return;
@@ -159,7 +159,7 @@ async function loadTrainingSessions() {
                 if (usernameKey === username) {
                     Object.entries(bookings).forEach(([bookingID, bookingData]) => {
                         const booking = club.bookings[bookingData.trainingSlot];
-                        
+
                         if (booking) {
                             const row = document.createElement("tr");
 
@@ -245,8 +245,13 @@ async function deleteTrainingSession(trainingSlot, clubName) {
     }
 }
 
-document.getElementById("sessionType").addEventListener("change", updateTrainingDropdown);
-document.getElementById("clubDropdown").addEventListener("change", updateTrainingDropdown);
+const sessionType = document.getElementById("sessionType")
+const clubDropdown = document.getElementById("clubDropdown")
+
+if (sessionType != undefined && clubDropdown != undefined) {
+    sessionType.addEventListener("change", updateTrainingDropdown);
+    clubDropdown.addEventListener("change", updateTrainingDropdown);
+}
 
 loadClubs();
 loadTrainingSessions();

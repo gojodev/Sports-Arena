@@ -233,7 +233,7 @@ exports.addUser = onRequest({ 'region': 'europe-west2' }, async (req, res) => {
             }
 
 
-            const { username, name, email, password, role } = req.body
+            const { username, name, email, password, BMR, gender, age, weight, height, address, phone, role } = req.body
 
             const clientData = [username, name, email, password, role]
             const missingItems = missingInfoWarning(clientData);
@@ -260,7 +260,14 @@ exports.addUser = onRequest({ 'region': 'europe-west2' }, async (req, res) => {
                         email,
                         name,
                         password: password_hash,
-                        role: role,
+                        BMR, 
+                        gender, 
+                        age, 
+                        weight, 
+                        height, 
+                        address, 
+                        phone,
+                        role,
                         expiry_password: monthsAway() // no need to hash this
                     }
                 }

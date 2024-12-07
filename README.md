@@ -34,16 +34,19 @@ Sports-Arena
 ├─ public
 │  ├─ 404.html
 │  ├─ adminhomepage.html
-│  ├─ appointments.html
+│  ├─ bookings.html
 │  ├─ club.html
 │  ├─ fitnessLog.html
 │  ├─ images
-│  │  └─ .DS_Store
+│  │  ├─ .DS_Store
+│  │  └─ arena.jpg
 │  ├─ index.html
 │  ├─ javascripts
 │  │  ├─ appointment.js
 │  │  ├─ club.js
 │  │  ├─ clubBundle.js
+│  │  ├─ fitnessLog.js
+│  │  ├─ fitnessLogBundle.js
 │  │  ├─ login.js
 │  │  ├─ loginBundle.js
 │  │  ├─ member.js

@@ -108,7 +108,7 @@
                     <a href="club.html">Clubs</a>
                     <a href="fitnessLog.html">Fitness Log</a>
                     <a href="profile.html">Profile</a>
-                    <a href="appointments.html">My Appointments</a>
+                    <a href="bookings.html">My Bookings</a>
                     <a onclick="signOut()" class="signup">Sign Out</a>
                 </nav>
             </div>
@@ -122,11 +122,12 @@
             </div>
             <div class="bottommain">
                 <h1>Here is your fitness data</h1>
-                <p>bmr : </p>
+                <h3> bmr : <strong id="bmr"> bmr </strong> </h3>
             </div>
         </div>
     </main>
 
+    <script src="./javascripts/fitnessLogBundle.js"></script>
     <script src="./javascripts/signout.js"></script>
     <script>
         const name = localStorage.getItem('name');

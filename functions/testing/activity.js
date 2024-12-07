@@ -1,6 +1,6 @@
 async function set_clubBooking(username, name, clubName, date, time, duration, trainingSlot) {
     try {
-        const response = await fetch('http://127.0.0.1:5001/sports-arena-39a32/europe-west2/setActivity', {
+        const response = await fetch('https://setactivity-77hki32qna-nw.a.run.app', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -29,7 +29,7 @@ async function set_clubBooking(username, name, clubName, date, time, duration, t
 
 async function remove_clubBooking(username, id, clubName) {
     try {
-        const response = await fetch('http://127.0.0.1:5001/sports-arena-39a32/europe-west2/removeActivity', {
+        const response = await fetch('https://removeactivity-77hki32qna-nw.a.run.app', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

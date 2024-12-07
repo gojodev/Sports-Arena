@@ -9,6 +9,7 @@ const scripts = [
     { entry: "./public/javascripts/member.js", outfile: "./public/javascripts/memberBundle.js" },
     { entry: "./public/javascripts/profile.js", outfile: "./public/javascripts/profileBundle.js" },
     { entry: "./public/javascripts/trainer.js", outfile: "./public/javascripts/trainerBundle.js" },
+    { entry: "./public/javascripts/fitnessLog.js", outfile: "./public/javascripts/fitnessLogBundle.js" },
 ];
 
 scripts.forEach(script => {

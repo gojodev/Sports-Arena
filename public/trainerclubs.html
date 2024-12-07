@@ -186,6 +186,11 @@
             <input type="text" id="description" class="inputField" placeholder="Description" required />
             <input type="datetime-local" id="sessionStart" name="sessionStart" required />
             <input type="number" id="duration" class="inputField" placeholder="Duration (mins)" min="1" max="1000" required />
+            <select id="sessionType" class="inputField" required>
+                <option value="">Select Session Type</option>
+                <option value="training">Training Session</option>
+                <option value="advice">Professional Advice Session</option>
+            </select>
             <select id="clubDropdown" class="inputField" required>
                 <option>Select Club</option>
             </select>
@@ -200,10 +205,12 @@
             <thead>
                 <tr>
                     <th>Club</th>
+                    <th>Type</th>
                     <th>Description</th>
                     <th>Session Starts</th>
                     <th>Duration</th>
                     <th>Facility</th>
+                    <th># of Members Going</th>
                     <th>Delete</th>
                 </tr>
             </thead>

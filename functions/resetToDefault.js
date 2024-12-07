@@ -57,11 +57,11 @@ const userCreds_data = {
         "expiry_password": "31-1-2025"
     },
     "$2b$05$Qf3Xf21bjyhoQgXuN6LLUeVp0ZRn3oVknIYWKYcJb9kDUT5oZhPxi": {
-        "name": "$2b$10$4oLaWLq0ajJatRhqtbsw3epUVCyN6Y50lFiijxI8sjbHgkqYfHlUO",
+        "name": "Daniel Jackson",
         "email": "$2b$10$.on7gm8yH0fXT5KY7lUozO9mTzBbczKeNPfbrsCDyZNxhR5pzKK9q",
         "password": "$2b$10$hgKrxkwaiY1RIKwE4njZHOo6OzOsgNlRKpkVL5EWjQ/3aSlceUQqu",
         "expiry_password": "$2b$10$wjwBtKg3WctMHchfbOWhU.uj/uVZf/qt08y3xJGtSExu7LT1D0vQG",
-        "role": "$2b$10$hgKrxkwaiY1RIKwE4njZHOo6OzOsgNlRKpkVL5EWjQ/3aSlceUQqu"
+        "role": "admin"
     }
 }
 
@@ -83,15 +83,15 @@ const clubBookings_data = {
                 "datetime": "2024-12-06T20:00:00.000Z",
                 "duration": 60
             },
-            "advice1": {
-                "description": "Professional advice Concerning Beginner Training",
-                "facilityID": "Basketball Court 2",
+            "advice3": {
+                "description": "Professional advice for beginner players",
+                "facilityID": "Trainer's Office",
                 "datetime": "2024-12-06T18:00:00.000Z",
                 "duration": 60
             },
-            "advice2": {
-                "description": "Professional advice Concerning Advanced Training",
-                "facilityID": "Basketball Court 2",
+            "advice4": {
+                "description": "Professional advice for advanced players",
+                "facilityID": "Trainer's Office",
                 "datetime": "2024-12-06T17:00:00.000Z",
                 "duration": 60
             }

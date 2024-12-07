@@ -13,5 +13,8 @@
     },
     "Elite Gym": {
         "location": "Inside the athletics building."
+    },
+    "Trainer's Office": {
+        "location": "Behind the front desk."
     }
 }

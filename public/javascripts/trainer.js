@@ -34,7 +34,7 @@ async function loadTrainerClubs(){
     // const trainerUsername = WE HAVE TO GET THIS
     let username = localStorage.getItem('username');
     console.log(username);
-    const response = await fetch(`http://127.0.0.1:5001/sports-arena-39a32/europe-west2/fetchTrainerClubs?trainerUsername=${username}`, {
+    const response = await fetch(`https://fetchtrainerclubs-77hki32qna-nw.a.run.app?trainerUsername=${username}`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
@@ -62,8 +62,10 @@ async function bookTrainingSession(){
     const facilityID = document.getElementById('facilityDropdown').value;
     const sessionStart = document.getElementById('sessionStart').value;
     let duration = document.getElementById('duration').value;
+    const sessionType = document.getElementById('sessionType').value;
+    alert(sessionType);
 
-    if (!description || !clubID || !facilityID || !sessionStart || !duration) {
+    if (!description || !clubID || !facilityID || !sessionStart || !duration  || !sessionType) {
         alert("Please fill in all fields.");
         return;
     }
@@ -96,7 +98,8 @@ async function bookTrainingSession(){
                 clubID: clubID,
                 facilityID: facilityID,
                 datetime: sessionStart,
-                duration: duration
+                duration: duration,
+                bookingType: sessionType
             }),
         });
 
@@ -118,8 +121,8 @@ async function bookTrainingSession(){
 
 async function loadTrainingSessions() {
     const username = localStorage.getItem('username');
-
-    const response = await fetch(`http://127.0.0.1:5001/sports-arena-39a32/europe-west2/fetchTrainerClubs?trainerUsername=${username}`, {
+    // http://127.0.0.1:5001/sports-arena-39a32/europe-west2/fetchTrainerClubs?trainerUsername=${username}
+    const response = await fetch(`https://fetchtrainerclubs-77hki32qna-nw.a.run.app?trainerUsername=${username}`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
@@ -132,16 +135,39 @@ async function loadTrainingSessions() {
 
         Object.entries(data.trainerClubs).forEach(([clubID, club]) => {
             const bookings = club.bookings;
+            const membersBooking = club.membersBooking;
 
             Object.entries(bookings).forEach(([bookingID, booking]) => {
                 const { description, datetime, duration, facilityID } = booking;
 
+                let memberCount = 0;
+                Object.entries(membersBooking).forEach(([userID, userBookings]) => {
+                    if (userBookings) {
+                        Object.entries(userBookings).forEach(([bookingKey, userBooking]) => {
+                            if (userBooking.trainingSlot === bookingID) {
+                                memberCount++;
+                            }
+                        });
+                    }
+                });
 
                 const row = document.createElement("tr");
 
                 const clubCell = document.createElement("td");
                 clubCell.textContent = clubID;
                 row.appendChild(clubCell);
+
+                const typeCell = document.createElement("td");
+                if (bookingID.startsWith("training")) {
+                    typeCell.textContent = "Training Session";
+                }
+                else if (bookingID.startsWith("advice")) {
+                    typeCell.textContent = "Professional Advice Session";
+                }
+                else {
+                    typeCell.textContent = "Unknown Type";
+                }
+                row.appendChild(typeCell);
 
                 const descriptionCell = document.createElement("td");
                 descriptionCell.textContent = description;
@@ -159,6 +185,10 @@ async function loadTrainingSessions() {
                 const facilityCell = document.createElement("td");
                 facilityCell.textContent = facilityID;
                 row.appendChild(facilityCell);
+
+                const memberCountCell = document.createElement("td");
+                memberCountCell.textContent = memberCount;
+                row.appendChild(memberCountCell);
 
                 const deleteCell = document.createElement("td");
                 const deleteButton = document.createElement("button");
@@ -181,7 +211,8 @@ async function deleteTrainingSession(bookingID, clubID) {
     const confirmed = window.confirm(`Are you sure you want to delete this training session?`);
     if (confirmed){
         try {
-            const response = await fetch(`http://127.0.0.1:5001/sports-arena-39a32/europe-west2/deleteFacilityBooking`, {
+            // http://127.0.0.1:5001/sports-arena-39a32/europe-west2/deleteFacilityBooking
+            const response = await fetch(`https://deletefacilitybooking-77hki32qna-nw.a.run.app`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',

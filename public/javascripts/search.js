@@ -48,7 +48,8 @@ async function loadClubs() {
         console.log(data);
         clubs = Object.keys(data.clubs).map(clubKey => ({
             name: clubKey,
-            sport: data.clubs[clubKey].sport
+            sport: data.clubs[clubKey].sport,
+            caloryBurnRate: data.clubs[clubKey].caloryBurnRate
         }));
         console.log('Transformed Clubs:', clubs);
         console.log(fuse.list);
@@ -74,7 +75,7 @@ userInput.addEventListener('input', () => {
         const club = result.item;
         const div = document.createElement('div');
         div.classList.add('result');
-        div.textContent = `${club.name} -\tSport: ${club.sport}`;
+        div.textContent = `${club.name} -\tSport: ${club.sport} -\tCalory Burn Rate: ${club.caloryBurnRate}cal/hr`;
         resultsDiv.appendChild(div);
     });
 

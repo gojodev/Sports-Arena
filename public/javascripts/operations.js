@@ -378,6 +378,52 @@ async function loadTrainerDropdown() {
     }
 }
 
+function filterFacilityTable() {
+    const searchValue = document.getElementById('facilitySearch').value.toLowerCase();
+    const table = document.getElementById('facilitiesTable');
+    const rows = table.getElementsByTagName('tr');
+    
+    for (let i = 1; i < rows.length; i++) {
+        const cells = rows[i].getElementsByTagName('td');
+        const nameCell = cells[0];
+        
+        if (nameCell) {
+            const facilityName = nameCell.textContent || nameCell.innerText;
+            
+            let matchFacility = facilityName.toLowerCase().includes(searchValue);
+
+            if (matchFacility) {
+                rows[i].style.display = '';
+            } else {
+                rows[i].style.display = 'none';
+            }
+        }
+    }
+}
+
+function filterClubTable() {
+    const searchValue = document.getElementById('clubSearch').value.toLowerCase();
+    const table = document.getElementById('clubsTable');
+    const rows = table.getElementsByTagName('tr');
+    
+    for (let i = 1; i < rows.length; i++) {
+        const cells = rows[i].getElementsByTagName('td');
+        const nameCell = cells[0];
+        
+        if (nameCell) {
+            const clubName = nameCell.textContent || nameCell.innerText;
+            
+            let matchClub = clubName.toLowerCase().includes(searchValue);
+
+            if (matchClub) {
+                rows[i].style.display = '';
+            } else {
+                rows[i].style.display = 'none';
+            }
+        }
+    }
+}
+
 //bookFacility()
 const currentPage = window.location.pathname;
 if (currentPage.includes('manageclubs.html')) {
@@ -396,3 +442,5 @@ document.toggleClubForm = toggleClubForm;
 document.createClub = createClub;
 document.editClub = editClub;
 document.deleteClub = deleteClub;
+document.filterFacilityTable = filterFacilityTable;
+document.filterClubTable = filterClubTable;

@@ -9,7 +9,7 @@
         body {
             margin: 0;
             font-family: Arial, sans-serif;
-            background-image: url(/images/arena.jpg);
+            background-image: url("./images/arena.jpg");
             background-size: cover;
         }
 
@@ -147,6 +147,13 @@
             cursor: pointer;
         }
 
+        #facilitySearch{
+            margin: 5px 0;
+            padding: 8px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
         main {
             display: flex;
             flex-direction: column;
@@ -193,7 +200,9 @@
             <button class="heroButton" onclick="createFacility()">Add</button>
             <button class="heroButton" onclick="toggleFacilityForm()">Cancel</button>
         </div>
-        
+        <div class="search-container">
+            <input type="text" id="facilitySearch" placeholder="Search by name..." oninput="filterFacilityTable()" />
+        </div>
         <table id="facilitiesTable">
             <thead>
                 <tr>

@@ -10,7 +10,7 @@
         body {
             margin: 0;
             font-family: Arial, sans-serif;
-            background-image: url(/images/arena.jpg);
+            background-image: url("./images/arena.jpg");
             background-size: cover;
         }
     
@@ -132,16 +132,25 @@
             box-sizing: border-box;
         }
 
-        #appointmentForm input, select {
+        #appointmentForm, input, select, #clubSearch, #dateFilter {
             margin: 5px 0;
             padding: 8px;
             width: calc(100% - 16px);
             box-sizing: border-box;
         }
 
+        #clubSearch, #dateFilter{
+            width: calc(60% - 16px)
+        }
+
         #appointmentForm button {
             padding: 8px;
             cursor: pointer;
+        }
+
+        #trainerDropdown {
+            margin: 10px auto;
+            display: block;
         }
         </style>
 </head>
@@ -177,11 +186,21 @@
                 <select id="clubDropdown">
                     <option value="">Select Club</option>
                 </select>
+                <select id="trainerDropdown" style="display: none;">
+                    <option value="">Select a trainer for advice</option>
+                </select>
                 <select id="trainingDropdown">
-                    <option value="">Select Training</option>
+                    <option value="">Select Training Slot</option>
                 </select>
                 <button class="heroButton" onclick="bookAppointment()">Book</button>
                 <button class="heroButton" onclick="toggleAppointmentForm()">Cancel</button>
+            </div>
+            <div class="search-container">
+                <input type="text" id="clubSearch" placeholder="Search by club..." oninput="filterTable()" />
+            </div>
+            <div class="filter-container">
+                <input type="checkbox" id="enableDateFilter" onclick="toggleDateFilter()" /> 
+                <input type="date" id="dateFilter" disabled placeholder="Select a date..." oninput="filterTable()" />
             </div>
             <table id="trainingSessionsTable">
                 <thead>

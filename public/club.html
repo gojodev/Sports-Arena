@@ -10,7 +10,7 @@
         body {
             margin: 0;
             font-family: Arial, sans-serif;
-            background-image: url(/images/arena.jpg);
+            background-image: url("./images/arena.jpg");
             background-size: cover;
         }
         input{
@@ -18,11 +18,11 @@
            padding:12px 20px;
            flex: auto; 
         }
-
-        .results{
+        .result{
             padding: 5px;
             font-size: 20px;
             font-weight: bolder;
+            border: 1px solid white;
         }
     </style>
 </head>
@@ -48,9 +48,9 @@
                 <h1>Welcome to Club Page</h1>
             </div>
             <div class="bottomclub">
-                <h1>You can search for a Club by Name or Sport here:</h1>
+                <h1>You can search for a Club by Name, Sport or Trainer here:</h1>
                 <input id="userInput" placeholder="Search by Club Name or Sport">
-                <div class="results" id="results"></div>
+                <div class="result" id="results"></div>
             </div>
         </div>
     </main>

@@ -236,6 +236,62 @@ async function deleteTrainingSession(bookingID, clubID) {
     }
 }
 
+function toggleDateFilter() {
+    const dateFilterInput = document.getElementById('dateFilter');
+    const enableDateFilterCheckbox = document.getElementById('enableDateFilter');
+    
+    dateFilterInput.disabled = !enableDateFilterCheckbox.checked;
+    
+    if (!enableDateFilterCheckbox.checked) {
+        dateFilterInput.value = '';
+    }
+
+    filterTable();
+}
+
+function filterTable() {
+    const searchValue = document.getElementById('clubSearch').value.toLowerCase();
+    const dateValue = document.getElementById('dateFilter').value;
+    const enableDateFilter = document.getElementById('enableDateFilter').checked;
+    const table = document.getElementById('trainingSessionsTable');
+    const rows = table.getElementsByTagName('tr');
+    
+    for (let i = 1; i < rows.length; i++) {
+        const cells = rows[i].getElementsByTagName('td');
+        const clubCell = cells[0];
+        const sessionStartCell = cells[3];
+        
+        if (clubCell && sessionStartCell) {
+            const clubName = clubCell.textContent || clubCell.innerText;
+            const sessionStartText = sessionStartCell.textContent.trim();
+            
+            const [datePart, timePart] = sessionStartText.split(', ');
+
+            const [day, month, year] = datePart.split('/');
+            const sessionStartDate = new Date(`${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}T${timePart}`);
+
+            const formattedYear = sessionStartDate.getFullYear();
+            const formattedMonth = (sessionStartDate.getMonth() + 1).toString().padStart(2, '0');
+            const formattedDay = sessionStartDate.getDate().toString().padStart(2, '0');
+
+            const formattedDate = `${formattedYear}-${formattedMonth}-${formattedDay}`;
+            
+            let matchClub = clubName.toLowerCase().includes(searchValue);
+            let matchDate = true;
+
+            if (enableDateFilter && dateValue) {
+                matchDate = formattedDate === dateValue;
+            }
+
+            if (matchClub && matchDate) {
+                rows[i].style.display = '';
+            } else {
+                rows[i].style.display = 'none';
+            }
+        }
+    }
+}
+
 loadFacilities();
 loadTrainerClubs();
 loadTrainingSessions();
@@ -244,3 +300,5 @@ document.toggleTrainingSessionForm = toggleTrainingSessionForm;
 document.bookTrainingSession = bookTrainingSession;
 document.loadTrainingSessions = loadTrainingSessions;
 document.deleteTrainingSession = deleteTrainingSession;
+document.toggleDateFilter = toggleDateFilter;
+document.filterTable = filterTable;

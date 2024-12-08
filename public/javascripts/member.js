@@ -52,7 +52,24 @@ async function loadClubs() {
     }
 }
 
-function updateTrainingDropdown() {
+async function updateTrainingDropdown() {
+    const trainerResponse = await fetch('https://fetchtrainernames-77hki32qna-nw.a.run.app', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    });
+
+    let trainers = [];
+    if (trainerResponse.ok) {
+        trainers = await trainerResponse.json();
+    }
+
+    const trainerMap = new Map();
+    trainers.forEach(trainer => {
+        trainerMap.set(trainer.key, trainer.name);
+    });
+
     const sessionType = document.getElementById("sessionType").value;
     const clubName = document.getElementById("clubDropdown").value;
 
@@ -60,7 +77,17 @@ function updateTrainingDropdown() {
 
     const club = clubsData[clubName];
     const trainingDropdown = document.getElementById("trainingDropdown");
-    trainingDropdown.innerHTML = "<option value=''>Select Training</option>";
+    const trainerDropdown = document.getElementById("trainerDropdown");
+    trainingDropdown.innerHTML = "<option value=''>Select Training Slot</option>";
+    trainerDropdown.innerHTML = "<option value=''>Select a trainer for advice</option>";
+
+    if (sessionType === "advice") {
+        trainingDropdown.innerHTML = "<option value=''>Select Advice Slot</option>";
+        trainerDropdown.style.display = "block";
+    } 
+    else {
+        trainerDropdown.style.display = "none";
+    }
 
     const sessions = club.bookings;
     const filteredSessions = Object.entries(sessions).filter(([key, _]) =>
@@ -70,9 +97,17 @@ function updateTrainingDropdown() {
     filteredSessions.forEach(([key, session]) => {
         const option = document.createElement("option");
         option.value = key;
-        option.textContent = session.description;
+        const sessionStartDate = new Date(session.datetime);
+        option.textContent = `${session.description} - (${sessionStartDate.toLocaleString()}, ${session.duration} mins)`;
         trainingDropdown.appendChild(option);
     });
+
+    if (sessionType === "advice") {
+        const trainerOption = document.createElement("option");
+        trainerOption.value = club.trainer;
+        trainerOption.textContent = trainerMap.get(club.trainer) || "Unknown Trainer";
+        trainerDropdown.appendChild(trainerOption);
+    }
 }
 
 async function bookAppointment() {
@@ -101,8 +136,11 @@ async function bookAppointment() {
 
     if (response.ok) {
         const data = await response.json();
+        alert(data.verdict);
         loadTrainingSessions();
     } else {
+        const data = await response.json();
+        alert(data.error);
         console.log("Failed to book appointment");
     }
 }
@@ -117,7 +155,7 @@ function toggleAppointmentForm() {
 
 async function loadTrainingSessions() {
     const username = localStorage.getItem('username');
-    
+
     if (!username) {
         console.log("No username found in localStorage");
         return;
@@ -159,7 +197,7 @@ async function loadTrainingSessions() {
                 if (usernameKey === username) {
                     Object.entries(bookings).forEach(([bookingID, bookingData]) => {
                         const booking = club.bookings[bookingData.trainingSlot];
-                        
+
                         if (booking) {
                             const row = document.createElement("tr");
 
@@ -238,19 +276,85 @@ async function deleteTrainingSession(trainingSlot, clubName) {
 
     if (response.ok) {
         const data = await response.json();
-        console.log("Booking removed:", data.verdict);
+        alert(data.verdict);
         loadTrainingSessions();
     } else {
         console.log("Failed to delete the training session");
     }
 }
 
-document.getElementById("sessionType").addEventListener("change", updateTrainingDropdown);
-document.getElementById("clubDropdown").addEventListener("change", updateTrainingDropdown);
+function toggleDateFilter() {
+    const dateFilterInput = document.getElementById('dateFilter');
+    const enableDateFilterCheckbox = document.getElementById('enableDateFilter');
+    
+    dateFilterInput.disabled = !enableDateFilterCheckbox.checked;
+    
+    if (!enableDateFilterCheckbox.checked) {
+        dateFilterInput.value = '';
+    }
 
-loadClubs();
-loadTrainingSessions();
+    filterTable();
+}
+
+function filterTable() {
+    const searchValue = document.getElementById('clubSearch').value.toLowerCase();
+    const dateValue = document.getElementById('dateFilter').value;
+    const enableDateFilter = document.getElementById('enableDateFilter').checked;
+    const table = document.getElementById('trainingSessionsTable');
+    const rows = table.getElementsByTagName('tr');
+    
+    for (let i = 1; i < rows.length; i++) {
+        const cells = rows[i].getElementsByTagName('td');
+        const clubCell = cells[0];
+        const sessionStartCell = cells[4];
+        
+        if (clubCell && sessionStartCell) {
+            const clubName = clubCell.textContent || clubCell.innerText;
+            const sessionStartText = sessionStartCell.textContent.trim();
+            
+            const [datePart, timePart] = sessionStartText.split(', ');
+
+            const [day, month, year] = datePart.split('/');
+            const sessionStartDate = new Date(`${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}T${timePart}`);
+
+            const formattedYear = sessionStartDate.getFullYear();
+            const formattedMonth = (sessionStartDate.getMonth() + 1).toString().padStart(2, '0');
+            const formattedDay = sessionStartDate.getDate().toString().padStart(2, '0');
+
+            const formattedDate = `${formattedYear}-${formattedMonth}-${formattedDay}`;
+            
+            let matchClub = clubName.toLowerCase().includes(searchValue);
+            let matchDate = true;
+
+            if (enableDateFilter && dateValue) {
+                matchDate = formattedDate === dateValue;
+            }
+
+            if (matchClub && matchDate) {
+                rows[i].style.display = '';
+            } else {
+                rows[i].style.display = 'none';
+            }
+        }
+    }
+}
+
+const sessionType = document.getElementById("sessionType")
+const clubDropdown = document.getElementById("clubDropdown")
+
+if (sessionType != undefined && clubDropdown != undefined) {
+    sessionType.addEventListener("change", updateTrainingDropdown);
+    clubDropdown.addEventListener("change", updateTrainingDropdown);
+}
+
+const currentPage = window.location.pathname;
+if (currentPage.includes('bookings.html')) {
+    loadClubs();
+    loadTrainingSessions();
+}
 
 document.toggleAppointmentForm = toggleAppointmentForm;
 document.bookAppointment = bookAppointment;
 document.deleteTrainingSession = deleteTrainingSession;
+document.filterTable = filterTable;
+document.toggleDateFilter = toggleDateFilter;

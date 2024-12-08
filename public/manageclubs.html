@@ -9,7 +9,7 @@
         body {
             margin: 0;
             font-family: Arial, sans-serif;
-            background-image: url(/images/arena.jpg);
+            background-image: url("./images/arena.jpg");
             background-size: cover;
         }
 
@@ -152,6 +152,13 @@
             text-align: center; 
         }
 
+        #clubSearch{
+            margin: 5px 0;
+            padding: 8px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
         .header-top .name {
             font-size: 24px;
             font-weight: bold;
@@ -193,7 +200,9 @@
             <button class="heroButton" onclick="createClub()">Add</button>
             <button class="heroButton" onclick="toggleClubForm()">Cancel</button>
         </div>
-        
+        <div class="search-container">
+            <input type="text" id="clubSearch" placeholder="Search by name..." oninput="filterClubTable()" />
+        </div>
         <table id="clubsTable">
             <thead>
                 <tr>

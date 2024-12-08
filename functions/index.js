@@ -233,7 +233,7 @@ exports.addUser = onRequest({ 'region': 'europe-west2' }, async (req, res) => {
             }
 
 
-            const { username, name, email, password, role } = req.body
+            const { username, name, email, password, BMR, gender, age, weight, height, address, phone, role } = req.body
 
             const clientData = [username, name, email, password, role]
             const missingItems = missingInfoWarning(clientData);
@@ -260,7 +260,14 @@ exports.addUser = onRequest({ 'region': 'europe-west2' }, async (req, res) => {
                         email,
                         name,
                         password: password_hash,
-                        role: role,
+                        BMR, 
+                        gender, 
+                        age, 
+                        weight, 
+                        height, 
+                        address, 
+                        phone,
+                        role,
                         expiry_password: monthsAway() // no need to hash this
                     }
                 }
@@ -288,39 +295,36 @@ exports.updateDetails = onRequest({ 'region': 'europe-west2' }, async (req, res)
     corsHandler(req, res, async () => {
         try {
             if (req.method != 'POST') {
-                return res.status(405).json({ error: "Method not allowed" })
+                return res.status(405).json({ error: "Method not allowed" });
             }
 
             const client_username = req.body.username;
-
-            const email = req.body.email;
-            const name = req.body.name;
-            const password = req.body.password;
-
-            const clientData = [email, name, password]
-            const missingItems = missingInfoWarning(clientData);
-
-            if (missingItems == []) {
-                return res.status(200).json({ error: `${missingItems} is required in the JSON body` })
-            }
+            const {
+                BMR, 
+                age, 
+                weight, 
+                height, 
+                address, 
+                phone, 
+            } = req.body;
 
 
             const db = await loaduserCreds();
-
-            const db_username = find_db_username(db, client_username)
+            const db_username = find_db_username(db, client_username);
 
             if (db_username == undefined) {
                 return res.status(200).json({
                     verdict: `No data for: ${client_username} was found on file`
                 });
-            }
-
+            } 
             else {
-                const userInfo = {
-                    name,
-                    email,
-                    password: bcrypt.hashSync(password, 5)
-                }
+                const userInfo = db[db_username];
+                if (BMR) userInfo.BMR = BMR;
+                if (age) userInfo.age = age;
+                if (weight) userInfo.weight = weight;
+                if (height) userInfo.height = height;
+                if (address) userInfo.address = address;
+                if (phone) userInfo.phone = phone;
 
                 db[db_username] = userInfo;
 
@@ -330,14 +334,14 @@ exports.updateDetails = onRequest({ 'region': 'europe-west2' }, async (req, res)
                     });
                 });
             }
-        }
-
+        } 
         catch (error) {
-            console.log("Couldnt add new user: ", error)
-            return res.status(500).json({ error: "Interal server error" })
+            console.log("Couldn't update user details: ", error);
+            return res.status(500).json({ error: "Internal server error" });
         }
-    })
+    });
 });
+
 
 exports.setActivity = onRequest({ 'region': 'europe-west2' }, async (req, res) => {
     corsHandler(req, res, async () => {
@@ -358,7 +362,7 @@ exports.setActivity = onRequest({ 'region': 'europe-west2' }, async (req, res) =
                 const isAlreadyBooked = Object.values(bookings).some(booking => booking.trainingSlot === trainingSlot);
                 if (isAlreadyBooked) {
                     return res.status(400).json({
-                        error: `${username} is already booked for the ${trainingSlot} session in ${clubName}.`
+                        error: `${username} is already booked for this session in ${clubName}!`
                     });
                 }
 
@@ -374,7 +378,7 @@ exports.setActivity = onRequest({ 'region': 'europe-west2' }, async (req, res) =
 
                     uploadString(clubBookings, JSON.stringify(db_club), 'raw', { contentType: 'application/json' }).then(() => {
                         return res.status(200).json({
-                            verdict: `${username} has booked ${clubName} successfully booked!`,
+                            verdict: `${username} has been booked for the session in ${clubName} successfully!`,
                             bookingData
                         });
                     });
@@ -415,7 +419,7 @@ exports.removeActivity = onRequest({ 'region': 'europe-west2' }, async (req, res
             });
             uploadString(clubBookings, JSON.stringify(db), 'raw', { contentType: 'application/json' }).then(() => {
                 return res.status(200).json({
-                    verdict: `${username} has removed all bookings for the "${trainingSlot}" session in ${clubName}!`
+                    verdict: `${username} has removed all bookings for the session in ${clubName}!`
                 });
             });
         }

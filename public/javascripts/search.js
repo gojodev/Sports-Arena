@@ -75,7 +75,7 @@ userInput.addEventListener('input', () => {
         const club = result.item;
         const div = document.createElement('div');
         div.classList.add('result');
-        div.textContent = `${club.name} -\tSport: ${club.sport} -\tCalory Burn Rate: ${club.caloryBurnRate}cal/hr`;
+        div.textContent = `${club.name} \nSport: ${club.sport} \nTrainer: ${club.trainer} \nCalorie Burn Rate: ${club.caloryBurnRate}cal/hr`;
         resultsDiv.appendChild(div);
     });
 

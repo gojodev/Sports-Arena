@@ -46,11 +46,31 @@ async function loadClubs() {
     if (response.ok) {
         const data = await response.json();
         console.log(data);
+
+        const trainerResponse = await fetch('https://fetchtrainernames-77hki32qna-nw.a.run.app', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+    
+        let trainers = [];
+        if (trainerResponse.ok) {
+            trainers = await trainerResponse.json();
+        }
+    
+        const trainerMap = new Map();
+        trainers.forEach(trainer => {
+            trainerMap.set(trainer.key, trainer.name);
+        });
+
         clubs = Object.keys(data.clubs).map(clubKey => ({
             name: clubKey,
             sport: data.clubs[clubKey].sport,
+            trainer: trainerMap.get(data.clubs[clubKey].trainer) || "Unknown Trainer",
             caloryBurnRate: data.clubs[clubKey].caloryBurnRate
         }));
+        
         console.log('Transformed Clubs:', clubs);
         console.log(fuse.list);
         fuse.setCollection(clubs);

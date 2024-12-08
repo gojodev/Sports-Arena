@@ -253,8 +253,11 @@ if (sessionType != undefined && clubDropdown != undefined) {
     clubDropdown.addEventListener("change", updateTrainingDropdown);
 }
 
-loadClubs();
-loadTrainingSessions();
+const currentPage = window.location.pathname;
+if (currentPage.includes('bookings.html')) {
+    loadClubs();
+    loadTrainingSessions();
+}
 
 document.toggleAppointmentForm = toggleAppointmentForm;
 document.bookAppointment = bookAppointment;

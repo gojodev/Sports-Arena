@@ -130,7 +130,7 @@
             box-sizing: border-box;
         }
 
-        #trainingSessionForm input, select {
+        #trainingSessionForm input, select, #clubSearch, #dateFilter {
             margin: 5px 0;
             padding: 8px;
             width: calc(100% - 16px);
@@ -140,6 +140,10 @@
         #trainingSessionForm button {
             padding: 8px;
             cursor: pointer;
+        }
+
+        #clubSearch, #dateFilter{
+            width: 100%;
         }
 
         main {
@@ -200,7 +204,13 @@
             <button class="heroButton" onclick="bookTrainingSession()">Book</button>
             <button class="heroButton" onclick="toggleTrainingSessionForm()">Cancel</button>
         </div>
-        
+        <div class="search-container">
+            <input type="text" id="clubSearch" placeholder="Search by club..." oninput="filterTable()" />
+        </div>
+        <div class="filter-container">
+            <input type="checkbox" id="enableDateFilter" onclick="toggleDateFilter()" /> 
+            <input type="date" id="dateFilter" disabled placeholder="Select a date..." oninput="filterTable()" />
+        </div>
         <table id="trainingSessionsTable">
             <thead>
                 <tr>

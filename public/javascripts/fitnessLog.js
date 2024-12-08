@@ -37,7 +37,7 @@ function updateTotalCalories(){
         if (totalCalories < dailyCalorieRequirement){
             statusMessage.textContent = "You are under your daily calories requirement";
         }else if (totalCalories > dailyCalorieRequirement){
-            statusMessage.textContent = "You are over your daily calories requirement";
+            statusMessage.textContent = `You are over your daily calories requirement, please burn ${totalCalories - dailyCalorieRequirement} calories`;
         }else if (totalCalories === dailyCalorieRequirement){
             statusMessage.textContent = "You are equal to your daily calories requirement";
         }

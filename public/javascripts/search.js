@@ -62,7 +62,24 @@ function displayClubs(clubsToDisplay) {
     clubsToDisplay.forEach(club => {
         const div = document.createElement('div');
         div.classList.add('result');
-        div.textContent = `${club.name} \nSport: ${club.sport} \nTrainer: ${club.trainer} \nCalorie Burn Rate: ${club.caloryBurnRate}cal/hr`;
+        
+        const nameDiv = document.createElement('div');
+        nameDiv.textContent = club.name;
+
+        const sportDiv = document.createElement('div');
+        sportDiv.textContent = `Sport: ${club.sport}`;
+
+        const trainerDiv = document.createElement('div');
+        trainerDiv.textContent = `Trainer: ${club.trainer}`;
+
+        const caloryDiv = document.createElement('div');
+        caloryDiv.textContent = `Calorie Burn Rate: ${club.caloryBurnRate}cal/hr`;
+
+        div.appendChild(nameDiv);
+        div.appendChild(sportDiv);
+        div.appendChild(trainerDiv);
+        div.appendChild(caloryDiv);
+
         resultsDiv.appendChild(div);
     });
 }
